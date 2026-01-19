@@ -1,3 +1,5 @@
-export default function Home() {
-  return <h1>Home route</h1>;
+import Landing from "@/modules/landing/landing";
+
+export default function Page() {
+  return <Landing />;
 }

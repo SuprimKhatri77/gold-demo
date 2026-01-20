@@ -1,3 +1,5 @@
+import { NewsPage } from "@/modules/news/news";
+
 export default function Page() {
-  return <h1>news</h1>;
+  return <NewsPage />;
 }

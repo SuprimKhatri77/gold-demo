@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/modules/landing/header";
 import { Footer } from "@/modules/landing/footer";
 import { Navbar } from "@/modules/landing/navbar";
+import { LiveRatePopup } from "@/modules/live-rates/live-rates-popup";
+import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <Navbar />
-        {children}
-        <Footer />
+        <ReactQueryProvider>
+          <Header />
+          <Navbar />
+          {children}
+          <LiveRatePopup />
+          <Footer />
+        </ReactQueryProvider>
       </body>
     </html>
   );

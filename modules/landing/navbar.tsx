@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, Menu, MessageCircle, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface NavItem {
@@ -9,12 +10,12 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Collection", href: "#collection" },
-  { label: "Quality", href: "#quality" },
-  { label: "Insights", href: "#insights" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "News", href: "/news" },
+  { label: "Services", href: "/services" },
+  { label: "Our Products", href: "/our-products" },
+  { label: "Contact", href: "/contact" },
 ];
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -39,12 +40,12 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="relative">
+            <Link href="/" className="relative">
               <div className="w-12 h-12 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 group-hover:shadow-amber-500/70 transition-all duration-300 group-hover:rotate-6 transform">
                 <span className="text-white font-black text-2xl">G</span>
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
-            </div>
+            </Link>
             <div>
               <span className="text-2xl font-black bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
                 GoldPremium

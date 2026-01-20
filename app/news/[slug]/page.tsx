@@ -1,4 +1,10 @@
-export async function Page({ params }: { params: Promise<{ slug: string }> }) {
+import { NewsDetailPage } from "@/modules/news/detail/news-detail";
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   if (!slug) {
     return (
@@ -8,9 +14,5 @@ export async function Page({ params }: { params: Promise<{ slug: string }> }) {
     );
   }
 
-  return (
-    <div>
-      <h1>The route slug received is: {slug}</h1>
-    </div>
-  );
+  return <NewsDetailPage />;
 }

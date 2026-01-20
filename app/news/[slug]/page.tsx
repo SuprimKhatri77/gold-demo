@@ -1,3 +1,5 @@
+import { NewsDetailPage } from "@/modules/news/detail/news-detail";
+
 export default async function Page({
   params,
 }: {
@@ -12,9 +14,5 @@ export default async function Page({
     );
   }
 
-  return (
-    <div>
-      <h1>The route slug received is: {slug}</h1>
-    </div>
-  );
+  return <NewsDetailPage />;
 }

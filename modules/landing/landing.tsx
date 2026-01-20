@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Header } from "./header";
-import { Navbar } from "./navbar";
 import { Hero } from "./hero";
 import { About } from "./about";
 import { Collection } from "./collection";
@@ -10,8 +8,7 @@ import { Quality } from "./features";
 import { Testimonials } from "./testimonial";
 import { Insights } from "./insights";
 import { CTASection } from "./cta";
-import { Contact } from "lucide-react";
-import { Footer } from "./footer";
+import { Contact } from "./contact";
 
 export const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,8 +41,6 @@ export const useScrollAnimation = () => {
 const Landing: React.FC = () => {
   return (
     <div className="font-sans antialiased">
-      <Header />
-      <Navbar />
       <Hero />
       <About />
       <Collection />
@@ -54,7 +49,6 @@ const Landing: React.FC = () => {
       <Insights />
       <CTASection />
       <Contact />
-      <Footer />
 
       <style jsx global>{`
         @keyframes fadeIn {

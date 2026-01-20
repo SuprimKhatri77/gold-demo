@@ -1,3 +1,7 @@
+import AboutUsSection from "@/modules/AboutUsSection";
+
 export default function Page() {
-  return <h1>About page.</h1>;
+  return (
+    <AboutUsSection />
+  );
 }

@@ -1,3 +1,9 @@
+import { ServiceSection } from "@/modules/services/Services";
+
 export default function Page() {
-  return <h1>services</h1>;
+  return (
+    <>
+      <ServiceSection />
+    </>
+  );
 }

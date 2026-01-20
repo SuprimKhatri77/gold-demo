@@ -13,12 +13,8 @@ import Link from "next/link";
 import { initialGoldData } from "./live-rates";
 
 export const LiveRatePopup = () => {
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window === "undefined") return false;
-
-    const hasSeenPopup = sessionStorage.getItem("hasSeenGoldPopup");
-    return !hasSeenPopup;
-  });
+  const [isClient, setIsClient] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [goldData, setGoldData] = useState(initialGoldData);
@@ -63,7 +59,12 @@ export const LiveRatePopup = () => {
   };
 
   useEffect(() => {
-    if (isOpen) {
+    setIsClient(true);
+
+    const hasSeenPopup = sessionStorage.getItem("hasSeenGoldPopup");
+    setIsOpen(!hasSeenPopup);
+
+    if (!hasSeenPopup) {
       sessionStorage.setItem("hasSeenGoldPopup", "true");
     }
 
@@ -75,6 +76,7 @@ export const LiveRatePopup = () => {
 
     return () => clearInterval(interval);
   }, []);
+  if (!isClient) return null;
 
   if (isMinimized) {
     return (

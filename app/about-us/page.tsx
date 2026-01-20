@@ -1,3 +1,11 @@
+import { AboutUsSection } from "@/modules/about/AboutUsSection";
+import TeamPremium from "@/modules/about/TeamSection";
+
 export default function Page() {
-  return <h1>About page.</h1>;
+  return (
+    <>
+      <AboutUsSection />
+      <TeamPremium />
+    </>
+  );
 }

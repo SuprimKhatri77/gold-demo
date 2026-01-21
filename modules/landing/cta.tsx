@@ -1,5 +1,6 @@
 import { ArrowRight, Award, Lock, Phone, Shield, Sparkles } from "lucide-react";
 import { useScrollAnimation } from "./landing";
+import Link from "next/link";
 
 export const CTASection: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -33,7 +34,10 @@ export const CTASection: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="group relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-12 py-6 rounded-full transition-all duration-300 shadow-2xl shadow-amber-500/50 hover:shadow-amber-500/70 font-bold text-xl transform hover:scale-105 overflow-hidden">
+            <Link
+              href="/our-products"
+              className="group relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-12 py-6 rounded-full transition-all duration-300 shadow-2xl shadow-amber-500/50 hover:shadow-amber-500/70 font-bold text-xl transform hover:scale-105 overflow-hidden"
+            >
               <span className="relative z-10 flex items-center justify-center gap-3">
                 Browse Collection
                 <ArrowRight
@@ -42,7 +46,7 @@ export const CTASection: React.FC = () => {
                 />
               </span>
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
+            </Link>
 
             <button className="group bg-white/10 backdrop-blur-md text-white px-12 py-6 rounded-full hover:bg-white/20 transition-all duration-300 border-2 border-white/30 hover:border-white/50 font-bold text-xl transform hover:scale-105 flex items-center justify-center gap-3">
               <Phone

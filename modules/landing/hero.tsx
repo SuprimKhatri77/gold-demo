@@ -93,7 +93,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black py-10"
     >
       {/* Background Slides */}
       {slides.map((slide, index) => (
@@ -204,7 +204,7 @@ export function Hero() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
+        className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
         aria-label="Previous slide"
       >
         <ChevronLeft
@@ -215,7 +215,7 @@ export function Hero() {
 
       <button
         onClick={nextSlide}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
+        className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
         aria-label="Next slide"
       >
         <ChevronRight

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import type { Variants } from 'framer-motion';
+import React, { useState } from "react";
+import type { Variants } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -13,9 +13,9 @@ import {
   Users,
   Lock,
   Briefcase,
-} from 'lucide-react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+} from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface Stat {
   number: string;
@@ -33,27 +33,27 @@ interface Feature {
 
 const stats: Stat[] = [
   {
-    number: '25',
-    label: 'Years of Trust',
-    suffix: '+',
+    number: "25",
+    label: "Years of Trust",
+    suffix: "+",
     icon: <TrendingUp className="text-white" size={24} />,
   },
   {
-    number: '50K',
-    label: 'Satisfied Clients',
-    suffix: '+',
+    number: "50K",
+    label: "Satisfied Clients",
+    suffix: "+",
     icon: <Users className="text-white" size={24} />,
   },
   {
-    number: '500M',
-    label: 'Oz Delivered',
-    suffix: '+',
+    number: "500M",
+    label: "Oz Delivered",
+    suffix: "+",
     icon: <Globe className="text-white" size={24} />,
   },
   {
-    number: '99.9',
-    label: 'Purity Guarantee',
-    suffix: '%',
+    number: "99.9",
+    label: "Purity Guarantee",
+    suffix: "%",
     icon: <Lock className="text-white" size={24} />,
   },
 ];
@@ -61,27 +61,27 @@ const stats: Stat[] = [
 const features: Feature[] = [
   {
     icon: <Shield className="w-6 h-6" />,
-    title: 'Certified Authenticity',
-    desc: 'International certification for every precious metal piece',
-    color: 'from-amber-400 to-amber-600',
+    title: "Certified Authenticity",
+    desc: "International certification for every precious metal piece",
+    color: "from-amber-400 to-amber-600",
   },
   {
     icon: <Award className="w-6 h-6" />,
-    title: 'Premium Quality',
-    desc: 'Sourced directly from world-renowned refineries',
-    color: 'from-amber-500 to-amber-700',
+    title: "Premium Quality",
+    desc: "Sourced directly from world-renowned refineries",
+    color: "from-amber-500 to-amber-700",
   },
   {
     icon: <Sparkles className="w-6 h-6" />,
-    title: 'Expert Curation',
-    desc: 'Handpicked collection by certified precious metal specialists',
-    color: 'from-yellow-400 to-amber-600',
+    title: "Expert Curation",
+    desc: "Handpicked collection by certified precious metal specialists",
+    color: "from-yellow-400 to-amber-600",
   },
   {
     icon: <Briefcase className="w-6 h-6" />,
-    title: 'Secure Trading',
-    desc: 'Advanced security protocols and insurance on all transactions',
-    color: 'from-amber-500 to-yellow-500',
+    title: "Secure Trading",
+    desc: "Advanced security protocols and insurance on all transactions",
+    color: "from-amber-500 to-yellow-500",
   },
 ];
 
@@ -106,7 +106,7 @@ export const AboutUsSection: React.FC = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -118,7 +118,7 @@ export const AboutUsSection: React.FC = () => {
       x: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -130,7 +130,7 @@ export const AboutUsSection: React.FC = () => {
       x: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
         delay: 0.2,
       },
     },
@@ -143,7 +143,7 @@ export const AboutUsSection: React.FC = () => {
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       },
     },
   };
@@ -154,7 +154,7 @@ export const AboutUsSection: React.FC = () => {
       scale: 1.05,
       transition: {
         duration: 0.3,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -184,15 +184,18 @@ export const AboutUsSection: React.FC = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={slideInVariants}
             className="space-y-8"
           >
             {/* Header */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3">
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center gap-3"
+            >
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               >
                 <Zap className="text-amber-600" size={24} />
               </motion.div>
@@ -202,7 +205,10 @@ export const AboutUsSection: React.FC = () => {
             </motion.div>
 
             {/* Title */}
-            <motion.h2 variants={itemVariants} className="text-5xl font-black leading-tight">
+            <motion.h2
+              variants={itemVariants}
+              className="text-5xl font-black leading-tight"
+            >
               <span>Excellence in Precious Metals</span>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -217,16 +223,18 @@ export const AboutUsSection: React.FC = () => {
             {/* Description */}
             <motion.div variants={itemVariants} className="space-y-6">
               <p className="text-gray-700 text-lg leading-relaxed">
-                For over two decades, Serbian Bullion DMCC has been the premier destination for
-                precious metals collectors, investors, and institutions worldwide. Our journey began
-                with a steadfast commitment to providing authentic, certified, and competitively
+                For over two decades, Serbian Bullion DMCC has been the premier
+                destination for precious metals collectors, investors, and
+                institutions worldwide. Our journey began with a steadfast
+                commitment to providing authentic, certified, and competitively
                 priced precious metals.
               </p>
 
               <p className="text-gray-600 text-lg leading-relaxed">
-                Today, we proudly maintain one of the most comprehensive and authenticated
-                collections of bullion, from investment-grade bars to rare collector coins. Every
-                product undergoes rigorous certification and comes with complete documentation and
+                Today, we proudly maintain one of the most comprehensive and
+                authenticated collections of bullion, from investment-grade bars
+                to rare collector coins. Every product undergoes rigorous
+                certification and comes with complete documentation and
                 insurance coverage.
               </p>
             </motion.div>
@@ -270,7 +278,10 @@ export const AboutUsSection: React.FC = () => {
               className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-3"
             >
               Explore Our Collection
-              <motion.div animate={{ x: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 <ArrowRight size={20} />
               </motion.div>
             </motion.button>
@@ -280,7 +291,7 @@ export const AboutUsSection: React.FC = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={slideInRightVariants}
             className="relative"
           >
@@ -334,7 +345,9 @@ export const AboutUsSection: React.FC = () => {
                   >
                     99.9%
                   </motion.div>
-                  <div className="text-gray-600 font-medium text-sm">Purity Certified</div>
+                  <div className="text-gray-600 font-medium text-sm">
+                    Purity Certified
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -357,7 +370,11 @@ export const AboutUsSection: React.FC = () => {
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
-                    transition={{ delay: index * 0.1, duration: 0.5, type: 'spring' }}
+                    transition={{
+                      delay: index * 0.1,
+                      duration: 0.5,
+                      type: "spring",
+                    }}
                     className="w-12 h-12 bg-linear-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg"
                   >
                     {stat.icon}
@@ -411,7 +428,7 @@ export const AboutUsSection: React.FC = () => {
                 }
                 transition={{
                   rotate: { duration: 0.45, ease: "easeInOut" },
-                  scale: { duration: 0.15, ease: "easeOut" }
+                  scale: { duration: 0.15, ease: "easeOut" },
                 }}
                 className={`w-12 h-12 bg-linear-to-br ${feature.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}
               >
@@ -424,7 +441,6 @@ export const AboutUsSection: React.FC = () => {
 
               <p className="text-gray-600">{feature.desc}</p>
             </motion.div>
-
           ))}
         </motion.div>
       </div>

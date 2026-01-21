@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useScrollAnimation } from "./landing";
 import { useState } from "react";
+import Link from "next/link";
 
 interface Product {
   id: number;
@@ -13,7 +14,9 @@ interface Product {
   purity: string;
   image: string;
   badge?: string;
+  category: string;
 }
+
 const products: Product[] = [
   {
     id: 1,
@@ -25,6 +28,7 @@ const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80",
     badge: "Most Popular",
+    category: "Bars",
   },
   {
     id: 2,
@@ -36,6 +40,7 @@ const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=800&q=80",
     badge: "Collector's Choice",
+    category: "Coins",
   },
   {
     id: 3,
@@ -46,6 +51,7 @@ const products: Product[] = [
     purity: "18K - 22K",
     image:
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80",
+    category: "Jewelry",
   },
   {
     id: 4,
@@ -57,6 +63,7 @@ const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
     badge: "Premium",
+    category: "Bullion",
   },
   {
     id: 5,
@@ -66,7 +73,8 @@ const products: Product[] = [
     weight: "1g - 100g",
     purity: "99.99%",
     image:
-      "https://images.unsplash.com/photo-1610375461369-d613b564f6df?w=800&q=80",
+      "https://images.unsplash.com/photo-1624365168056-daf44387e2ae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdvbGR8ZW58MHx8MHx8fDA%3D",
+    category: "Bars",
   },
   {
     id: 6,
@@ -78,12 +86,19 @@ const products: Product[] = [
     image:
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80",
     badge: "Limited Edition",
+    category: "Coins",
   },
 ];
+
 export const Collection: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [activeFilter, setActiveFilter] = useState("All");
   const filters = ["All", "Bars", "Coins", "Jewelry", "Bullion"];
+
+  const filteredProducts =
+    activeFilter === "All"
+      ? products
+      : products.filter((product) => product.category === activeFilter);
 
   return (
     <section
@@ -138,7 +153,7 @@ export const Collection: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
+          {filteredProducts.map((product, index) => (
             <div
               key={product.id}
               className={`group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
@@ -191,19 +206,19 @@ export const Collection: React.FC = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 flex items-center justify-center gap-2 group/btn">
+                {/* <button className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 flex items-center justify-center gap-2 group/btn">
                   View Details
                   <ArrowRight
                     size={18}
                     className="group-hover/btn:translate-x-1 transition-transform"
                   />
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <Link href="/our-products" className="text-center mt-16 block">
           <button className="group bg-white text-gray-900 px-10 py-5 rounded-full hover:bg-gray-50 transition-all duration-300 shadow-xl hover:shadow-2xl font-bold text-lg border-2 border-gray-200 hover:border-amber-400 transform hover:scale-105 flex items-center gap-3 mx-auto">
             View Full Collection
             <ArrowRight
@@ -211,7 +226,7 @@ export const Collection: React.FC = () => {
               className="group-hover:translate-x-2 transition-transform"
             />
           </button>
-        </div>
+        </Link>
       </div>
     </section>
   );

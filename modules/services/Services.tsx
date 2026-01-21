@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { FC, JSX, SetStateAction } from 'react';
-import type { Variants } from 'framer-motion';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import type { FC, JSX } from "react";
+import type { Variants } from "framer-motion";
 import {
   TrendingUp,
   Briefcase,
@@ -12,8 +12,8 @@ import {
   Package,
   ArrowRight,
   Settings,
-} from 'lucide-react';
-import Image from 'next/image';
+} from "lucide-react";
+import Image from "next/image";
 
 // Type definitions
 interface Service {
@@ -21,7 +21,7 @@ interface Service {
   readonly title: string;
   readonly description: string;
   readonly details: readonly string[];
-  readonly icon: 'trading' | 'supply' | 'procurement' | 'logistics';
+  readonly icon: "trading" | "supply" | "procurement" | "logistics";
   readonly accent: string;
 }
 
@@ -51,100 +51,99 @@ const cardVariants: Variants = {
   },
 };
 
-
 type HoveredServiceId = number | null;
 
 const services: readonly Service[] = [
   {
     id: 1,
-    title: 'Wholesale Precious Metals Trading',
+    title: "Wholesale Precious Metals Trading",
     description:
-      'We specialize in the wholesale trading of gold, silver, platinum, and palladium in standardized kilo and large bar formats.',
+      "We specialize in the wholesale trading of gold, silver, platinum, and palladium in standardized kilo and large bar formats.",
     details: [
-      'DMCC regulated operations',
-      'Transparent, market aligned pricing',
-      'High-volume trading capacity',
+      "DMCC regulated operations",
+      "Transparent, market aligned pricing",
+      "High-volume trading capacity",
     ],
-    icon: 'trading',
-    accent: 'from-amber-500 to-yellow-500',
+    icon: "trading",
+    accent: "from-amber-500 to-yellow-500",
   },
   {
     id: 2,
-    title: 'Bulk Supply of Kilo & Large Bars',
+    title: "Bulk Supply of Kilo & Large Bars",
     description:
-      'Investment-grade bullion bars across all four metals, refined to international purity standards.',
+      "Investment-grade bullion bars across all four metals, refined to international purity standards.",
     details: [
-      'Certified bullion: 999.9 (gold), 999.0 (silver), 999.5 (platinum/palladium)',
-      'Secured procurement and scalable volume handling',
-      'Suited for vaulting, hedging, and reserve strategies',
+      "Certified bullion: 999.9 (gold), 999.0 (silver), 999.5 (platinum/palladium)",
+      "Secured procurement and scalable volume handling",
+      "Suited for vaulting, hedging, and reserve strategies",
     ],
-    icon: 'supply',
-    accent: 'from-yellow-500 to-amber-500',
+    icon: "supply",
+    accent: "from-yellow-500 to-amber-500",
   },
   {
     id: 3,
-    title: 'Strategic Procurement & Sourcing',
+    title: "Strategic Procurement & Sourcing",
     description:
-      'Tailored sourcing strategies for institutions seeking long-term or diversified access to precious metals.',
+      "Tailored sourcing strategies for institutions seeking long-term or diversified access to precious metals.",
     details: [
-      'Institutional sourcing and allocation strategies',
-      'Strong supplier network and demand planning',
-      'Real-time market responsiveness',
+      "Institutional sourcing and allocation strategies",
+      "Strong supplier network and demand planning",
+      "Real-time market responsiveness",
     ],
-    icon: 'procurement',
-    accent: 'from-amber-400 to-orange-500',
+    icon: "procurement",
+    accent: "from-amber-400 to-orange-500",
   },
   {
     id: 4,
-    title: 'Secured Storage & Delivery Facilitation',
+    title: "Secured Storage & Delivery Facilitation",
     description:
-      'Secured storage, handling, and delivery of bullion through trusted logistics and vaulting partners.',
+      "Secured storage, handling, and delivery of bullion through trusted logistics and vaulting partners.",
     details: [
-      'Discreet and insured transport',
-      'Vaulting and storage coordination',
-      'Documentation and transfer support',
+      "Discreet and insured transport",
+      "Vaulting and storage coordination",
+      "Documentation and transfer support",
     ],
-    icon: 'logistics',
-    accent: 'from-orange-500 to-amber-500',
+    icon: "logistics",
+    accent: "from-orange-500 to-amber-500",
   },
 ];
 
 const benefits: readonly Benefit[] = [
   {
     id: 1,
-    title: 'Trusted Expertise',
+    title: "Trusted Expertise",
     description:
-      'Several years of institutional experience and deep market insight across gold, silver, platinum, and palladium.',
+      "Several years of institutional experience and deep market insight across gold, silver, platinum, and palladium.",
   },
   {
     id: 2,
-    title: 'Reliable Reach',
+    title: "Reliable Reach",
     description:
-      'Efficient delivery and logistics support through trusted partners, serving regional and international institutional clients.',
+      "Efficient delivery and logistics support through trusted partners, serving regional and international institutional clients.",
   },
   {
     id: 3,
-    title: 'Certified Quality',
+    title: "Certified Quality",
     description:
-      'All bars meet internationally recognized purity standards investment-grade bullion with full traceability.',
+      "All bars meet internationally recognized purity standards investment-grade bullion with full traceability.",
   },
   {
     id: 4,
-    title: 'Transparent Pricing',
+    title: "Transparent Pricing",
     description:
-      'Real time, market aligned pricing structures that ensure fairness and confidence in every trade.',
+      "Real time, market aligned pricing structures that ensure fairness and confidence in every trade.",
   },
   {
     id: 5,
-    title: 'Institutional Grade Solutions',
+    title: "Institutional Grade Solutions",
     description:
-      'Structured offerings tailored for banks, family offices, industrial buyers, and regulated financial entities.',
+      "Structured offerings tailored for banks, family offices, industrial buyers, and regulated financial entities.",
   },
   {
     id: 6,
-    title: 'Logistics Coordination',
+    title: "Logistics Coordination",
     description:
-      'Secured delivery managed through trusted logistics partners, ensuring safe and timely movement of bullion.',
+      "Secured delivery managed through trusted logistics partners, ensuring safe and timely movement of bullion.",
   },
 ];
 
@@ -170,7 +169,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -182,7 +181,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -193,7 +192,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       transition: {
         duration: 4,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       },
     },
   } as Variants,
@@ -204,7 +203,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: -8,
       transition: {
         duration: 0.3,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -215,24 +214,22 @@ const getAnimationVariants = (): AnimationVariants => ({
       x: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
 });
 
-const getIconComponent = (
-  iconType: Service['icon']
-): React.ReactNode => {
-  const iconProps = { className: 'text-amber-600', size: 28 };
+const getIconComponent = (iconType: Service["icon"]): React.ReactNode => {
+  const iconProps = { className: "text-amber-600", size: 28 };
   switch (iconType) {
-    case 'trading':
+    case "trading":
       return <TrendingUp {...iconProps} />;
-    case 'supply':
+    case "supply":
       return <Package {...iconProps} />;
-    case 'procurement':
+    case "procurement":
       return <Briefcase {...iconProps} />;
-    case 'logistics':
+    case "logistics":
       return <Shield {...iconProps} />;
     default:
       return <Zap {...iconProps} />;
@@ -242,7 +239,7 @@ const getIconComponent = (
 const ShieldComponent = ({ ...props }) => <Shield {...props} />; // Declare Shield component
 
 export const ServiceSection: FC<ServiceSectionProps> = ({
-  className = '',
+  className = "",
 }: ServiceSectionProps): JSX.Element => {
   const [hoveredId, setHoveredId] = useState<HoveredServiceId>(null);
   const variants = getAnimationVariants();
@@ -265,12 +262,12 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         <motion.div
           className="absolute top-20 right-10 w-72 h-72 bg-amber-100/10 rounded-full blur-3xl"
           animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-40 left-20 w-96 h-96 bg-yellow-100/5 rounded-full blur-3xl"
           animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
@@ -279,7 +276,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={variants.container}
           className="text-center mb-24"
         >
@@ -289,7 +286,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
           >
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
               <Settings className="text-amber-600" size={24} />
             </motion.div>
@@ -309,17 +306,23 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto"
           >
-            Our Services At SR Bullion FZCO, we deliver institutional-grade precious metal solutions backed by experience, regulatory compliance, and a deep understanding of the bullion market. Our services are designed to support financial institutions, bullion dealers, industrial buyers, and family offices seeking secured, transparent, and scalable bullion trade solutions.
+            Our Services At SR Bullion FZCO, we deliver institutional-grade
+            precious metal solutions backed by experience, regulatory
+            compliance, and a deep understanding of the bullion market. Our
+            services are designed to support financial institutions, bullion
+            dealers, industrial buyers, and family offices seeking secured,
+            transparent, and scalable bullion trade solutions.
           </motion.p>
         </motion.div>
 
         {/* Service image */}
-        <Image src={"/gold.jpg"}
+        {/* <Image
+          src={"/gold.jpg"}
           height={720}
           width={1200}
-          alt='services image'
-          className='mx-auto mb-15 object-cover h-150'
-        />
+          alt="services image"
+          className="mx-auto mb-15 object-cover h-150"
+        /> */}
         {/* Services Grid */}
         <motion.div
           variants={variants.container}
@@ -336,19 +339,25 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
               onMouseEnter={() => handleMouseEnter(service.id)}
               onMouseLeave={handleMouseLeave}
               initial="rest"
-              animate={hoveredId === service.id ? 'hover' : 'rest'}
-              className=''
+              animate={hoveredId === service.id ? "hover" : "rest"}
+              className=""
             >
-              <div className={`
+              <div
+                className={`
         bg-white rounded-2xl p-8 shadow-lg transition-shadow duration-200 
-        border border-amber-100/50 ${hoveredId === service.id ? 'h-auto' : 'min-h-87.5 h-full'}
-      `}>
+        border border-amber-100/50 ${hoveredId === service.id ? "h-auto" : "min-h-87.5 h-full"}
+      `}
+              >
                 {/* Icon and Title */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <motion.div
                       className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-linear-to-br from-amber-50 to-yellow-50 mb-4"
-                      animate={hoveredId === service.id ? { rotate: 10 } : { rotate: 0 }}
+                      animate={
+                        hoveredId === service.id
+                          ? { rotate: 10 }
+                          : { rotate: 0 }
+                      }
                       transition={{ duration: 0.3 }}
                     >
                       {getIconComponent(service.icon)}
@@ -369,12 +378,14 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   initial={false}
                   animate={
                     hoveredId === service.id
-                      ? { opacity: 1, height: 'auto' }
+                      ? { opacity: 1, height: "auto" }
                       : { opacity: 0, height: 0 }
                   }
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="overflow-hidden"
-                  style={{ pointerEvents: hoveredId === service.id ? "auto" : "none" }}
+                  style={{
+                    pointerEvents: hoveredId === service.id ? "auto" : "none",
+                  }}
                 >
                   <div className="space-y-3 pt-4 border-t border-amber-100">
                     {service.details.map((detail: string, index: number) => (
@@ -383,7 +394,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                         variants={variants.badge}
                         initial="hidden"
                         animate={
-                          hoveredId === service.id ? 'visible' : 'hidden'
+                          hoveredId === service.id ? "visible" : "hidden"
                         }
                         className="flex items-start gap-3"
                       >
@@ -418,16 +429,11 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   </span>
                   <motion.div
                     animate={
-                      hoveredId === service.id
-                        ? { x: [0, 4, 0] }
-                        : { x: 0 }
+                      hoveredId === service.id ? { x: [0, 4, 0] } : { x: 0 }
                     }
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    <ArrowRight
-                      size={18}
-                      className="text-amber-600"
-                    />
+                    <ArrowRight size={18} className="text-amber-600" />
                   </motion.div>
                 </motion.div>
               </div>
@@ -439,7 +445,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={variants.container}
           className="mb-28"
         >
@@ -507,8 +513,9 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto"
           >
-            Get in touch with SR Bullion FZCO for wholesale precious metals in kilo and large bar
-            formats delivered with integrity, compliance, and confidentiality.
+            Get in touch with SR Bullion FZCO for wholesale precious metals in
+            kilo and large bar formats delivered with integrity, compliance, and
+            confidentiality.
           </motion.p>
 
           <motion.button

@@ -1,6 +1,7 @@
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 import { useScrollAnimation } from "./landing";
 import Image from "next/image";
+import Link from "next/link";
 
 interface BlogPost {
   id: number;
@@ -137,7 +138,7 @@ export const Insights: React.FC = () => {
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <Link href="/news" className="text-center mt-16 block">
           <button className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold text-lg transform hover:scale-105 flex items-center gap-3 mx-auto">
             View All Insights
             <ArrowRight
@@ -145,7 +146,7 @@ export const Insights: React.FC = () => {
               className="group-hover:translate-x-2 transition-transform"
             />
           </button>
-        </div>
+        </Link>
       </div>
     </section>
   );

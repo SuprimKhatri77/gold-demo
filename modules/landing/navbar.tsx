@@ -14,8 +14,9 @@ const navItems: NavItem[] = [
   { label: "About us", href: "/about-us" },
   { label: "News", href: "/news" },
   { label: "Services", href: "/services" },
-  { label: "Our Products", href: "/our-products" },
+  { label: "Our products", href: "/our-products" },
   { label: "Contact", href: "/contact" },
+  { label: "Live rates", href: "/live-rates" },
 ];
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -39,20 +40,23 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3 group cursor-pointer">
-            <Link href="/" className="relative">
+          <Link
+            href="/"
+            className="flex items-center gap-3 group cursor-pointer"
+          >
+            <div className="relative">
               <div className="w-12 h-12 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 group-hover:shadow-amber-500/70 transition-all duration-300 group-hover:rotate-6 transform">
                 <span className="text-white font-black text-2xl">G</span>
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
-            </Link>
+            </div>
             <div>
               <span className="text-2xl font-black bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
                 GoldPremium
               </span>
               <div className="text-xs text-gray-500 font-medium">Est. 1985</div>
             </div>
-          </div>
+          </Link>
 
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
@@ -76,7 +80,10 @@ export const Navbar: React.FC = () => {
               />
               <span>Live Chat</span>
             </button> */}
-            <button className="relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-8 py-3 rounded-full hover:from-amber-600 hover:via-amber-700 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 font-bold transform hover:scale-105 overflow-hidden group">
+            <Link
+              href="/our-products"
+              className="relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-8 py-3 rounded-full hover:from-amber-600 hover:via-amber-700 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 font-bold transform hover:scale-105 overflow-hidden group"
+            >
               <span className="relative z-10 flex items-center gap-2">
                 View Collection
                 <ArrowRight
@@ -85,7 +92,7 @@ export const Navbar: React.FC = () => {
                 />
               </span>
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
+            </Link>
           </div>
 
           <button

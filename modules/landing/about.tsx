@@ -7,6 +7,7 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
+import Link from "next/link";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -131,10 +132,13 @@ export const About: React.FC = () => {
               ))}
             </div>
 
-            <button className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-2 sm:gap-3 transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center">
+            <Link
+              href="/about-us"
+              className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-2 sm:gap-3 transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center"
+            >
               Discover Our Story
               <ArrowRight className="group-hover:translate-x-2 transition-transform w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
+            </Link>
           </div>
 
           <div

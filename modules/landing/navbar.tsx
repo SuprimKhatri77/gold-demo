@@ -46,13 +46,13 @@ export const Navbar: React.FC = () => {
           >
             <div className="relative">
               <div className="w-12 h-12 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 group-hover:shadow-amber-500/70 transition-all duration-300 group-hover:rotate-6 transform">
-                <span className="text-white font-black text-2xl">G</span>
+                <span className="text-white font-black text-2xl">SR</span>
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
             </div>
             <div>
               <span className="text-2xl font-black bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
-                GoldPremium
+                SR Jewellers
               </span>
               <div className="text-xs text-gray-500 font-medium">Est. 1985</div>
             </div>

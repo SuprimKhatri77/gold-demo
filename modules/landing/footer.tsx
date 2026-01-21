@@ -1,13 +1,20 @@
-import {
-  ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Send,
-  Twitter,
-  Youtube,
-} from "lucide-react";
+import { ArrowRight, Send } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Instagram, Facebook, TiktokIcon } from "@hugeicons/core-free-icons";
+import Link from "next/link";
 
+interface FooterItem {
+  label: string;
+  href: string;
+}
+
+const footerLinks: FooterItem[] = [
+  { label: "About us", href: "/about-us" },
+  { label: "News", href: "/news" },
+  { label: "Our products", href: "/our-products" },
+  { label: "Contact", href: "/contact" },
+  { label: "Live rates", href: "/live-rates" },
+];
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-linear-to-b from-gray-900 to-black text-white relative overflow-hidden">
@@ -21,11 +28,11 @@ export const Footer: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-linear-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-2xl">G</span>
+                <span className="text-white font-black text-2xl">SR</span>
               </div>
               <div>
                 <span className="text-2xl font-black bg-linear-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
-                  GoldPremium
+                  SR Jewellers LLC
                 </span>
               </div>
             </div>
@@ -38,31 +45,19 @@ export const Footer: React.FC = () => {
                 href="#"
                 className="w-10 h-10 bg-white/10 hover:bg-amber-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 transform"
               >
-                <Linkedin size={20} />
+                <HugeiconsIcon icon={Instagram} size={20} />
               </a>
               <a
                 href="#"
                 className="w-10 h-10 bg-white/10 hover:bg-amber-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 transform"
               >
-                <Instagram size={20} />
+                <HugeiconsIcon icon={TiktokIcon} size={20} />
               </a>
               <a
                 href="#"
                 className="w-10 h-10 bg-white/10 hover:bg-amber-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 transform"
               >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 hover:bg-amber-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 transform"
-              >
-                <Facebook size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 hover:bg-amber-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 transform"
-              >
-                <Youtube size={20} />
+                <HugeiconsIcon icon={Facebook} size={20} />
               </a>
             </div>
           </div>
@@ -72,24 +67,18 @@ export const Footer: React.FC = () => {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {[
-                "About Us",
-                "Our Collection",
-                "Quality Standards",
-                "Insights",
-                "Contact",
-              ].map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+              {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
                     className="text-gray-400 hover:text-amber-400 transition-colors flex items-center gap-2 group"
                   >
                     <ArrowRight
                       size={16}
                       className="group-hover:translate-x-1 transition-transform"
                     />
-                    {link}
-                  </a>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -145,7 +134,8 @@ export const Footer: React.FC = () => {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2026 GoldPremium. All rights reserved.
+              © {new Date().getFullYear()} SR Jewellers LLC. All rights
+              reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <a

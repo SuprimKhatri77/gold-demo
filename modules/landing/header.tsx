@@ -1,13 +1,6 @@
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Sparkles,
-  Twitter,
-} from "lucide-react";
+import { Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Instagram, Facebook, TiktokIcon } from "@hugeicons/core-free-icons";
 
 export const Header: React.FC = () => {
   return (
@@ -49,25 +42,19 @@ export const Header: React.FC = () => {
               href="#"
               className="hover:text-amber-300 transition-all duration-300 hover:scale-125 transform"
             >
-              <Linkedin size={18} />
+              <HugeiconsIcon icon={Instagram} size={18} />
             </a>
             <a
               href="#"
               className="hover:text-amber-300 transition-all duration-300 hover:scale-125 transform"
             >
-              <Instagram size={18} />
+              <HugeiconsIcon icon={TiktokIcon} size={18} />
             </a>
             <a
               href="#"
               className="hover:text-amber-300 transition-all duration-300 hover:scale-125 transform"
             >
-              <Twitter size={18} />
-            </a>
-            <a
-              href="#"
-              className="hover:text-amber-300 transition-all duration-300 hover:scale-125 transform"
-            >
-              <Facebook size={18} />
+              <HugeiconsIcon icon={Facebook} size={18} />
             </a>
           </div>
         </div>

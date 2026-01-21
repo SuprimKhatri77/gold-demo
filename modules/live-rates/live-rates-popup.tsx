@@ -12,6 +12,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { initialGoldData } from "./live-rates";
+import { usePathname } from "next/navigation";
 
 interface GoldData {
   price: number;
@@ -68,6 +69,8 @@ export const LiveRatePopup = () => {
     }
     return !hasSeenPopup;
   });
+
+  const pathname = usePathname();
 
   const [isMinimized, setIsMinimized] = useState(false);
   const previousPriceRef = useRef(0);
@@ -209,13 +212,15 @@ export const LiveRatePopup = () => {
               </div>
 
               {/* View Full Rates Link */}
-              <Link
-                href="/live-rates"
-                className="w-full bg-linear-to-r from-amber-500 to-yellow-500 text-white py-2 sm:py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all mb-2 sm:mb-3 text-sm sm:text-base"
-              >
-                View Full Rates
-                <ExternalLink className="w-4 h-4" />
-              </Link>
+              {!pathname.startsWith("/live-rates") && (
+                <Link
+                  href="/live-rates"
+                  className="w-full bg-linear-to-r from-amber-500 to-yellow-500 text-white py-2 sm:py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  View Full Rates
+                  <ExternalLink className="w-4 h-4" />
+                </Link>
+              )}
 
               {/* Last Updated */}
               <div className="flex items-center justify-center gap-2 text-xs text-amber-600">

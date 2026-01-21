@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, Calendar, ArrowRight, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import { NewsHero } from "./news-hero";
+import { NewsList } from "./news-list";
+import { NewsSidebar } from "./news-sidebar";
 
-interface NewsItem {
+export interface NewsItem {
   id: string;
   title: string;
   description: string;
@@ -16,7 +16,7 @@ interface NewsItem {
   authorId: string;
 }
 
-const mockNews: NewsItem[] = [
+export const mockNews: NewsItem[] = [
   {
     id: "1",
     title: "Gold Prices Reach New Heights Amid Global Economic Uncertainty",
@@ -98,8 +98,7 @@ const mockNews: NewsItem[] = [
   },
 ];
 
-// Utility Functions
-const formatDate = (dateString: string): string => {
+export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -108,7 +107,7 @@ const formatDate = (dateString: string): string => {
   });
 };
 
-const createSlug = (title: string): string => {
+export const createSlug = (title: string): string => {
   return title
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")
@@ -117,253 +116,10 @@ const createSlug = (title: string): string => {
     .trim();
 };
 
-// Components
-const NewsHero: React.FC = () => (
-  <div className="relative bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 px-6 overflow-hidden">
-    <div className="absolute inset-0 opacity-10">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-600 rounded-full blur-3xl"></div>
-    </div>
-
-    <div className="relative max-w-7xl mx-auto">
-      <nav className="flex items-center space-x-2 text-sm mb-8 text-slate-300">
-        <Link href="/" className="hover:text-amber-400 transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-4 h-4" />
-        <span className="text-amber-400">News</span>
-      </nav>
-
-      <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-        Latest Gold Market{" "}
-        <span className="text-amber-400">News & Insights</span>
-      </h1>
-      <p className="text-xl text-slate-300 max-w-3xl leading-relaxed">
-        Stay informed with expert analysis, market updates, and exclusive
-        insights from the world of precious metals investment and gold trading.
-      </p>
-    </div>
-  </div>
-);
-
-const LoadingSkeleton: React.FC = () => (
-  <div className="space-y-8">
-    {[1, 2, 3].map((i) => (
-      <div
-        key={i}
-        className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse"
-      >
-        <div className="md:flex">
-          <div className="md:w-80 h-64 bg-slate-200"></div>
-          <div className="p-8 flex-1">
-            <div className="h-8 bg-slate-200 rounded w-3/4 mb-4"></div>
-            <div className="space-y-3 mb-6">
-              <div className="h-4 bg-slate-200 rounded"></div>
-              <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-            </div>
-            <div className="h-10 bg-slate-200 rounded w-32"></div>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-);
-
-const EmptyState: React.FC = () => (
-  <div className="bg-white rounded-lg shadow-md p-16 text-center">
-    <div className="max-w-md mx-auto">
-      <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <Search className="w-10 h-10 text-amber-600" />
-      </div>
-      <h3 className="text-2xl font-bold text-slate-900 mb-3">
-        No News Available
-      </h3>
-      <p className="text-slate-600 text-lg">
-        No news articles match your search. Please try different keywords or
-        check back later for new updates.
-      </p>
-    </div>
-  </div>
-);
-
-interface NewsCardProps {
-  news: NewsItem;
-}
-
-const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
-  const slug = createSlug(news.title);
-
-  return (
-    <article className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
-      <div className="flex flex-col md:flex-row">
-        {/* Image Section */}
-        <div className="w-full md:w-80 h-48 sm:h-56 md:h-64 relative overflow-hidden bg-slate-200 shrink-0">
-          <Image
-            fill
-            src={news.images[0]}
-            alt={news.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        </div>
-
-        {/* Content Section */}
-        <div className="p-4 sm:p-6 md:p-8 flex-1 flex flex-col">
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-            {news.tags.slice(0, 2).map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Title */}
-          <h2 className="text-xl sm:text-2xl md:text-2xl font-bold text-slate-900 mb-3 sm:mb-4 group-hover:text-amber-600 transition-colors leading-tight">
-            <a href={`/news/${slug}`} className="hover:underline">
-              {news.title}
-            </a>
-          </h2>
-
-          {/* Description */}
-          <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed flex-1 line-clamp-2 sm:line-clamp-3">
-            {news.description}
-          </p>
-
-          {/* Footer - Date and Button */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-            {/* Date */}
-            <div className="flex items-center text-xs sm:text-sm text-slate-500 order-2 sm:order-1">
-              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2 shrink-0" />
-              <span className="truncate">
-                Last updated on {formatDate(news.updatedAt)}
-              </span>
-            </div>
-
-            {/* Button */}
-            <Link
-              href={`/news/${slug}`}
-              className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm sm:text-base font-semibold rounded-lg transition-colors group/btn order-1 sm:order-2 whitespace-nowrap"
-            >
-              Read More
-              <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-};
-
-interface NewsListProps {
-  news: NewsItem[];
-  isLoading: boolean;
-}
-
-const NewsList: React.FC<NewsListProps> = ({ news, isLoading }) => {
-  if (isLoading) {
-    return <LoadingSkeleton />;
-  }
-
-  if (news.length === 0) {
-    return <EmptyState />;
-  }
-
-  return (
-    <div className="space-y-8">
-      {news.map((item) => (
-        <NewsCard key={item.id} news={item} />
-      ))}
-    </div>
-  );
-};
-
-interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => (
-  <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h3 className="text-lg font-bold text-slate-900 mb-4">Search News</h3>
-    <div className="relative">
-      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-      <input
-        type="text"
-        placeholder="Search by title or tags..."
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors text-slate-900"
-      />
-    </div>
-  </div>
-);
-
-interface SuggestedNewsProps {
-  news: NewsItem[];
-}
-
-const SuggestedNews: React.FC<SuggestedNewsProps> = ({ news }) => (
-  <div className="bg-white rounded-lg shadow-md p-6">
-    <h3 className="text-lg font-bold text-slate-900 mb-6">Recent Updates</h3>
-    <div className="space-y-4">
-      {news.slice(0, 5).map((item) => {
-        const slug = createSlug(item.title);
-        return (
-          <a
-            key={item.id}
-            href={`/news/${slug}`}
-            className="flex gap-4 group hover:bg-slate-50 p-3 rounded-lg transition-colors"
-          >
-            <div className="w-20 h-20 relative rounded-lg overflow-hidden shrink-0 bg-slate-200">
-              <Image
-                fill
-                src={item.images[0]}
-                alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-slate-900 group-hover:text-amber-600 transition-colors mb-1 line-clamp-2 text-sm leading-tight">
-                {item.title}
-              </h4>
-              <p className="text-xs text-slate-500">
-                {formatDate(item.updatedAt)}
-              </p>
-            </div>
-          </a>
-        );
-      })}
-    </div>
-  </div>
-);
-
-interface NewsSidebarProps {
-  searchQuery: string;
-  onSearchChange: (value: string) => void;
-  suggestedNews: NewsItem[];
-}
-
-const NewsSidebar: React.FC<NewsSidebarProps> = ({
-  searchQuery,
-  onSearchChange,
-  suggestedNews,
-}) => (
-  <aside>
-    <SearchBar value={searchQuery} onChange={onSearchChange} />
-    <SuggestedNews news={suggestedNews} />
-  </aside>
-);
-
-// Main Page Component
 export const NewsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Simulate loading on mount
   React.useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => setIsLoading(false), 1000);

@@ -179,7 +179,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
 
   return (
     <motion.div
-      className={`fixed overflow-scroll bg-black/50 backdrop-blur-sm inset-0 z-50 flex items-center justify-center p-4 ${className}`}
+      className={`fixed overflow-scroll bg-black/50 backdrop-blur-sm inset-0 z-50 flex items-start justify-center p-4 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -201,7 +201,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
         variants={variants.container}
         initial="hidden"
         animate="visible"
-        className="relative mt-60 w-full max-w-3xl rounded-3xl border border-amber-200 bg-linear-to-br from-white via-amber-50 to-white p-6 shadow-2xl md:p-10"
+        className="relative w-full max-w-3xl rounded-3xl border border-amber-200 bg-linear-to-br from-white via-amber-50 to-white p-6 shadow-2xl md:p-10"
       >
         {/* Close Button */}
         <motion.button

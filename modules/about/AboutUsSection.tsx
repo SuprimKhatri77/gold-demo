@@ -327,7 +327,7 @@ export const AboutUsSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               whileHover={{ scale: 1.05, y: -10 }}
-              className="absolute -bottom-35 right-4 sm:right-10 w-fit bg-white p-6 sm:p-8 rounded-2xl shadow-2xl shadow-amber-900/20 border border-amber-100"
+              className="absolute -bottom-45 right-4 sm:right-10 w-fit bg-white p-6 sm:p-8 rounded-2xl shadow-2xl shadow-amber-900/20 border border-amber-100"
             >
               <div className="flex items-center gap-4">
                 <motion.div

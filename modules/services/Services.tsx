@@ -429,12 +429,19 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   </span>
                   <motion.div
                     animate={
-                      hoveredId === service.id ? { x: [0, 4, 0] } : { x: 0 }
+                      hoveredId === service.id
+                        ? { x: [0, 4, 0] }
+                        : { x: 0 }
                     }
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    transition={
+                      hoveredId === service.id
+                        ? { duration: 1.5, repeat: Infinity }
+                        : { duration: 0.2, repeat: 0 }
+                    }
                   >
                     <ArrowRight size={18} className="text-amber-600" />
                   </motion.div>
+
                 </motion.div>
               </div>
             </motion.div>

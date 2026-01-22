@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { FC, JSX } from 'react';
-import type { Variants } from 'framer-motion';
-import { useRouter } from "next/navigation"
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import type { FC, JSX } from "react";
+import type { Variants } from "framer-motion";
 import {
   FileText,
   Download,
@@ -15,7 +14,7 @@ import {
   TrendingUp,
   Zap,
   Globe,
-} from 'lucide-react';
+} from "lucide-react";
 
 // Type definitions
 interface ResourceDocument {
@@ -27,7 +26,7 @@ interface ResourceDocument {
   readonly fileSize: string;
   readonly dateAdded: string;
   readonly download: string;
-  readonly icon: 'dmcc' | 'lbma' | 'oecd' | 'document';
+  readonly icon: "dmcc" | "lbma" | "oecd" | "document";
 }
 
 interface ResourceCategory {
@@ -45,107 +44,103 @@ interface AnimationVariants {
   documentSlide: Variants;
 }
 
-
-
 type SelectedCategory = string | null;
 
 const resources: readonly ResourceDocument[] = [
   {
     id: 1,
-    title: 'DMCC Guidelines',
-    categoryLabel: 'Compliance',
-    categoryId: 'compliance',
+    title: "DMCC Guidelines",
+    categoryLabel: "Compliance",
+    categoryId: "compliance",
     description:
-      'Comprehensive guidelines for Dubai Metals and Commodities Centre compliance and operational standards for precious metals trading.',
-    fileSize: '2.4 MB',
-    dateAdded: '2024-12-15',
-    icon: 'dmcc',
-    download: "DMCC_AML-CFT_GUIDELINES.pdf"
+      "Comprehensive guidelines for Dubai Metals and Commodities Centre compliance and operational standards for precious metals trading.",
+    fileSize: "2.4 MB",
+    dateAdded: "2024-12-15",
+    icon: "dmcc",
+    download: "DMCC_AML-CFT_GUIDELINES.pdf",
   },
   {
     id: 2,
-    title: 'LBMA Responsible Gold Guidance',
-    categoryLabel: 'Standards',
-    categoryId: 'standards',
+    title: "LBMA Responsible Gold Guidance",
+    categoryLabel: "Standards",
+    categoryId: "standards",
     description:
-      'London Bullion Market Association responsible sourcing guidance ensuring ethical and sustainable precious metals practices.',
-    fileSize: '1.8 MB',
-    dateAdded: '2024-12-10',
-    icon: 'lbma',
-    download: "Responsible-Gold-Guidance-Version.pdf"
+      "London Bullion Market Association responsible sourcing guidance ensuring ethical and sustainable precious metals practices.",
+    fileSize: "1.8 MB",
+    dateAdded: "2024-12-10",
+    icon: "lbma",
+    download: "Responsible-Gold-Guidance-Version.pdf",
   },
   {
     id: 3,
-    title: 'OECD Regulatory Policy Outlook 2025',
-    categoryLabel: 'Regulatory',
-    categoryId: 'regulatory',
+    title: "OECD Regulatory Policy Outlook 2025",
+    categoryLabel: "Regulatory",
+    categoryId: "regulatory",
     description:
-      'Latest OECD policies and regulatory frameworks for international precious metals trading and financial regulations.',
-    fileSize: '3.2 MB',
-    dateAdded: '2024-12-08',
-    icon: 'oecd',
-    download: "DMCC_AML-CFT_GUIDELINES.pdf"
+      "Latest OECD policies and regulatory frameworks for international precious metals trading and financial regulations.",
+    fileSize: "3.2 MB",
+    dateAdded: "2024-12-08",
+    icon: "oecd",
+    download: "DMCC_AML-CFT_GUIDELINES.pdf",
   },
   {
     id: 4,
-    title: 'ISO 4217 Currency Standards',
-    categoryLabel: 'Standards',
-    categoryId: 'standards',
+    title: "ISO 4217 Currency Standards",
+    categoryLabel: "Standards",
+    categoryId: "standards",
     description:
-      'International Organization for Standardization specifications for precious metals purity and quality assurance.',
-    fileSize: '1.5 MB',
-    dateAdded: '2024-12-01',
-    icon: 'document',
-    download: "DMCC_AML-CFT_GUIDELINES.pdf"
+      "International Organization for Standardization specifications for precious metals purity and quality assurance.",
+    fileSize: "1.5 MB",
+    dateAdded: "2024-12-01",
+    icon: "document",
+    download: "DMCC_AML-CFT_GUIDELINES.pdf",
   },
   {
     id: 5,
-    title: 'AML/KYC Procedures Manual',
-    categoryLabel: 'Compliance',
-    categoryId: 'compliance',
+    title: "AML/KYC Procedures Manual",
+    categoryLabel: "Compliance",
+    categoryId: "compliance",
     description:
-      'Anti-Money Laundering and Know Your Customer procedures and best practices for bullion industry compliance.',
-    fileSize: '2.1 MB',
-    dateAdded: '2024-11-25',
-    icon: 'document',
-    download: "DMCC_AML-CFT_GUIDELINES.pdf"
+      "Anti-Money Laundering and Know Your Customer procedures and best practices for bullion industry compliance.",
+    fileSize: "2.1 MB",
+    dateAdded: "2024-11-25",
+    icon: "document",
+    download: "DMCC_AML-CFT_GUIDELINES.pdf",
   },
   {
     id: 6,
-    title: 'Market Insights Report 2024',
-    categoryLabel: 'Analysis',
-    categoryId: 'analysis',
+    title: "Market Insights Report 2024",
+    categoryLabel: "Analysis",
+    categoryId: "analysis",
     description:
-      'Comprehensive analysis of precious metals market trends, price movements, and future projections.',
-    fileSize: '4.5 MB',
-    dateAdded: '2024-11-20',
-    icon: 'document',
-    download: "DMCC_AML-CFT_GUIDELINES.pdf"
-
+      "Comprehensive analysis of precious metals market trends, price movements, and future projections.",
+    fileSize: "4.5 MB",
+    dateAdded: "2024-11-20",
+    icon: "document",
+    download: "DMCC_AML-CFT_GUIDELINES.pdf",
   },
 ];
 
 const categories = [
-  { id: 'all', name: 'All Resources' },
-  { id: 'compliance', name: 'Compliance' },
-  { id: 'standards', name: 'Standards' },
-  { id: 'regulatory', name: 'Regulatory' },
-  { id: 'analysis', name: 'Analysis' },
+  { id: "all", name: "All Resources" },
+  { id: "compliance", name: "Compliance" },
+  { id: "standards", name: "Standards" },
+  { id: "regulatory", name: "Regulatory" },
+  { id: "analysis", name: "Analysis" },
 ] as const;
 
 const normalize = (value: string): string =>
   value.trim().toLowerCase().replace(/\s+/g, "-");
 
-const categoriesWithCount = categories.map(category => ({
+const categoriesWithCount = categories.map((category) => ({
   ...category,
   count:
     category.id === "all"
       ? resources.length
       : resources.filter(
-        r => normalize(r.categoryLabel) === normalize(category.id)
-      ).length,
+          (r) => normalize(r.categoryLabel) === normalize(category.id),
+        ).length,
 }));
-
 
 const getAnimationVariants = (): AnimationVariants => ({
   container: {
@@ -165,7 +160,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -177,7 +172,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.7,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -188,7 +183,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       },
     },
   } as Variants,
@@ -208,7 +203,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       x: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -219,16 +214,16 @@ interface ResourcesPageProps {
 }
 
 export const ResourcesPage: FC<ResourcesPageProps> = ({
-  className = '',
+  className = "",
 }): JSX.Element => {
-  const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] =
+    useState<SelectedCategory>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const variants = getAnimationVariants(); // Ensure this is called with parentheses
 
   type DownloadResource = {
-    download: string
-  }
+    download: string;
+  };
 
   const handleDownload = (resource: DownloadResource): void => {
     const filePath = `/${resource.download}`;
@@ -238,8 +233,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }
-
+  };
 
   const handleCategoryClick = (categoryId: string): void => {
     setSelectedCategory(categoryId);
@@ -251,25 +245,21 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
 
   const filteredResources = resources.filter((resource: ResourceDocument) => {
     const matchesCategory =
-      selectedCategory === "all" ||
-      resource.categoryId === selectedCategory;
+      selectedCategory === "all" || resource.categoryId === selectedCategory;
 
-    const matchesSearch = resource.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase()) ||
-      resource.description
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+    const matchesSearch =
+      resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      resource.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const getIconComponent = (icon: string): JSX.Element => {
     switch (icon) {
-      case 'dmcc':
+      case "dmcc":
         return <Award className="text-amber-600" size={24} />;
-      case 'lbma':
+      case "lbma":
         return <Globe className="text-amber-600" size={24} />;
-      case 'oecd':
+      case "oecd":
         return <TrendingUp className="text-amber-600" size={24} />;
       default:
         return <FileText className="text-amber-600" size={24} />;
@@ -301,14 +291,17 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={variants.container}
           className="text-center mb-16"
         >
-          <motion.div variants={variants.item} className="flex items-center justify-center gap-2 mb-4">
+          <motion.div
+            variants={variants.item}
+            className="flex items-center justify-center gap-2 mb-4"
+          >
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             >
               <BookOpen className="text-amber-600" size={24} />
             </motion.div>
@@ -330,8 +323,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
             variants={variants.item}
             className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Access comprehensive compliance documents, industry standards, and market insights to enhance your
-            precious metals trading operations.
+            Access comprehensive compliance documents, industry standards, and
+            market insights to enhance your precious metals trading operations.
           </motion.p>
         </motion.div>
 
@@ -344,7 +337,10 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           className="mb-12"
         >
           <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-4 text-amber-600/60" size={20} />
+            <Search
+              className="absolute left-4 top-4 text-amber-600/60"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Search resources, guidelines, documents..."
@@ -370,14 +366,17 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               onClick={() => handleCategoryClick(category.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 ${selectedCategory === category.id
-                ? 'bg-linear-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-lg shadow-amber-500/30'
-                : 'bg-white text-gray-700 border-amber-200/40 hover:border-amber-300/60'
-                }`}
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 ${
+                selectedCategory === category.id
+                  ? "bg-linear-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-lg shadow-amber-500/30"
+                  : "bg-white text-gray-700 border-amber-200/40 hover:border-amber-300/60"
+              }`}
               type="button"
             >
               {category.name}
-              <span className="ml-2 text-sm opacity-75">({category.count})</span>
+              <span className="ml-2 text-sm opacity-75">
+                ({category.count})
+              </span>
             </motion.button>
           ))}
         </motion.div>
@@ -429,7 +428,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 {/* Meta Information */}
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-6 pb-6 border-b border-gray-200/50">
                   <span className="font-semibold">{resource.fileSize}</span>
-                  <span>{new Date(resource.dateAdded).toLocaleDateString()}</span>
+                  <span>
+                    {new Date(resource.dateAdded).toLocaleDateString()}
+                  </span>
                 </div>
 
                 {/* Action Buttons */}
@@ -444,16 +445,17 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                     <Download size={18} />
                     Download
                   </motion.button>
-                  <motion.button
-                    type="button"
-                    onClick={() => router.push(`/${resource.download}`)}
+                  <motion.a
+                    href={`/${resource.download}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="flex-1 bg-amber-100/60 text-amber-700 py-3 rounded-xl font-bold hover:bg-amber-200/70 transition-all duration-300 flex items-center justify-center gap-2 border border-amber-300/40"
                   >
                     <Eye size={18} />
                     Preview
-                  </motion.button>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
@@ -469,8 +471,12 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
             className="text-center py-16"
           >
             <FileText className="mx-auto mb-4 text-gray-300" size={64} />
-            <h3 className="text-2xl font-bold text-gray-700 mb-2">No Resources Found</h3>
-            <p className="text-gray-600">Try adjusting your search or category filters.</p>
+            <h3 className="text-2xl font-bold text-gray-700 mb-2">
+              No Resources Found
+            </h3>
+            <p className="text-gray-600">
+              Try adjusting your search or category filters.
+            </p>
           </motion.div>
         )}
 
@@ -505,8 +511,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               variants={variants.item}
               className="text-lg text-white/90 max-w-2xl mx-auto mb-8"
             >
-              Contact our compliance team for industry-specific reports and tailored guidelines for your
-              organization.
+              Contact our compliance team for industry-specific reports and
+              tailored guidelines for your organization.
             </motion.p>
             <motion.button
               type="button"

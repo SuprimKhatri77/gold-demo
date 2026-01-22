@@ -1,3 +1,9 @@
+import { AccountOpening } from "@/modules/account-openting/AccountOpening";
+
 export default function Page() {
-  return <h1> account opening</h1>;
+  return (
+    <>
+      <AccountOpening />
+    </>
+  );
 }

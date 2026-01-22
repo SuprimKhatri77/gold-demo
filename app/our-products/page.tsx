@@ -1,3 +1,9 @@
+import { OurProducts } from "@/modules/our-products/OurProducts";
+
 export default function Page() {
-  return <h1>Our products</h1>;
+  return (
+    <>
+      <OurProducts />
+    </>
+  );
 }

@@ -42,7 +42,7 @@ const Landing: React.FC = () => {
   return (
     <div className="font-sans antialiased">
       <Hero />
-      <About />
+      {/* <About /> */}
       <Collection />
       <Quality />
       <Testimonials />

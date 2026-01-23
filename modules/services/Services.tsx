@@ -14,6 +14,7 @@ import {
   Settings,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface Service {
@@ -241,6 +242,7 @@ const ShieldComponent = ({ ...props }) => <Shield {...props} />; // Declare Shie
 export const ServiceSection: FC<ServiceSectionProps> = ({
   className = "",
 }: ServiceSectionProps): JSX.Element => {
+  const router = useRouter();
   const [hoveredId, setHoveredId] = useState<HoveredServiceId>(null);
   const variants = getAnimationVariants();
 
@@ -429,9 +431,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   </span>
                   <motion.div
                     animate={
-                      hoveredId === service.id
-                        ? { x: [0, 4, 0] }
-                        : { x: 0 }
+                      hoveredId === service.id ? { x: [0, 4, 0] } : { x: 0 }
                     }
                     transition={
                       hoveredId === service.id
@@ -441,7 +441,6 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   >
                     <ArrowRight size={18} className="text-amber-600" />
                   </motion.div>
-
                 </motion.div>
               </div>
             </motion.div>
@@ -527,6 +526,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
 
           <motion.button
             type="button"
+            onClick={() => router.push("/contact")}
             variants={variants.item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

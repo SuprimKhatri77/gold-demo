@@ -8,6 +8,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface Stat {
@@ -162,7 +163,10 @@ export function Hero() {
           <div
             className={`flex flex-col sm:flex-row gap-4 mb-12 transition-all duration-800 delay-500 ${isAnimating ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
           >
-            <button className="group relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-8 py-4 rounded-full transition-all duration-300 shadow-2xl shadow-amber-500/40 hover:shadow-amber-500/60 font-bold text-base sm:text-lg transform hover:scale-105 overflow-hidden">
+            <Link
+              href="/our-products"
+              className="group relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-8 py-4 rounded-full transition-all duration-300 shadow-2xl shadow-amber-500/40 hover:shadow-amber-500/60 font-bold text-base sm:text-lg transform hover:scale-105 overflow-hidden"
+            >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 Explore Collection
                 <ArrowRight
@@ -171,15 +175,18 @@ export function Hero() {
                 />
               </span>
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
+            </Link>
 
-            <button className="group bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full hover:bg-white/20 transition-all duration-300 border-2 border-white/30 hover:border-white/50 font-bold text-base sm:text-lg transform hover:scale-105 flex items-center justify-center gap-2">
+            <Link
+              href="/contact"
+              className="group bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full hover:bg-white/20 transition-all duration-300 border-2 border-white/30 hover:border-white/50 font-bold text-base sm:text-lg transform hover:scale-105 flex items-center justify-center gap-2"
+            >
               <Phone
                 size={20}
                 className="group-hover:rotate-12 transition-transform"
               />
               Contact Expert
-            </button>
+            </Link>
           </div>
 
           {/* Stats */}

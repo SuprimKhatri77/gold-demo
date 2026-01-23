@@ -67,13 +67,13 @@ export const LiveRatesPage = () => {
     }, 0);
   }, []);
 
-  const { data: goldData, isLoading } = useQuery({
+  const { data: goldData = initialGoldData, isLoading } = useQuery({
     queryKey: ["goldPrice"],
     queryFn: fetchGoldPrice,
     staleTime: 30 * 60 * 1000,
     refetchInterval: 30 * 60 * 1000,
     refetchOnWindowFocus: false,
-    initialData: initialGoldData,
+    placeholderData: initialGoldData,
   });
 
   const units = ["gram", "tola", "ounce"];

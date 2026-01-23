@@ -169,7 +169,7 @@ export const Contact: React.FC = () => {
             ></textarea>
             <button
               onClick={handleSubmit}
-              className="md:col-span-2  group bg-linear-to-r from-amber-700 to-amber-600 text-black px-8 md:px-10 py-4 md:py-5 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold text-base md:text-lg transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40"
+              className="md:col-span-2  group bg-linear-to-r bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 md:px-10 py-4 md:py-5 rounded-full hover:bg-amber-500/20 hover:border-amber-500/30 transition-all duration-300 font-bold text-base md:text-lg transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40"
             >
               Send Message
               <Send

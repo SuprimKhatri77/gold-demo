@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   Award,
@@ -7,138 +8,144 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { useScrollAnimation } from "./landing";
 
-interface Feature {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+const useScrollAnimation = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
 
-const features: Feature[] = [
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
+  }, []);
+
+  return { ref, isVisible };
+};
+
+const features = [
   {
-    icon: <Shield className="w-8 h-8" />,
+    icon: Shield,
     title: "Certified Authenticity",
     description:
       "Every piece comes with international certification and detailed authentication documentation.",
   },
   {
-    icon: <Award className="w-8 h-8" />,
+    icon: Award,
     title: "Premium Quality",
     description:
       "We source only the finest gold from trusted refineries meeting the highest purity standards.",
   },
   {
-    icon: <Lock className="w-8 h-8" />,
+    icon: Lock,
     title: "Secure Transactions",
     description:
       "Bank-level security and fully insured shipping for complete peace of mind.",
   },
   {
-    icon: <Users className="w-8 h-8" />,
+    icon: Users,
     title: "Expert Consultation",
     description:
       "Our specialists provide personalized guidance to help you make informed decisions.",
   },
   {
-    icon: <Globe className="w-8 h-8" />,
+    icon: Globe,
     title: "Global Network",
     description:
       "Connected to international markets ensuring competitive pricing and rare acquisitions.",
   },
   {
-    icon: <Sparkles className="w-8 h-8" />,
+    icon: Sparkles,
     title: "Exclusive Collection",
     description:
       "Access to limited edition pieces and commemorative gold unavailable elsewhere.",
   },
 ];
-export const Quality: React.FC = () => {
+
+export function Quality() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
     <section
       id="quality"
-      className="py-28 bg-linear-to-b from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden"
+      className="py-16 md:py-24 lg:py-32 bg-black text-white relative overflow-hidden"
     >
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-600 rounded-full blur-3xl"></div>
-      </div>
+      <div className="absolute inset-0 bg-linear-to-b from-zinc-950 via-black to-zinc-950"></div>
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div
           ref={ref}
-          className={`text-center mb-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`text-center mb-12 md:mb-16 lg:mb-20 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-1 w-12 bg-linear-to-r from-transparent to-amber-400"></div>
-            <span className="text-amber-400 font-bold tracking-wider uppercase text-sm flex items-center gap-2">
-              <Award size={16} className="animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-6">
+            <Award size={16} className="text-amber-400" />
+            <span className="text-sm font-medium text-zinc-400">
               Why Choose Us
             </span>
-            <div className="h-1 w-12 bg-linear-to-l from-transparent to-amber-400"></div>
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
             Unmatched Quality &
-            <span className="block bg-linear-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-              Trust Since 1985
-            </span>
+            <span className="block text-white mt-1">Trust Since 1985</span>
           </h2>
 
-          <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-zinc-400 text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
             We set the industry standard for excellence, combining decades of
             expertise with cutting-edge certification processes.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className={`group relative bg-linear-to-br from-gray-800 to-gray-900 p-8 rounded-3xl border border-gray-700 hover:border-amber-500/50 transition-all duration-500 transform hover:-translate-y-2 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <div className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-12 md:mb-16 lg:mb-20">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className={`group relative bg-white/5 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <div className="absolute inset-0 bg-linear-to-br from-amber-500/0 via-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:via-transparent group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
 
-              <div className="relative">
-                <div className="w-16 h-16 bg-linear-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-amber-500/30 group-hover:shadow-amber-500/50 transition-all duration-300 group-hover:scale-110 transform text-white">
-                  {feature.icon}
+                <div className="relative">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 md:mb-6 border border-white/10 group-hover:border-amber-400/30 group-hover:bg-amber-400/10 transition-all duration-300 text-white group-hover:text-amber-400">
+                    <Icon className="w-6 h-6" />
+                  </div>
+
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-sm md:text-base text-zinc-400 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-
-                <h3 className="text-2xl font-black mb-4 group-hover:text-amber-400 transition-colors">
-                  {feature.title}
-                </h3>
-
-                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
-                  {feature.description}
-                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="mt-20 bg-linear-to-r from-amber-500/10 via-amber-600/10 to-amber-500/10 rounded-3xl p-12 border border-amber-500/20">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="flex-1">
-              <h3 className="text-3xl font-black mb-4">
+        <div className="bg-white/5 backdrop-blur-md rounded-2xl lg:rounded-3xl p-6 md:p-8 lg:p-12 border border-white/10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+            <div className="flex-1 text-center lg:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">
                 Ready to Explore Our Collection?
               </h3>
-              <p className="text-gray-300 text-lg">
+              <p className="text-zinc-400 text-base md:text-lg">
                 Schedule a consultation with our gold specialists and discover
                 the perfect pieces for your collection.
               </p>
             </div>
-            <button className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-2xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold text-lg transform hover:scale-105 flex items-center gap-3 whitespace-nowrap">
+            <button className="group bg-white text-black px-6 md:px-8 lg:px-10 py-3 md:py-4 rounded-full hover:bg-amber-400 transition-all duration-300 font-semibold text-sm md:text-base transform hover:scale-105 flex items-center gap-2 md:gap-3 whitespace-nowrap shadow-lg hover:shadow-xl">
               Book Consultation
               <ArrowRight
-                size={20}
-                className="group-hover:translate-x-2 transition-transform"
+                size={18}
+                className="group-hover:translate-x-1 transition-transform"
               />
             </button>
           </div>
@@ -146,4 +153,4 @@ export const Quality: React.FC = () => {
       </div>
     </section>
   );
-};
+}

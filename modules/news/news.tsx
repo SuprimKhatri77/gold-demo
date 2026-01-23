@@ -138,7 +138,7 @@ export const NewsPage: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen ">
       <NewsHero />
 
       <main className="max-w-7xl mx-auto px-6 py-16">

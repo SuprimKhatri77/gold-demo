@@ -6,7 +6,7 @@ import { TrustSection } from "./trust";
 
 export const ContactPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
       <ContactHero />
       <ContactForm />
       <ContactInformation />

@@ -33,40 +33,41 @@ export const ContactInformation: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 px-4 bg-linear-to-br from-gray-50 to-amber-50">
+    <section className="py-12 md:py-16 px-4 bg-gradient-to-br from-zinc-950 via-black to-zinc-950 border-y border-white/10">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl  font-bold text-gray-900 mb-3">
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
             Contact Information
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-zinc-400 max-w-2xl mx-auto">
             Reach out to us through any of the following channels
           </p>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
           {contactItems.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition"
+              className="bg-white/5 backdrop-blur-md rounded-lg md:rounded-xl border border-white/10 p-5 md:p-6 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300"
             >
               <div className="flex items-start">
-                <div className="shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600">
+                <div className="shrink-0 w-12 h-12 bg-amber-500/10 backdrop-blur-md rounded-lg flex items-center justify-center text-amber-500/70 border border-amber-500/20">
                   {item.icon}
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  <h3 className="text-xs md:text-sm font-semibold text-zinc-400 uppercase tracking-wide mb-1">
                     {item.label}
                   </h3>
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="text-gray-900 font-medium hover:text-amber-600 transition"
+                      className="text-white text-sm md:text-base font-medium hover:text-amber-500 transition-colors duration-300"
                     >
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-gray-900 font-medium">{item.value}</p>
+                    <p className="text-white text-sm md:text-base font-medium">
+                      {item.value}
+                    </p>
                   )}
                 </div>
               </div>

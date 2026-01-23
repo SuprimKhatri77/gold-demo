@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface NavItem {
   label: string;
@@ -11,116 +11,151 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About us", href: "/about-us" },
-  { label: "News", href: "/news" },
+  { label: "About", href: "/about-us" },
   { label: "Services", href: "/services" },
-  { label: "Our products", href: "/our-products" },
+  { label: "Products", href: "/our-products" },
   { label: "Contact", href: "/contact" },
-  { label: "Live rates", href: "/live-rates" },
+  { label: "News", href: "/news" },
+  { label: "Career", href: "/career" },
+  { label: "Account", href: "/account-opening" },
 ];
-export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+
+export function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = (): void => {
-      setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleMouseEnter = (
+    index: number,
+    e: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    const target = e.currentTarget;
+    const navContainer = navRef.current;
+    if (navContainer) {
+      const navRect = navContainer.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      setHoverPosition({
+        left: targetRect.left - navRect.left,
+        width: targetRect.width,
+      });
+    }
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-xl shadow-2xl shadow-amber-500/10"
-          : "bg-white/90 backdrop-blur-md"
+          ? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+          : "bg-black/60 backdrop-blur-md border-b border-white/5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-3 group cursor-pointer"
-          >
-            <div className="relative">
-              <div className="w-12 h-12 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 group-hover:shadow-amber-500/70 transition-all duration-300 group-hover:rotate-6 transform">
-                <span className="text-white font-black text-2xl">SR</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <Link href="/" className="relative group z-10">
+            <div className="flex items-center gap-3">
+              {/* Icon */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-amber-400/30 blur-lg group-hover:bg-amber-400/50 group-hover:blur-xl transition-all duration-300" />
+                <div className="relative w-11 h-11 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center transform group-hover:scale-105 transition-all duration-300 shadow-lg shadow-amber-500/30">
+                  <span className="text-black font-black text-lg">SR</span>
+                </div>
               </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
-            </div>
-            <div>
-              <span className="text-2xl font-black bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
-                SR Jewellers
-              </span>
-              <div className="text-xs text-gray-500 font-medium">Est. 1985</div>
+              {/* Text */}
+              <div className="hidden sm:block">
+                <div className="text-xl font-bold tracking-tight text-white">
+                  SR JEWELLERS
+                </div>
+                <div className="text-[9px] font-semibold tracking-[0.15em] text-amber-400/70 -mt-0.5">
+                  GOLD & BULLION EXPERTS
+                </div>
+              </div>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
+          {/* Desktop Navigation */}
+          <div
+            ref={navRef}
+            className="hidden lg:flex items-center gap-1 relative bg-white/5 backdrop-blur-md border border-white/10 px-2 py-1.5 rounded-lg"
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Animated hover background */}
+            <div
+              className={`absolute h-9 bg-white/10 backdrop-blur-sm border border-white/20 rounded-md transition-all duration-300 ease-out ${
+                hoveredIndex !== null
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-95"
+              }`}
+              style={{
+                left: `${hoverPosition.left}px`,
+                width: `${hoverPosition.width}px`,
+              }}
+            />
+
+            {navItems.map((item, index) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-gray-700 hover:text-amber-600 transition-all duration-300 font-semibold text-[15px] relative group py-2"
+                className="relative px-4 py-2 text-zinc-300 hover:text-white transition-colors duration-200 font-medium text-sm z-10"
+                onMouseEnter={(e) => handleMouseEnter(index, e)}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-amber-400 to-amber-600 group-hover:w-full transition-all duration-300"></span>
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-amber-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
               </a>
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
-            {/* <button className="text-gray-700 hover:text-amber-600 transition-all duration-300 font-semibold flex items-center gap-2 group">
-              <MessageCircle
-                size={20}
-                className="group-hover:scale-110 transition-transform"
-              />
-              <span>Live Chat</span>
-            </button> */}
-            <Link
-              href="/our-products"
-              className="relative bg-linear-to-r from-amber-500 via-amber-600 to-amber-500 text-white px-8 py-3 rounded-full hover:from-amber-600 hover:via-amber-700 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 font-bold transform hover:scale-105 overflow-hidden group"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                View Collection
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </span>
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </Link>
-          </div>
-
+          {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-gray-700 hover:text-amber-600 transition-colors p-2"
+            className="lg:hidden p-2.5 text-white bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 border border-white/10 rounded-lg"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
+      </div>
 
-        {isMobileMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 flex flex-col gap-4 border-t border-gray-200 pt-6 animate-fadeIn">
-            {navItems.map((item) => (
+      {/* Mobile Menu */}
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
+          isMobileMenuOpen
+            ? "max-h-screen opacity-100"
+            : "max-h-0 opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="px-4 sm:px-6 pb-6 pt-2 bg-black/95 backdrop-blur-xl border-t border-white/10">
+          <div className="flex flex-col space-y-1">
+            {navItems.map((item, index) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-gray-700 hover:text-amber-600 transition-all duration-300 font-semibold text-lg hover:translate-x-2 transform"
+                className="px-4 py-3.5 text-zinc-300 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 font-medium text-base border border-transparent hover:border-white/20 rounded-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  transitionDelay: `${index * 30}ms`,
+                }}
               >
                 {item.label}
               </a>
             ))}
-            <button className="bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 py-3 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold shadow-lg mt-2">
-              View Collection
-            </button>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
-};
+}

@@ -2,9 +2,7 @@
 
 import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { useScrollAnimation } from "./landing";
 import { useState } from "react";
-import Link from "next/link";
 
 interface Product {
   id: number;
@@ -90,8 +88,7 @@ const products: Product[] = [
   },
 ];
 
-export const Collection: React.FC = () => {
-  const { ref, isVisible } = useScrollAnimation();
+export function Collection() {
   const [activeFilter, setActiveFilter] = useState("All");
   const filters = ["All", "Bars", "Coins", "Jewelry", "Bullion"];
 
@@ -103,74 +100,70 @@ export const Collection: React.FC = () => {
   return (
     <section
       id="collection"
-      className="py-28 bg-linear-to-b from-white via-gray-50 to-white relative overflow-hidden"
+      className="py-24 lg:py-32 bg-linear-to-b from-zinc-950 via-zinc-900 to-zinc-950 relative overflow-hidden"
     >
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-amber-300/20 rounded-full blur-3xl"></div>
+      {/* Subtle background elements */}
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div
-          ref={ref}
-          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 lg:mb-20">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-1 w-12 bg-linear-to-r from-transparent to-amber-400"></div>
-            <span className="text-amber-600 font-bold tracking-wider uppercase text-sm flex items-center gap-2">
-              <Sparkles size={16} className="animate-pulse" />
+            <div className="h-px w-12 bg-linear-to-r from-transparent to-white/40" />
+            <span className="text-white/80 font-semibold tracking-wider uppercase text-sm flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
               Our Collection
             </span>
-            <div className="h-1 w-12 bg-linear-to-l from-transparent to-amber-400"></div>
+            <div className="h-px w-12 bg-linear-to-l from-transparent to-white/40" />
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
-            Exquisite Gold
-            <span className="block bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent">
-              Showcase Collection
-            </span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <span className="block text-white">Exquisite Gold</span>
+            <span className="block text-zinc-400">Showcase Collection</span>
           </h2>
 
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-zinc-400 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
             Explore our meticulously curated collection of premium gold pieces,
             each certified and authenticated to the highest international
             standards.
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+        {/* Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
           {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                 activeFilter === filter
-                  ? "bg-linear-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/30"
-                  : "bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-amber-300"
-              } transform hover:scale-105`}
+                  ? "bg-white text-black"
+                  : "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20"
+              }`}
             >
               {filter}
             </button>
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((product, index) => (
+        {/* Product Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className={`group relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 hover:bg-white/10"
             >
+              {/* Badge */}
               {product.badge && (
-                <div className="absolute top-6 left-6 z-20 bg-linear-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-sm text-black px-4 py-1.5 rounded-lg text-xs font-semibold">
                   {product.badge}
                 </div>
               )}
 
-              <div className="relative h-80 overflow-hidden">
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent z-10"></div>
+              {/* Image */}
+              <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
                 <Image
                   fill
                   src={product.image}
@@ -179,55 +172,53 @@ export const Collection: React.FC = () => {
                 />
               </div>
 
-              <div className="p-8">
-                <h3 className="text-2xl font-black mb-3 text-gray-900 group-hover:text-amber-600 transition-colors">
+              {/* Content */}
+              <div className="p-6 lg:p-8">
+                <h3 className="text-xl lg:text-2xl font-bold mb-3 text-white">
                   {product.name}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-zinc-400 mb-6 leading-relaxed text-sm lg:text-base">
                   {product.description}
                 </p>
 
-                <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-100">
+                {/* Specs */}
+                <div className="flex items-center justify-between mb-6 pb-6 border-b border-white/10">
                   <div>
-                    <div className="text-xs text-gray-500 font-semibold mb-1">
+                    <div className="text-xs text-zinc-500 font-medium mb-1">
                       Weight Range
                     </div>
-                    <div className="text-lg font-bold text-gray-900">
+                    <div className="text-base lg:text-lg font-semibold text-white">
                       {product.weight}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-gray-500 font-semibold mb-1">
+                    <div className="text-xs text-zinc-500 font-medium mb-1">
                       Purity
                     </div>
-                    <div className="text-lg font-bold bg-linear-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent">
+                    <div className="text-base lg:text-lg font-semibold text-white">
                       {product.purity}
                     </div>
                   </div>
                 </div>
 
-                {/* <button className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 flex items-center justify-center gap-2 group/btn">
+                {/* CTA Button */}
+                <button className="w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black text-white py-3 rounded-lg transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
                   View Details
-                  <ArrowRight
-                    size={18}
-                    className="group-hover/btn:translate-x-1 transition-transform"
-                  />
-                </button> */}
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
               </div>
             </div>
           ))}
         </div>
 
-        <Link href="/our-products" className="text-center mt-16 block">
-          <button className="group bg-white text-gray-900 px-10 py-5 rounded-full hover:bg-gray-50 transition-all duration-300 shadow-xl hover:shadow-2xl font-bold text-lg border-2 border-gray-200 hover:border-amber-400 transform hover:scale-105 flex items-center gap-3 mx-auto">
+        {/* View Full Collection Button */}
+        <div className="text-center mt-16">
+          <button className="group bg-white hover:bg-zinc-100 text-black px-10 py-4 rounded-lg transition-all duration-300 font-semibold text-lg flex items-center gap-3 mx-auto">
             View Full Collection
-            <ArrowRight
-              size={20}
-              className="group-hover:translate-x-2 transition-transform"
-            />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </button>
-        </Link>
+        </div>
       </div>
     </section>
   );
-};
+}

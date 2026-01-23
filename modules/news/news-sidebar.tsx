@@ -13,7 +13,7 @@ export const NewsSidebar: React.FC<NewsSidebarProps> = ({
   onSearchChange,
   suggestedNews,
 }) => (
-  <aside>
+  <aside className="space-y-6">
     <SearchBar value={searchQuery} onChange={onSearchChange} />
     <SuggestedNews news={suggestedNews} />
   </aside>

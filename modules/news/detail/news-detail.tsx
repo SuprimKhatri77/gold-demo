@@ -81,7 +81,6 @@ export const NewsDetailPage: React.FC = () => {
   }, []);
 
   // Simulate getting article from slug
-  // In real app: const slug = useParams() or similar
   const currentSlug =
     "gold-prices-reach-new-heights-amid-global-economic-uncertainty";
   const article = mockNews.find(
@@ -96,11 +95,9 @@ export const NewsDetailPage: React.FC = () => {
   const author = article ? mockAuthors[article.authorId] : null;
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* <ArticleHero /> */}
-
-      <main className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-3 gap-12">
+    <div className="min-h-screen bg-black">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           <article className="lg:col-span-2">
             {isLoading ? (
               <>
@@ -110,17 +107,15 @@ export const NewsDetailPage: React.FC = () => {
             ) : article && author ? (
               <>
                 <ArticleHeader article={article} author={author} />
-
-                <div className="relative w-full h-112.5 md:h-137.5 rounded-2xl overflow-hidden shadow-2xl mb-12">
-                  <NextImage
+                <div className="relative w-full h-64 md:h-96 lg:h-112.5 rounded-2xl overflow-hidden mb-8 md:mb-12 border border-white/10">
+                  <Image
+                    fill
                     src={article.images[0]}
                     alt={article.title}
                     className="w-full h-full object-cover"
-                    priority
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                 </div>
-
                 <ArticleContent
                   content={article.content}
                   images={article.images}
@@ -129,7 +124,6 @@ export const NewsDetailPage: React.FC = () => {
               </>
             ) : null}
           </article>
-
           <div className="lg:col-span-1">
             {!isLoading && article && (
               <Sidebar

@@ -33,13 +33,11 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
   images,
 }) => {
   const paragraphs = content.split("\n\n").filter((p) => p.trim());
-
-  // Insert images at strategic points in the content
   const insertImageAt = Math.floor(paragraphs.length / 3);
   const insertSecondImageAt = Math.floor((paragraphs.length * 2) / 3);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {paragraphs.map((paragraph, index) => {
         const trimmed = paragraph.trim();
         const isHeading = trimmed.length < 60 && !trimmed.endsWith(".");
@@ -47,39 +45,39 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
         return (
           <React.Fragment key={index}>
             {isHeading ? (
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-12 mb-6 pb-4 border-b-2 border-amber-200">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mt-10 md:mt-12 mb-4 md:mb-6 pb-3 md:pb-4 border-b border-white/10">
                 {trimmed}
               </h2>
             ) : (
-              <p className="text-lg text-slate-700 leading-[1.8] font-normal">
+              <p className="text-base md:text-lg text-zinc-300 leading-relaxed">
                 {trimmed}
               </p>
             )}
 
-            {/* Insert first additional image */}
+            {/* First Image */}
             {index === insertImageAt && images.length > 1 && (
-              <div className="my-12">
-                <div className="relative w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="my-8 md:my-12">
+                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md">
                   <NextImage
                     src={images[1]}
                     alt="Article illustration"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent"></div>
                 </div>
               </div>
             )}
 
-            {/* Insert second additional image */}
+            {/* Second Image */}
             {index === insertSecondImageAt && images.length > 2 && (
-              <div className="my-12">
-                <div className="relative w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="my-8 md:my-12">
+                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md">
                   <NextImage
                     src={images[2]}
                     alt="Article illustration"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent"></div>
                 </div>
               </div>
             )}

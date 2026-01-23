@@ -89,10 +89,7 @@ export const ContactForm: React.FC = () => {
     setSubmitStatus("idle");
 
     try {
-      // Simulate API call - Replace with actual endpoint
-      // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
       console.log("Form submitted:", formData);
 
       setSubmitStatus("success");
@@ -112,24 +109,24 @@ export const ContactForm: React.FC = () => {
   };
 
   return (
-    <section className="py-12 px-4 bg-white">
+    <section className="py-12 md:py-16 px-4 bg-black">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
-          <h2 className="text-3xl  font-bold text-gray-900 mb-2">
+        <div className="bg-white/5 backdrop-blur-md rounded-xl md:rounded-2xl border border-white/10 p-6 md:p-8 lg:p-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
             Send Us a Message
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-zinc-400 mb-6 md:mb-8">
             Fill out the form below and we&apos;ll get back to you shortly.
           </p>
 
           <div>
             {/* Row 1: Full Name & Email */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Full Name */}
               <div>
                 <label
                   htmlFor="fullName"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-zinc-300 mb-2"
                 >
                   Full Name *
                 </label>
@@ -139,13 +136,13 @@ export const ContactForm: React.FC = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg border ${
-                    errors.fullName ? "border-red-500" : "border-gray-300"
-                  } focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition`}
+                  className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
+                    errors.fullName ? "border-red-500" : "border-white/10"
+                  } text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all hover:bg-white/[0.07]`}
                   placeholder="John Doe"
                 />
                 {errors.fullName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
+                  <p className="mt-1 text-sm text-red-400">{errors.fullName}</p>
                 )}
               </div>
 
@@ -153,7 +150,7 @@ export const ContactForm: React.FC = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-zinc-300 mb-2"
                 >
                   Email Address *
                 </label>
@@ -163,27 +160,27 @@ export const ContactForm: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  } focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition`}
+                  className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
+                    errors.email ? "border-red-500" : "border-white/10"
+                  } text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all hover:bg-white/[0.07]`}
                   placeholder="john@example.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  <p className="mt-1 text-sm text-red-400">{errors.email}</p>
                 )}
               </div>
             </div>
 
             {/* Row 2: Phone & Subject */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Phone */}
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-zinc-300 mb-2"
                 >
                   Phone Number{" "}
-                  <span className="text-gray-400 font-normal">(Optional)</span>
+                  <span className="text-zinc-500 font-normal">(Optional)</span>
                 </label>
                 <input
                   type="tel"
@@ -191,7 +188,7 @@ export const ContactForm: React.FC = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all hover:bg-white/[0.07]"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
@@ -200,7 +197,7 @@ export const ContactForm: React.FC = () => {
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-zinc-300 mb-2"
                 >
                   Subject *
                 </label>
@@ -209,28 +206,30 @@ export const ContactForm: React.FC = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg border ${
-                    errors.subject ? "border-red-500" : "border-gray-300"
-                  } focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition bg-white`}
+                  className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
+                    errors.subject ? "border-red-500" : "border-white/10"
+                  } text-white focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all hover:bg-white/[0.07]`}
                 >
-                  <option value="">Select a subject</option>
+                  <option value="" className="bg-zinc-900">
+                    Select a subject
+                  </option>
                   {subjectOptions.map((option) => (
-                    <option key={option} value={option}>
+                    <option key={option} value={option} className="bg-zinc-900">
                       {option}
                     </option>
                   ))}
                 </select>
                 {errors.subject && (
-                  <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
+                  <p className="mt-1 text-sm text-red-400">{errors.subject}</p>
                 )}
               </div>
             </div>
 
-            {/* Row 3: Message (Full Width) */}
+            {/* Row 3: Message */}
             <div className="mb-6">
               <label
                 htmlFor="message"
-                className="block text-sm font-semibold text-gray-700 mb-2"
+                className="block text-sm font-semibold text-zinc-300 mb-2"
               >
                 Message *
               </label>
@@ -240,25 +239,25 @@ export const ContactForm: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={6}
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.message ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition resize-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
+                  errors.message ? "border-red-500" : "border-white/10"
+                } text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all resize-none hover:bg-white/[0.07]`}
                 placeholder="Tell us how we can help you..."
               />
               {errors.message && (
-                <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                <p className="mt-1 text-sm text-red-400">{errors.message}</p>
               )}
             </div>
 
             {/* Submit Status Messages */}
             {submitStatus === "success" && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
-                <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 shrink-0" />
+              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-start backdrop-blur-md">
+                <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-green-800 font-semibold">
+                  <p className="text-green-300 font-semibold">
                     Message sent successfully!
                   </p>
-                  <p className="text-green-700 text-sm">
+                  <p className="text-green-400/80 text-sm">
                     We&apos;ll get back to you within 24 hours.
                   </p>
                 </div>
@@ -266,13 +265,13 @@ export const ContactForm: React.FC = () => {
             )}
 
             {submitStatus === "error" && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
-                <AlertCircle className="w-5 h-5 text-red-600 mr-3 mt-0.5 shrink-0" />
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start backdrop-blur-md">
+                <AlertCircle className="w-5 h-5 text-red-400 mr-3 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-red-800 font-semibold">
+                  <p className="text-red-300 font-semibold">
                     Something went wrong
                   </p>
-                  <p className="text-red-700 text-sm">
+                  <p className="text-red-400/80 text-sm">
                     Please try again or contact us directly.
                   </p>
                 </div>
@@ -283,7 +282,7 @@ export const ContactForm: React.FC = () => {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-amber-600 hover:to-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full bg-white/5 backdrop-blur-md border border-white/10 text-white font-semibold py-3.5 md:py-4 px-6 rounded-lg hover:bg-amber-500/20 hover:border-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-white/5"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>

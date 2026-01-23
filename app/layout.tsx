@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/modules/landing/header";
 import { Footer } from "@/modules/landing/footer";
 import { Navbar } from "@/modules/landing/navbar";
-import { LiveRatePopup } from "@/modules/live-rates/live-rates-popup";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
+import { Raleway } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -30,13 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${raleway.variable} antialiased font-(--font-raleway) bg-black`}
       >
         <ReactQueryProvider>
           <Header />
           <Navbar />
           {children}
-          <LiveRatePopup />
+          {/* <LiveRatePopup /> */}
           <Footer />
         </ReactQueryProvider>
       </body>

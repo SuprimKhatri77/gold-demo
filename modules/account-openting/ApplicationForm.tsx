@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, FormEvent, useState, FC, JSX } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { Upload, CheckCircle, AlertCircle, X } from 'lucide-react';
 
@@ -58,6 +58,28 @@ const initialFiles: Readonly<Record<FileFieldKey, File | null>> = {
   file6: null,
 };
 
+const modalVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.3,
+      staggerChildren: 0.05, // Smooth entrance for form items
+      delayChildren: 0.1
+    }
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    y: 20,
+    transition: { duration: 0.2 }
+  }
+};
+
 const getAnimationVariants = (): AnimationVariants => ({
   container: {
     hidden: { opacity: 0, scale: 0.95 },
@@ -75,7 +97,7 @@ const getAnimationVariants = (): AnimationVariants => ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4, ease: 'linear' },
     },
   } as Variants,
   input: {
@@ -198,9 +220,10 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
       <motion.form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        variants={variants.container}
+        variants={modalVariants}
         initial="hidden"
         animate="visible"
+        exit="exit"
         className="relative w-full max-w-3xl rounded-3xl border border-amber-200 bg-linear-to-br from-white via-amber-50 to-white p-6 shadow-2xl md:p-10"
       >
         {/* Close Button */}
@@ -262,21 +285,37 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
         </motion.div>
 
         {/* File Uploads */}
-        <motion.div variants={variants.item} className="mb-6 md:mb-8">
+        <div className="mb-6 md:mb-8">
           <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-4">
             Required Documents
           </h3>
+
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-            {(Object.keys(formData.files) as FileFieldKey[]).map((key, index) => (
-              <FormFileUpload
-                key={key}
-                label={`Document ${index + 1}`}
-                file={formData.files[key]}
-                onChange={(e) => handleFileChange(key, e)}
-              />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {(Object.keys(formData.files) as FileFieldKey[]).map((key, index) => (
+                <motion.div
+                  key={key}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                    delay: index * 0.05
+                  }}
+                >
+                  <FormFileUpload
+                    label={`Document ${index + 1}`}
+                    file={formData.files[key]}
+                    onChange={(e) => handleFileChange(key, e)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
-        </motion.div>
+        </div>
 
         {/* Comments */}
         <motion.div variants={variants.item} className="mb-6 md:mb-8">

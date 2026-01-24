@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import type { FC, JSX } from "react";
 import type { Variants } from "framer-motion";
+import type { LucideProps } from "lucide-react";
+
+
 import {
   Zap,
   Shield,
@@ -14,10 +16,9 @@ import {
   Box,
   ShieldCheck,
   HeartHandshake,
-  View,
-  DatabaseZap,
+  Eye,
+  Database,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 // Type definitions
 interface ProductSpec {
@@ -41,36 +42,13 @@ interface Feature {
   readonly title: string;
   readonly description: string;
   readonly icon:
-    | "certified"
-    | "storage"
-    | "pricing"
-    | "expertise"
-    | "reach"
-    | "solutions";
+  | "certified"
+  | "storage"
+  | "pricing"
+  | "expertise"
+  | "reach"
+  | "solutions";
 }
-
-interface AnimationVariants {
-  container: Variants;
-  item: Variants;
-  card: Variants;
-  floating: Variants;
-  hover: Variants;
-  spec: Variants;
-}
-
-const cardVariants = {
-  rest: {
-    scale: 1,
-    opacity: 1,
-  },
-  hover: {
-    scale: 1.05,
-    opacity: 1,
-    transition: { duration: 0.3 },
-  },
-};
-
-type HoveredProductId = number | null;
 
 const products: readonly Product[] = [
   {
@@ -86,7 +64,7 @@ const products: readonly Product[] = [
       { label: "Use Case", value: "Vault storage, hedging, reserves" },
     ],
     icon: "gold",
-    color: "from-yellow-500 to-amber-500",
+    color: "from-amber-500 to-amber-600",
   },
   {
     id: 2,
@@ -101,7 +79,7 @@ const products: readonly Product[] = [
       { label: "Availability", value: "Volume pricing available" },
     ],
     icon: "silver",
-    color: "from-slate-300 to-slate-400",
+    color: "from-zinc-400 to-zinc-500",
   },
   {
     id: 3,
@@ -116,7 +94,7 @@ const products: readonly Product[] = [
       { label: "Channels", value: "Verified sourcing" },
     ],
     icon: "platinum",
-    color: "from-gray-300 to-gray-400",
+    color: "from-zinc-500 to-zinc-600",
   },
   {
     id: 4,
@@ -131,7 +109,7 @@ const products: readonly Product[] = [
       { label: "Sourcing", value: "Secured on-demand" },
     ],
     icon: "palladium",
-    color: "from-zinc-400 to-gray-500",
+    color: "from-zinc-600 to-zinc-700",
   },
 ];
 
@@ -180,8 +158,10 @@ const features: readonly Feature[] = [
   },
 ];
 
-const getAnimationVariants = (): AnimationVariants => ({
-  container: {
+export default function OurProducts() {
+  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -190,141 +170,102 @@ const getAnimationVariants = (): AnimationVariants => ({
         delayChildren: 0.2,
       },
     },
-  } as Variants,
-  item: {
+  };
+
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
-  } as Variants,
-  card: {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
-  } as Variants,
-  floating: {
-    initial: { y: 0 },
-    animate: {
-      y: [0, -12, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  } as Variants,
-  hover: {
-    rest: { scale: 1, y: 0 },
-    hover: {
-      scale: 1.04,
-      y: -8,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut",
-      },
-    },
-  } as Variants,
-  spec: {
-    hidden: { opacity: 0, x: -10 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  } as Variants,
-});
-
-interface OurProductsProps {
-  readonly className?: string;
-}
-
-export const OurProducts: FC<OurProductsProps> = ({
-  className = "",
-}: OurProductsProps): JSX.Element => {
-  const router = useRouter();
-  const [hoveredProductId, setHoveredProductId] =
-    useState<HoveredProductId>(null);
-  const variants = getAnimationVariants();
-
-  const handleMouseEnter = (id: number): void => {
-    setHoveredProductId(id);
   };
 
-  const handleMouseLeave = (): void => {
-    setHoveredProductId(null);
-  };
+  type ProductIconType = "gold" | "silver" | "platinum" | "palladium";
 
-  const renderProductIcon = (icon: Product["icon"]): JSX.Element => {
-    const iconSize = 32;
-    const iconProps = { size: iconSize, className: "text-amber-600" };
+  type FeatureIconType =
+    | "certified"
+    | "expertise"
+    | "pricing"
+    | "reach"
+    | "storage"
+    | "solutions";
 
-    const icons: Record<Product["icon"], JSX.Element> = {
+
+  const renderProductIcon = (icon: ProductIconType): React.ReactNode => {
+    const iconProps = { size: 28, className: "text-white" };
+    const icons = {
       gold: <Award {...iconProps} />,
       silver: <Zap {...iconProps} />,
       platinum: <Shield {...iconProps} />,
       palladium: <TrendingUp {...iconProps} />,
     };
+    return icons[icon];
+  };
 
+  const renderFeatureIcon = (icon: FeatureIconType): React.ReactNode => {
+    const iconProps: LucideProps = { size: 20, className: "text-white group-hover:text-amber-500 transition-colors" };
+    const icons = {
+      certified: <ShieldCheck {...iconProps} />,
+      expertise: <HeartHandshake {...iconProps} />,
+      pricing: <Eye {...iconProps} />,
+      reach: <CheckCircle {...iconProps} />,
+      storage: <Database {...iconProps} />,
+      solutions: <Award {...iconProps} />,
+    };
     return icons[icon];
   };
 
   return (
-    <section
-      id="products"
-      className={`py-28 bg-linear-to-b from-white via-amber-50/10 to-white relative overflow-hidden ${className}`}
-    >
-      {/* Floating background elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-amber-100/20 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-yellow-100/20 rounded-full blur-3xl -z-10" />
+    <section id="products" className="py-24 bg-black relative overflow-hidden">
+      {/* Subtle background gradients */}
+      <div className="absolute top-0 left-1/3 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={variants.container}
-          className="text-center mb-24"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="text-center mb-16"
         >
           <motion.div
-            variants={variants.item}
-            className="flex items-center justify-center gap-2 mb-4"
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
           >
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Box className="text-amber-600" size={24} />
-            </motion.div>
-            <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">
+            <Box className="text-amber-500" size={16} />
+            <span className="text-zinc-400 text-sm font-medium">
               Our Products
             </span>
           </motion.div>
 
           <motion.h2
-            variants={variants.item}
-            className="text-5xl font-black leading-tight mb-6"
+            variants={itemVariants}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
             Premium Precious Metals
           </motion.h2>
 
           <motion.p
-            variants={variants.item}
-            className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto"
+            variants={itemVariants}
+            className="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto"
           >
             Investment-grade bullion bars in gold, silver, platinum, and
             palladium, refined to international purity standards and available
@@ -334,93 +275,87 @@ export const OurProducts: FC<OurProductsProps> = ({
 
         {/* Products Grid */}
         <motion.div
-          variants={variants.container}
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid lg:grid-cols-2 gap-8 mb-24"
+          className="grid lg:grid-cols-2 gap-6 mb-20"
         >
-          {products.map((product: Product) => (
+          {products.map((product) => (
             <motion.div
               key={product.id}
               variants={cardVariants}
-              onMouseEnter={() => handleMouseEnter(product.id)}
-              onMouseLeave={handleMouseLeave}
-              initial="rest"
-              animate={hoveredProductId === product.id ? "hover" : "rest"}
+              layout
               className="group"
+              whileHover={{ y: -6 }} // small upward movement for smooth hover
+              transition={{ type: "spring", stiffness: 120, damping: 14, duration: 0.3 }} // smooth spring
             >
-              <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-amber-100 h-full flex flex-col">
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col">
                 {/* Product Header */}
-                <div
-                  className={`bg-linear-to-br ${product.color} p-8 text-white relative overflow-hidden`}
-                >
+                <div className={`bg-linear-to-br ${product.color} p-8 relative overflow-hidden`}>
                   <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
+                    animate={{ scale: [1, 1.05, 1] }}
                     transition={{
                       duration: 4,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"
+                    className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"
                   />
 
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
-                      <div>{renderProductIcon(product.icon)}</div>
-                      <span className="bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-semibold">
+                      <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                        {renderProductIcon(product.icon)}
+                      </div>
+                      <span className="bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-lg text-sm font-semibold text-white">
                         {product.formats[0]}
                       </span>
                     </div>
 
-                    <h3 className="text-3xl font-black mb-2">{product.name}</h3>
-                    <p className="text-white/90 text-sm">
-                      Purity: {product.purity}
-                    </p>
+                    <h3 className="text-2xl font-bold mb-2 text-white">{product.name}</h3>
+                    <p className="text-white/80 text-sm">Purity: {product.purity}</p>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 p-8">
-                  <p className="text-gray-600 text-base leading-relaxed mb-6">
-                    {product.description}
-                  </p>
+                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">{product.description}</p>
 
                   {/* Specifications */}
-                  <div className="space-y-4">
-                    {product.specs.map((spec: ProductSpec, index: number) => (
+                  <div className="space-y-3 mb-6">
+                    {product.specs.map((spec, index) => (
                       <motion.div
-                        key={`${product.id}-spec-${index}`}
-                        variants={variants.spec}
-                        initial="hidden"
-                        whileInView="visible"
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
+                        transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
                         className="flex items-start gap-3"
                       >
                         <div className="shrink-0 mt-1">
-                          <CheckCircle className="text-amber-600" size={18} />
+                          <CheckCircle className="text-amber-500" size={16} />
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900 text-sm">
-                            {spec.label}
-                          </p>
-                          <p className="text-gray-600 text-sm">{spec.value}</p>
+                          <p className="font-semibold text-white text-sm">{spec.label}</p>
+                          <p className="text-zinc-400 text-xs">{spec.value}</p>
                         </div>
                       </motion.div>
                     ))}
                   </div>
 
                   {/* Format List */}
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <p className="text-sm font-semibold text-gray-900 mb-3">
+                  <div className="pt-6 border-t border-white/10">
+                    <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
                       Available Formats
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {product.formats.map((format: string, index: number) => (
+                      {product.formats.map((format, index) => (
                         <motion.span
-                          key={`${product.id}-format-${index}`}
-                          whileHover={{ scale: 1.05 }}
-                          className="bg-amber-50 text-amber-700 px-4 py-2 rounded-full text-sm font-medium border border-amber-200"
+                          key={index}
+                          whileHover={{ scale: 1.06 }}
+                          transition={{ type: "spring", stiffness: 150, damping: 12 }}
+                          className="bg-white/5 backdrop-blur-md border border-white/10 text-zinc-300 px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-amber-500/20 hover:border-amber-500/30 hover:text-amber-500 transition-all duration-300"
                         >
                           {format}
                         </motion.span>
@@ -433,64 +368,45 @@ export const OurProducts: FC<OurProductsProps> = ({
           ))}
         </motion.div>
 
+
         {/* Why SR Bullion Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="mb-24"
+          variants={containerVariants}
+          className="mb-20"
         >
           <motion.h3
-            variants={variants.item}
-            className="text-4xl font-black text-center mb-16"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-12"
           >
             Why SR Bullion
           </motion.h3>
 
           <motion.div
-            variants={variants.container}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {features.map((feature: Feature) => (
+            {features.map((feature) => (
               <motion.div
                 key={feature.id}
-                variants={variants.card}
-                className="bg-white rounded-2xl p-8 border border-amber-100 shadow-lg hover:shadow-xl transition-all duration-300"
+                variants={cardVariants}
+                whileHover={{ y: -4 }}
+                className="group"
               >
-                <motion.div
-                  className="mb-4 inline-block"
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-amber-100 to-yellow-100 flex items-center justify-center">
-                    {feature.icon === "certified" && (
-                      <ShieldCheck className="text-amber-600" size={24} />
-                    )}
-                    {feature.icon === "expertise" && (
-                      <HeartHandshake className="text-amber-600" size={24} />
-                    )}
-                    {feature.icon === "pricing" && (
-                      <View className="text-amber-600" size={24} />
-                    )}
-                    {feature.icon === "reach" && (
-                      <CheckCircle className="text-amber-600" size={24} />
-                    )}
-                    {feature.icon === "storage" && (
-                      <DatabaseZap className="text-amber-600" size={24} />
-                    )}
-                    {feature.icon === "solutions" && (
-                      <Award className="text-amber-600" size={24} />
-                    )}
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4">
+                    {renderFeatureIcon(feature.icon)}
                   </div>
-                </motion.div>
 
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  {feature.title}
-                </h4>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                  <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-amber-500 transition-colors">
+                    {feature.title}
+                  </h4>
+                  <p className="text-zinc-400 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -501,19 +417,19 @@ export const OurProducts: FC<OurProductsProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="text-center py-16"
+          variants={containerVariants}
+          className="text-center"
         >
           <motion.h3
-            variants={variants.item}
-            className="text-3xl font-black mb-6"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl font-bold text-white mb-6"
           >
             Ready to Secure Your Next Bullion Trade?
           </motion.h3>
 
           <motion.p
-            variants={variants.item}
-            className="text-gray-600 text-lg max-w-2xl mx-auto mb-8"
+            variants={itemVariants}
+            className="text-zinc-400 text-lg max-w-2xl mx-auto mb-8"
           >
             Get in touch with SR Bullion FZCO for wholesale precious metals
             delivered with integrity, compliance, and confidentiality.
@@ -521,15 +437,14 @@ export const OurProducts: FC<OurProductsProps> = ({
 
           <motion.button
             type="button"
-            onClick={() => router.push("/contact")}
-            variants={variants.item}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-3 mx-auto"
+            variants={itemVariants}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group bg-white text-black px-8 py-4 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
           >
             Contact Us Today
             <motion.div
-              animate={{ x: [0, 5, 0] }}
+              animate={{ x: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <ArrowRight size={20} />
@@ -539,4 +454,4 @@ export const OurProducts: FC<OurProductsProps> = ({
       </div>
     </section>
   );
-};
+}

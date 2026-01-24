@@ -17,7 +17,6 @@ import {
   Lock,
   Zap,
   CheckCheck,
-  User,
   UserCircle,
 } from 'lucide-react';
 import { ApplicationForm } from './ApplicationForm';
@@ -54,17 +53,6 @@ interface AccountBenefit {
   readonly description: string;
   readonly icon: string;
 }
-
-interface AnimationVariants {
-  container: Variants;
-  item: Variants;
-  card: Variants;
-  floating: Variants;
-  hover: Variants;
-  stagger: Variants;
-}
-
-type ExpandedCategoryId = number | null;
 
 const requirementCategories: readonly RequirementCategory[] = [
   {
@@ -212,74 +200,6 @@ const accountBenefits: readonly AccountBenefit[] = [
   },
 ];
 
-const getAnimationVariants = (): AnimationVariants => ({
-  container: {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  } as Variants,
-  item: {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-  card: {
-    hidden: { opacity: 0, scale: 0.95, y: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-  floating: {
-    initial: { y: 0 },
-    animate: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  } as Variants,
-  hover: {
-    rest: { scale: 1 },
-    hover: {
-      scale: 1.02,
-      transition: {
-        duration: 0.3,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-  stagger: {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-      },
-    }),
-  } as Variants,
-});
-
 interface AccountOpeningProps {
   readonly className?: string;
 }
@@ -292,16 +212,41 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   const handleOpenApplicationForm = () => {
     setApplicationFormOpen(!isApplicationFormOpen);
   }
+  const [expandedCategory, setExpandedCategory] = useState<number | null>(1);
 
-  const [expandedCategory, setExpandedCategory] = useState<ExpandedCategoryId>(1);
-  const variants = getAnimationVariants();
-
-  const handleMouseEnter = (id: number): void => {
-    setExpandedCategory(id);
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
   };
 
-  const handleMouseLeave = (): void => {
-    setExpandedCategory(null);
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
   };
 
   const toggleCategory = (id: number): void => {
@@ -309,7 +254,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   };
 
   const renderIcon = (iconName: string): JSX.Element => {
-    const iconProps = { className: 'w-6 h-6', strokeWidth: 1.5 };
+    const iconProps = { className: 'w-6 h-6 group-hover:text-amber-500', strokeWidth: 1.5 };
     const iconMap: Record<string, JSX.Element> = {
       building: <Building2 {...iconProps} />,
       map: <MapPin {...iconProps} />,
@@ -325,57 +270,51 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   return (
     <section
       id="account-opening"
-      className={`py-28 bg-linear-to-b from-white via-amber-50/5 to-white relative overflow-hidden ${className}`}
+      className={`py-24 bg-black relative overflow-hidden ${className}`}
     >
-      {/* Floating background elements */}
-      <div className="absolute top-10 left-5 w-72 h-72 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-0 right-10 w-96 h-96 bg-amber-50 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-pulse" />
+      {/* Subtle background linears */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={variants.container}
+          viewport={{ once: true }}
+          variants={containerVariants}
           className="mb-20"
         >
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Image */}
             <motion.div
-              variants={variants.item}
-              className="relative h-96 rounded-3xl overflow-hidden"
+              variants={itemVariants}
+              className="relative h-96 rounded-2xl overflow-hidden"
             >
-              <div className="w-full h-full bg-linear-to-br from-amber-400 via-amber-300 to-orange-300 relative flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 relative flex items-center justify-center">
                 <motion.div
-                  animate="animate"
-                  initial="initial"
-                  variants={variants.floating}
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <UserCircle className="w-32 h-32 text-amber-700 opacity-50" />
+                  <UserCircle className="w-32 h-32 text-white/30" />
                 </motion.div>
               </div>
             </motion.div>
 
             {/* Right: Content */}
-            <motion.div variants={variants.item} className="space-y-6">
-              <div className="flex items-center gap-3 mb-4">
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                >
-                  <CheckCheck className="text-amber-600 w-6 h-6" />
-                </motion.div>
-                <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">
+            <motion.div variants={itemVariants} className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
+                <CheckCheck className="text-amber-500" size={16} />
+                <span className="text-zinc-400 text-sm font-medium">
                   Simple & Fast Process
                 </span>
               </div>
 
-              <h1 className="text-5xl lg:text-6xl font-black leading-tight text-balance">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 Open Your Account in 4 Steps
               </h1>
 
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-zinc-400 leading-relaxed">
                 Join SR Bullion and start trading precious metals with confidence. Our streamlined account opening
                 process ensures you get started quickly while maintaining highest compliance standards.
               </p>
@@ -384,9 +323,9 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                 <motion.button
                   type="button"
                   onClick={handleOpenApplicationForm}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-linear-to-r from-amber-500 to-amber-600 text-white font-bold rounded-full hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-4 bg-white text-black font-semibold rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2"
                 >
                   Start Application
                   <ArrowRight className="w-5 h-5" />
@@ -394,9 +333,9 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
 
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-amber-200 text-amber-700 font-bold rounded-full hover:bg-amber-50 transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-amber-500/30 transition-color duration-100"
                 >
                   <a href="#required_document">Required Documents</a>
                 </motion.button>
@@ -410,47 +349,45 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="mb-24"
+          variants={containerVariants}
+          className="mb-20"
         >
-          <motion.div variants={variants.item} className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 text-balance">Account Opening Process</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+              Account Opening Process
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               Follow our straightforward 4-step process to open your account
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step: ProcessStep) => (
               <motion.div
                 key={step.id}
-                variants={variants.card}
+                variants={cardVariants}
+                whileHover={{ y: -4 }}
                 className="relative group"
               >
-                <div className="bg-white rounded-2xl p-8 border border-amber-100 h-full flex flex-col hover:shadow-xl hover:border-amber-300 transition-all duration-300">
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
                   {/* Step Number */}
-                  <div className="absolute -top-4 -left-4 w-12 h-12 bg-linear-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  <div className="absolute -top-3 -left-3 w-10 h-10 bg-linear-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-amber-500/20">
                     {step.number}
                   </div>
 
                   {/* Icon */}
-                  <motion.div
-                    whileHover={{ rotate: 2 }}
-                    transition={{ duration: 0.2 }}
-                    className="mb-4 text-amber-600"
-                  >
-                    {renderIcon(step.icon)}
-                  </motion.div>
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
+                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                      {renderIcon(step.icon)}
+                    </span>
+                  </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold mb-2 text-gray-900">{step.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                  <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-amber-500 transition-colors">
+                    {step.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed">{step.description}</p>
                 </div>
-
-                {/* Connector line */}
-                {step.id < 4 && (
-                  <div className="hidden md:block absolute top-16 -right-6 w-6 h-0.5 bg-linear-to-r from-amber-300 to-transparent" />
-                )}
               </motion.div>
             ))}
           </div>
@@ -458,16 +395,18 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
 
         {/* Requirements Section */}
         <motion.div
-          id='required_document'
+          id="required_document"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="mb-24"
+          variants={containerVariants}
+          className="mb-20"
         >
-          <motion.div variants={variants.item} className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 text-balance">Required Documents</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+              Required Documents
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               All documents must be in English or accompanied by certified translation
             </p>
           </motion.div>
@@ -476,26 +415,23 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
             {requirementCategories.map((category: RequirementCategory) => (
               <motion.div
                 key={category.id}
-                variants={variants.item}
-                className="bg-white rounded-2xl border border-amber-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                variants={itemVariants}
+                className="group bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl overflow-hidden transition-all duration-300"
               >
                 <motion.button
                   type="button"
                   onClick={() => toggleCategory(category.id)}
-                  onMouseEnter={() => handleMouseEnter(category.id)}
-                  onMouseLeave={handleMouseLeave}
-                  className="w-full p-6 flex items-center justify-between hover:bg-amber-50/50 transition-colors duration-200"
+                  className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors duration-200 text-left"
                 >
-                  <div className="flex items-center gap-4 text-left flex-1">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 10 }}
-                      className="text-amber-600 shrink-0"
-                    >
-                      {renderIcon(category.icon)}
-                    </motion.div>
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 hover:bg-amber-400/20 hover:border-amber-400/30">
+                      <span className="text-white">
+                        {renderIcon(category.icon)}
+                      </span>
+                    </div>
                     <div>
-                      <h3 className="font-bold text-lg text-gray-900">{category.title}</h3>
-                      <p className="text-sm text-gray-600">{category.description}</p>
+                      <h3 className="font-semibold text-lg text-white">{category.title}</h3>
+                      <p className="text-sm text-zinc-400">{category.description}</p>
                     </div>
                   </div>
 
@@ -503,7 +439,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                     animate={{ rotate: expandedCategory === category.id ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <ChevronDown className="w-6 h-6 text-amber-600 shrink-0" />
+                    <ChevronDown className="w-6 h-6 text-amber-500 shrink-0" />
                   </motion.div>
                 </motion.button>
 
@@ -514,18 +450,17 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                     opacity: expandedCategory === category.id ? 1 : 0,
                   }}
                   transition={{ duration: 0.3 }}
-                  className="overflow-hidden border-t border-amber-100"
+                  className="overflow-hidden border-t border-white/10"
                 >
-                  <div className="p-6 bg-linear-to-b from-amber-50/50 to-transparent">
+                  <div className="p-6 bg-white/5">
                     <ul className="space-y-3">
                       {category.items.map((item: string, index: number) => (
                         <motion.li
-                          key={`${category.id}-${index}`}
-                          custom={index}
-                          variants={variants.stagger}
-                          initial="hidden"
-                          animate={expandedCategory === category.id ? 'visible' : 'hidden'}
-                          className="flex items-start gap-3 text-gray-700"
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={expandedCategory === category.id ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                          transition={{ delay: index * 0.05 }}
+                          className="flex items-start gap-3 text-zinc-300"
                         >
                           <CheckCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                           <span className="text-sm leading-relaxed">{item}</span>
@@ -544,12 +479,14 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="mb-24"
+          variants={containerVariants}
+          className="mb-20"
         >
-          <motion.div variants={variants.item} className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 text-balance">Download Resources</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+              Download Resources
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               Get all the forms and policies you need
             </p>
           </motion.div>
@@ -558,38 +495,34 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
             {documentResources.map((doc: DocumentResource) => (
               <motion.div
                 key={doc.id}
-                variants={variants.card}
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
+                variants={cardVariants}
+                whileHover={{ y: -4 }}
                 className="group"
               >
-                <motion.div
-                  variants={variants.hover}
-                  className="bg-white rounded-2xl p-8 border border-amber-100 h-full flex flex-col"
-                >
-                  <motion.div
-                    whileHover={{ rotate: 2 }}
-                    className="mb-4 text-amber-600 inline-block"
-                  >
-                    {renderIcon(doc.icon)}
-                  </motion.div>
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
+                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                      {renderIcon(doc.icon)}
+                    </span>
+                  </div>
 
-                  <h3 className="font-bold text-lg mb-2 text-gray-900">{doc.title}</h3>
-                  <p className="text-sm text-gray-600 mb-6 grow">{doc.description}</p>
+                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
+                    {doc.title}
+                  </h3>
+                  <p className="text-sm text-zinc-400 mb-6 grow">{doc.description}</p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-amber-100">
-                    <span className="text-xs font-semibold text-amber-600 uppercase">{doc.type}</span>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                    <span className="text-xs font-semibold text-amber-500 uppercase">{doc.type}</span>
                     <motion.button
                       type="button"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="text-amber-600 hover:text-amber-700 transition-colors"
+                      className="text-amber-500 hover:text-amber-400 transition-colors"
                     >
                       <Download className="w-5 h-5" />
                     </motion.button>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -600,41 +533,38 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
-          className="mb-24"
+          variants={containerVariants}
+          className="mb-20"
         >
-          <motion.div variants={variants.item} className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 text-balance">Why Choose SR Bullion?</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+              Why Choose SR Bullion?
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               Experience premium service and market-leading advantages
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {accountBenefits.map((benefit: AccountBenefit) => (
               <motion.div
                 key={benefit.id}
-                variants={variants.card}
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
+                variants={cardVariants}
+                whileHover={{ y: -4 }}
                 className="group"
               >
-                <motion.div
-                  variants={variants.hover}
-                  className="bg-linear-to-br from-white to-amber-50/30 rounded-2xl p-8 border border-amber-100 h-full flex flex-col"
-                >
-                  <motion.div
-                    whileHover={{ rotate: 2 }}
-                    transition={{ duration: 0.2 }}
-                    className="mb-4 text-amber-600 inline-block"
-                  >
-                    {renderIcon(benefit.icon)}
-                  </motion.div>
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
+                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                      {renderIcon(benefit.icon)}
+                    </span>
+                  </div>
 
-                  <h3 className="font-bold text-lg mb-3 text-gray-900">{benefit.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
-                </motion.div>
+                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed">{benefit.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -645,27 +575,29 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={variants.container}
+          variants={containerVariants}
           className="text-center"
         >
           <motion.div
-            variants={variants.item}
-            className="bg-linear-to-r from-amber-500/10 to-orange-500/10 rounded-3xl p-12 border border-amber-200"
+            variants={itemVariants}
+            className="bg-linear-to-br from-amber-500/10 to-amber-600/5 backdrop-blur-md border border-amber-500/20 rounded-2xl p-12"
           >
-            <h2 className="text-4xl font-black mb-4 text-balance">Ready to Get Started?</h2>
-            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              Ready to Get Started?
+            </h2>
+            <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
               Join thousands of satisfied clients trading precious metals with SR Bullion
             </p>
 
             <motion.button
               type="button"
-              variants={variants.item}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-linear-to-r from-amber-500 to-amber-600 text-white font-bold rounded-full hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2 mx-auto"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-10 py-4 bg-white text-black font-semibold rounded-xl  transition-shadow duration-100 shadow-lg shadow-amber-500/20 inline-flex items-center justify-center gap-2"
             >
               Contact Our Team
-              <motion.div animate={{ x: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+              <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
                 <ArrowRight className="w-5 h-5" />
               </motion.div>
             </motion.button>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import type { FC, JSX } from "react";
-import type { Variants } from "framer-motion";
+import type { Variant, Variants } from "framer-motion";
 import {
   TrendingUp,
   Briefcase,
@@ -13,8 +13,6 @@ import {
   ArrowRight,
   Settings,
 } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 // Type definitions
 interface Service {
@@ -39,6 +37,7 @@ interface AnimationVariants {
   floating: Variants;
   hover: Variants;
   badge: Variants;
+  grid: Variants;
 }
 
 const cardVariants: Variants = {
@@ -66,7 +65,7 @@ const services: readonly Service[] = [
       "High-volume trading capacity",
     ],
     icon: "trading",
-    accent: "from-amber-500 to-yellow-500",
+    accent: "from-amber-500 to-amber-600",
   },
   {
     id: 2,
@@ -79,7 +78,7 @@ const services: readonly Service[] = [
       "Suited for vaulting, hedging, and reserve strategies",
     ],
     icon: "supply",
-    accent: "from-yellow-500 to-amber-500",
+    accent: "from-amber-500 to-amber-600",
   },
   {
     id: 3,
@@ -92,7 +91,7 @@ const services: readonly Service[] = [
       "Real-time market responsiveness",
     ],
     icon: "procurement",
-    accent: "from-amber-400 to-orange-500",
+    accent: "from-amber-500 to-amber-600",
   },
   {
     id: 4,
@@ -105,7 +104,7 @@ const services: readonly Service[] = [
       "Documentation and transfer support",
     ],
     icon: "logistics",
-    accent: "from-orange-500 to-amber-500",
+    accent: "from-amber-500 to-amber-600",
   },
 ];
 
@@ -159,7 +158,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.3,
+        delayChildren: 0.2,
       },
     },
   } as Variants,
@@ -169,19 +168,25 @@ const getAnimationVariants = (): AnimationVariants => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
   } as Variants,
+  grid: {
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+      },
+    },
+  } as Variants,
   card: {
-    hidden: { opacity: 0, scale: 0.95, y: 30 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
@@ -189,7 +194,7 @@ const getAnimationVariants = (): AnimationVariants => ({
   floating: {
     initial: { y: 0 },
     animate: {
-      y: [0, -12, 0],
+      y: [0, -10, 0],
       transition: {
         duration: 4,
         repeat: Infinity,
@@ -201,7 +206,7 @@ const getAnimationVariants = (): AnimationVariants => ({
     rest: { scale: 1, y: 0 },
     hover: {
       scale: 1.02,
-      y: -8,
+      y: -6,
       transition: {
         duration: 0.3,
         ease: "easeOut",
@@ -209,12 +214,12 @@ const getAnimationVariants = (): AnimationVariants => ({
     },
   } as Variants,
   badge: {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, x: -15 },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
@@ -222,7 +227,7 @@ const getAnimationVariants = (): AnimationVariants => ({
 });
 
 const getIconComponent = (iconType: Service["icon"]): React.ReactNode => {
-  const iconProps = { className: "text-amber-600", size: 28 };
+  const iconProps = { className: "text-white transition-colors duration-300 group-hover:text-amber-500", size: 24 };
   switch (iconType) {
     case "trading":
       return <TrendingUp {...iconProps} />;
@@ -237,12 +242,9 @@ const getIconComponent = (iconType: Service["icon"]): React.ReactNode => {
   }
 };
 
-const ShieldComponent = ({ ...props }) => <Shield {...props} />; // Declare Shield component
-
 export const ServiceSection: FC<ServiceSectionProps> = ({
   className = "",
 }: ServiceSectionProps): JSX.Element => {
-  const router = useRouter();
   const [hoveredId, setHoveredId] = useState<HoveredServiceId>(null);
   const variants = getAnimationVariants();
 
@@ -257,121 +259,102 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
   return (
     <section
       id="services"
-      className={`py-32 bg-linear-to-b from-white via-amber-50/5 to-white relative overflow-hidden ${className}`}
+      className={`py-24 bg-black relative overflow-hidden ${className}`}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 right-10 w-72 h-72 bg-amber-100/10 rounded-full blur-3xl"
-          animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-40 left-20 w-96 h-96 bg-yellow-100/5 rounded-full blur-3xl"
-          animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
+      {/* Subtle background linears */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 container mx-auto px-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           variants={variants.container}
-          className="text-center mb-24"
+          className="text-center mb-16"
         >
           <motion.div
             variants={variants.item}
-            className="flex items-center justify-center gap-2 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
           >
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-              <Settings className="text-amber-600" size={24} />
+              transition={{
+                repeat: Infinity,
+                duration: 3,
+                ease: "linear"
+              }}>
+              <Settings className="text-amber-500" size={16} />
             </motion.div>
-            <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">
+            <span className="text-zinc-400 text-sm font-medium">
               Our Services
             </span>
           </motion.div>
 
           <motion.h2
             variants={variants.item}
-            className="text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight text-balance"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
-            Institutional-Grade Bullion Solutions
+            Institutional-Grade
+            <span className="block mt-2 bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
+              Bullion Solutions
+            </span>
           </motion.h2>
 
           <motion.p
             variants={variants.item}
-            className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto"
+            className="text-zinc-400 text-lg leading-relaxed max-w-3xl mx-auto"
           >
-            Our Services At SR Bullion FZCO, we deliver institutional-grade
-            precious metal solutions backed by experience, regulatory
-            compliance, and a deep understanding of the bullion market. Our
-            services are designed to support financial institutions, bullion
-            dealers, industrial buyers, and family offices seeking secured,
-            transparent, and scalable bullion trade solutions.
+            At SR Bullion FZCO, we deliver institutional-grade precious metal
+            solutions backed by experience, regulatory compliance, and a deep
+            understanding of the bullion market. Our services are designed to
+            support financial institutions, bullion dealers, industrial buyers,
+            and family offices.
           </motion.p>
         </motion.div>
 
-        {/* Service image */}
-        {/* <Image
-          src={"/gold.jpg"}
-          height={720}
-          width={1200}
-          alt="services image"
-          className="mx-auto mb-15 object-cover h-150"
-        /> */}
         {/* Services Grid */}
         <motion.div
           variants={variants.container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid lg:grid-cols-2 gap-8 mb-28 items-start"
+          className="grid lg:grid-cols-2 items-start gap-6 mb-20"
         >
           {services.map((service: Service) => (
             <motion.div
               key={service.id}
-              layout
               variants={cardVariants}
               onMouseEnter={() => handleMouseEnter(service.id)}
               onMouseLeave={handleMouseLeave}
               initial="rest"
               animate={hoveredId === service.id ? "hover" : "rest"}
-              className=""
+              className="group"
             >
-              <div
-                className={`
-        bg-white rounded-2xl p-8 shadow-lg transition-shadow duration-200 
-        border border-amber-100/50 ${hoveredId === service.id ? "h-auto" : "min-h-87.5 h-full"}
-      `}
-              >
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl p-8 transition-clor duration-300 h-full flex flex-col">
                 {/* Icon and Title */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-linear-to-br from-amber-50 to-yellow-50 mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 p-3 transition-color duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 mb-4"
                       animate={
                         hoveredId === service.id
-                          ? { rotate: 10 }
-                          : { rotate: 0 }
+                          ? { rotate: 5, scale: 1.05 }
+                          : { rotate: 0, scale: 1 }
                       }
                       transition={{ duration: 0.3 }}
                     >
                       {getIconComponent(service.icon)}
                     </motion.div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
+                    <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-amber-500 transition-colors duration-100">
                       {service.title}
                     </h3>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-zinc-400 mb-6 leading-relaxed text-sm">
                   {service.description}
                 </p>
 
@@ -385,11 +368,8 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   }
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="overflow-hidden"
-                  style={{
-                    pointerEvents: hoveredId === service.id ? "auto" : "none",
-                  }}
                 >
-                  <div className="space-y-3 pt-4 border-t border-amber-100">
+                  <div className="space-y-3 pt-4 border-t border-white/10">
                     {service.details.map((detail: string, index: number) => (
                       <motion.div
                         key={`${service.id}-detail-${index}`}
@@ -408,9 +388,9 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                             delay: index * 0.1,
                           }}
                         >
-                          <div className="w-2 h-2 rounded-full bg-amber-500 mt-2" />
+                          <div className="w-2 h-2 rounded-full bg-amber-500 mt-1.5" />
                         </motion.div>
-                        <p className="text-sm text-gray-600">{detail}</p>
+                        <p className="text-sm text-zinc-400">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -418,15 +398,15 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
 
                 {/* CTA Arrow */}
                 <motion.div
-                  className="flex items-center justify-between pt-6"
+                  className="flex items-center justify-between pt-6 mt-auto"
                   animate={
                     hoveredId === service.id
                       ? { opacity: 1, x: 0 }
-                      : { opacity: 0.5, x: -10 }
+                      : { opacity: 0.6, x: -8 }
                   }
                   transition={{ duration: 0.3 }}
                 >
-                  <span className="text-sm font-semibold text-amber-600">
+                  <span className="text-sm font-semibold text-amber-500">
                     Learn More
                   </span>
                   <motion.div
@@ -436,10 +416,10 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                     transition={
                       hoveredId === service.id
                         ? { duration: 1.5, repeat: Infinity }
-                        : { duration: 0.2, repeat: 0 }
+                        : { duration: 0.2 }
                     }
                   >
-                    <ArrowRight size={18} className="text-amber-600" />
+                    <ArrowRight size={18} className="text-amber-500" />
                   </motion.div>
                 </motion.div>
               </div>
@@ -451,45 +431,44 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           variants={variants.container}
-          className="mb-28"
+          className="mb-20"
         >
-          <motion.div variants={variants.item} className="text-center mb-16">
-            <h3 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4 text-balance">
+          <motion.div variants={variants.item} className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Why SR Bullion
             </h3>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               A legacy of trust, delivering excellence in precious metals.
             </p>
           </motion.div>
 
           <motion.div
-            variants={variants.container}
+            variants={variants.grid}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {benefits.map((benefit: Benefit) => (
+            {benefits.map((benefit) => (
               <motion.div
                 key={benefit.id}
                 variants={variants.card}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
                 className="group"
               >
-                <div className="bg-linear-to-br from-white to-amber-50/30 rounded-xl p-6 border border-amber-100/50 h-full hover:shadow-lg transition-all duration-300">
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full transition-colors duration-300">
                   <div className="flex items-start gap-4">
                     <motion.div
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: benefit.id * 0.2,
-                      }}
-                      className="w-3 h-3 rounded-full bg-linear-to-r from-amber-500 to-yellow-500 mt-2 shrink-0"
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                      className="w-3 h-3 rounded-full bg-linear-to-r from-amber-500 to-amber-600 mt-1.5 shrink-0"
                     />
+
                     <div>
-                      <h4 className="font-bold text-gray-900 mb-2">
+                      <h4 className="font-semibold text-white mb-2 group-hover:text-amber-500 transition-colors">
                         {benefit.title}
                       </h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm text-zinc-400 leading-relaxed">
                         {benefit.description}
                       </p>
                     </div>
@@ -510,14 +489,14 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         >
           <motion.h3
             variants={variants.item}
-            className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 text-balance"
+            className="text-3xl md:text-4xl font-bold text-white mb-6"
           >
             Ready to Secure Your Next Bullion Trade?
           </motion.h3>
 
           <motion.p
             variants={variants.item}
-            className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto"
+            className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto"
           >
             Get in touch with SR Bullion FZCO for wholesale precious metals in
             kilo and large bar formats delivered with integrity, compliance, and
@@ -526,15 +505,14 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
 
           <motion.button
             type="button"
-            onClick={() => router.push("/contact")}
             variants={variants.item}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-10 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-3 mx-auto"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group bg-white text-black px-10 py-4 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
           >
             Contact Our Team
             <motion.div
-              animate={{ x: [0, 5, 0] }}
+              animate={{ x: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <ArrowRight size={20} />

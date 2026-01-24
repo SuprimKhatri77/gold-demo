@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { easeIn, motion } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import type { FC, JSX } from 'react';
-import type { Variants } from 'framer-motion';
+import type { MotionProps, Variants } from 'framer-motion';
 import {
   ArrowRight,
   Briefcase,
@@ -13,7 +12,7 @@ import {
   Target,
   Zap,
 } from 'lucide-react';
-import PartnerSection from './Partner';
+import Image from 'next/image';
 
 // Type definitions
 interface TeamMember {
@@ -42,32 +41,92 @@ const teamMembers: readonly TeamMember[] = [
     name: 'Mr. Shitiz Garg',
     title: 'Managing Director & Founder',
     description:
-      'Mr. Shitiz Garg is the Managing Director of SR Bullion FZCO with over nine years of experience in gold bullion trading, financial investments, and strategic business leadership. His expertise spans multiple sectors, including precious metals, petroleum, real estate, and general trading through the Synergy Finvest group. With strong knowledge of international markets, supply chain optimization, and risk-managed capital deployment, he plays a key role in driving the company’s operational excellence and global competitiveness. Coming from a prominent Indian business family, Mr. Garg leads with vision, integrity, and a focus on innovation, market expansion, and sustainable growth.',
+      "Mr. Shitiz Garg is the Managing Director of SR Bullion FZCO with over nine years of experience in gold bullion trading, financial investments, and strategic business leadership. His expertise spans multiple sectors, including precious metals, petroleum, real estate, and general trading through the Synergy Finvest group. With strong knowledge of international markets, supply chain optimization, and risk-managed capital deployment, he plays a key role in driving the company's operational excellence and global competitiveness.",
     expertise: ['Bullion Trading', 'Market Strategy', 'Global Expansion', 'Risk Management'],
     image: '/shitiz-garg.jpg',
-    color: 'from-amber-400 to-amber-600',
+    color: 'from-amber-500 to-amber-600',
   },
   {
     id: 2,
     name: 'Mr. Kush Goel',
     title: 'Director – SR Bullion FZCO',
     description:
-      'Mr. Kush Goel is a seasoned entrepreneur and chartered accountant with extensive experience in the oil & gas sector, precious metals trading, and diversified family businesses. With a professional background at global firms such as Deloitte, KPMG, and Grant Thornton, he brings financial expertise, strategic insight, and results-driven leadership to SR Bullion FZCO. Since 2012, he has led ventures across gold and silver trading, investment advisory, luxury car rentals, and commodities, driving sustainable growth, operational excellence, and strong corporate governance.',
+      'Mr. Kush Goel is a seasoned entrepreneur and chartered accountant with extensive experience in the oil & gas sector, precious metals trading, and diversified family businesses. With a professional background at global firms such as Deloitte, KPMG, and Grant Thornton, he brings financial expertise, strategic insight, and results-driven leadership to SR Bullion FZCO. Since 2012, he has led ventures across gold and silver trading, investment advisory, luxury car rentals, and commodities.',
     expertise: ['Financial Strategy', 'Trading Dynamics', 'Governance', 'Business Growth'],
     image: '/kush-geol.jpg',
-    color: 'from-yellow-400 to-amber-600',
+    color: 'from-amber-500 to-amber-600',
   },
 ];
-
-const partnersData = [
-  { id: 1, name: "Accrediation", photo: "/dmcc.png" },
-  { id: 2, name: "Logistic Partners", photo: "/brink.png" },
-];
-
 
 interface TeamPremiumProps {
   readonly className?: string;
 }
+
+type Stat = {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  animate: MotionProps["animate"];
+  transition: MotionProps["transition"];
+};
+
+
+export const stats: Stat[] = [
+  {
+    id: "experience",
+    title: "20+ Years",
+    description: "Combined Industry Experience",
+    icon: Award,
+    animate: { scale: [1, 1.05, 1] },
+    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+  },
+  {
+    id: "reach",
+    title: "Global Reach",
+    description: "International Trading Networks",
+    icon: Target,
+    animate: { rotate: 360 },
+    transition: { duration: 4, repeat: Infinity, ease: "linear" },
+  },
+  {
+    id: "excellence",
+    title: "Excellence",
+    description: "Commitment to Quality & Trust",
+    icon: Zap,
+    animate: { y: [0, -8, 0] },
+    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+  },
+];
+
+
+export const animationVariants: {
+  container: Variants;
+  item: Variants;
+} = {
+  container: {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        ease: "easeOut",
+      },
+    },
+  },
+  item: {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  },
+};
+
 
 const getAnimationVariants = (): AnimationVariants => ({
   container: {
@@ -75,8 +134,8 @@ const getAnimationVariants = (): AnimationVariants => ({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   } as Variants,
@@ -86,19 +145,18 @@ const getAnimationVariants = (): AnimationVariants => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: 'easeOut',
       },
     },
   } as Variants,
   card: {
-    hidden: { opacity: 0, scale: 0.9, y: 30 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: 'easeOut',
       },
     },
@@ -106,9 +164,9 @@ const getAnimationVariants = (): AnimationVariants => ({
   floating: {
     initial: { y: 0 },
     animate: {
-      y: [0, -15, 0],
+      y: [0, -10, 0],
       transition: {
-        duration: 5,
+        duration: 4,
         repeat: Infinity,
         ease: 'easeInOut',
       },
@@ -117,8 +175,8 @@ const getAnimationVariants = (): AnimationVariants => ({
   hover: {
     rest: { scale: 1, y: 0 },
     hover: {
-      scale: 1.03,
-      y: -10,
+      scale: 1.02,
+      y: -8,
       transition: {
         duration: 0.3,
         ease: 'easeOut',
@@ -144,64 +202,42 @@ const TeamPremium: FC<TeamPremiumProps> = ({
   return (
     <section
       id="team"
-      className={`py-28 bg-linear-to-b from-white via-amber-50/10 to-white relative overflow-hidden ${className}`}
+      className={`py-24 bg-black relative overflow-hidden ${className}`}
     >
-      {/* Animated background elements */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 0.2, scale: 1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute top-20 right-0 w-80 h-80 bg-amber-300/30 rounded-full blur-3xl translate-x-1/3"
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 0.2, scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.2 }}
-        className="absolute bottom-20 left-0 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl -translate-x-1/3"
-      />
+      {/* Subtle background linears */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true }}
           variants={animationVariants.container}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.div
             variants={animationVariants.item}
-            className="flex items-center justify-center gap-2 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
           >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-            >
-              <Award className="text-amber-600" size={24} />
-            </motion.div>
-            <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">
-              Leadership Team
-            </span>
+            <Award className="text-amber-500" size={16} />
+            <span className="text-zinc-400 text-sm font-medium">Leadership Team</span>
           </motion.div>
 
           <motion.h2
             variants={animationVariants.item}
-            className="text-5xl font-black leading-tight mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
           >
-            <span>Visionary Leaders</span>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="block bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent"
-            >
+            Visionary Leaders
+            <span className="block mt-2 bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
               Shaping Global Trade
-            </motion.span>
+            </span>
           </motion.h2>
 
           <motion.p
             variants={animationVariants.item}
-            className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto"
+            className="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto"
           >
             Meet the strategic minds driving SR Bullion FZCO forward with decades of combined expertise
             in precious metals trading, finance, and international business.
@@ -214,7 +250,7 @@ const TeamPremium: FC<TeamPremiumProps> = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid lg:grid-cols-2 gap-12 mb-20"
+          className="grid lg:grid-cols-2 gap-8 mb-20"
         >
           {teamMembers.map((member: TeamMember) => (
             <motion.div
@@ -222,34 +258,25 @@ const TeamPremium: FC<TeamPremiumProps> = ({
               variants={animationVariants.card}
               onMouseEnter={() => handleMouseEnter(member.id)}
               onMouseLeave={handleMouseLeave}
-              initial="rest"
-              animate={hoveredId === member.id ? 'hover' : 'rest'}
+              whileHover={{ y: -6 }}
               className="group"
             >
               {/* Card Container */}
-              <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-amber-100 h-full flex flex-col">
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col">
                 {/* Image Section */}
-                <div className="relative h-80 overflow-hidden bg-linear-to-br from-amber-100 to-amber-50">
-                  <motion.div
-                    animate={{
-                      y: [0, -15, 0],
-                      transition: {
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      },
-                    }}
-                    className="absolute -top-10 -right-10 w-64 h-64 bg-linear-to-br from-amber-400/40 to-amber-600/40 rounded-full blur-2xl"
-                  />
+                <div className="relative h-80 overflow-hidden bg-linear-to-br from-zinc-900 to-black">
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-60" />
 
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <Image
-                      src={member.image || '/placeholder.svg'}
-                      alt={member.name}
-                      width={300}
-                      height={300}
-                      className="w-64 h-64 object-cover rounded-2xl shadow-xl"
-                    />
+                  <div className="relative w-full h-full flex items-center justify-center p-8">
+                    <div className="relative w-64 h-64">
+                      <Image
+                        height={700}
+                        width={700}
+                        src={member.image || '/placeholder.svg'}
+                        alt={member.name}
+                        className="w-full h-full object-cover rounded-xl pointer-events-none"
+                      />
+                    </div>
                   </div>
 
                   {/* Role Badge */}
@@ -259,8 +286,8 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                     transition={{ delay: 0.2 }}
                     className="absolute bottom-4 left-4 right-4"
                   >
-                    <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                      <p className="text-amber-600 font-bold text-sm">{member.title}</p>
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full">
+                      <p className="text-white font-semibold text-sm">{member.title}</p>
                     </div>
                   </motion.div>
                 </div>
@@ -268,33 +295,32 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                 {/* Content Section */}
                 <div className="p-8 flex flex-col grow">
                   <div className="mb-6">
-                    <h3 className="text-3xl font-black text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
+                    <h3 className="text-2xl font-bold text-white mb-2">
                       {member.name}
                     </h3>
                     <div className="h-1 w-12 bg-linear-to-r from-amber-500 to-amber-600 rounded-full group-hover:w-20 transition-all duration-300" />
                   </div>
 
-                  <p className="text-gray-700 leading-relaxed mb-6 grow">
+                  <p className="text-zinc-400 leading-relaxed mb-6 grow text-sm">
                     {member.description}
                   </p>
 
                   {/* Expertise Tags */}
                   <div className="space-y-4">
-                    <p className="text-sm font-bold text-gray-900 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
                       Key Expertise
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {member.expertise.map((skill: string, index: number) => (
-                        <motion.div
+                        <motion.span
                           key={`${member.id}-${index}`}
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.1 }}
+                          className="inline-block px-3 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 text-zinc-300 rounded-lg text-xs font-medium hover:bg-amber-500/20 hover:border-amber-500/30 hover:text-amber-500 transition-all duration-300"
                         >
-                          <span className="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
-                            {skill}
-                          </span>
-                        </motion.div>
+                          {skill}
+                        </motion.span>
                       ))}
                     </div>
                   </div>
@@ -304,21 +330,21 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                     className="mt-6 flex gap-3"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
+                    transition={{ delay: 0.3 }}
                   >
                     <motion.div
-                      animate={hoveredId === member.id ? { rotate: 10 } : { rotate: 0 }}
-                      transition={{ rotate: { duration: 0.25, ease: "easeOut" } }}
-                      className={`w-10 h-10 bg-linear-to-br ${member.color} rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-amber-500/50 transition-shadow duration-100`}
+                      animate={hoveredId === member.id ? { rotate: 5, scale: 1.05 } : { rotate: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className={`w-10 h-10 bg-linear-to-br ${member.color} rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/20`}
                     >
-                      <Briefcase className="text-white" size={20} />
+                      <Briefcase className="text-white" size={18} />
                     </motion.div>
                     <motion.div
                       animate={hoveredId === member.id ? { scale: 1.1 } : { scale: 1 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="w-10 h-10 bg-linear-to-br from-amber-500/20 to-amber-600/20 rounded-lg flex items-center justify-center shadow-lg border border-amber-200 group-hover:border-amber-500 transition-colors duration-100"
+                      transition={{ duration: 0.3 }}
+                      className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg flex items-center justify-center hover:border-amber-500/30 transition-colors"
                     >
-                      <TrendingUp className="text-amber-600" size={20} />
+                      <TrendingUp className="text-amber-500" size={18} />
                     </motion.div>
                   </motion.div>
                 </div>
@@ -332,84 +358,63 @@ const TeamPremium: FC<TeamPremiumProps> = ({
           variants={animationVariants.container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8 mt-20 pt-20 border-t border-amber-100"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-3 gap-6 mb-20"
         >
-          <motion.div
-            variants={animationVariants.item}
-            whileHover={{ y: -5 }}
-            className="text-center p-8 rounded-2xl bg-linear-to-br from-amber-50 to-transparent border border-amber-100 hover:border-amber-300 transition-color duration-150"
-          >
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="w-16 h-16 bg-linear-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
-            >
-              <Award className="text-white" size={32} />
-            </motion.div>
-            <h3 className="text-2xl font-black text-gray-900 mb-2">20+ Years</h3>
-            <p className="text-gray-600">Combined Industry Experience</p>
-          </motion.div>
+          {stats.map((stat) => {
+            const Icon = stat.icon;
 
-          <motion.div
-            variants={animationVariants.item}
-            whileHover={{ y: -5 }}
-            className="text-center p-8 rounded-2xl bg-linear-to-br from-amber-50 to-transparent border border-amber-100 hover:border-amber-300 transition-color duration-150"
-          >
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-              className="w-16 h-16 bg-linear-to-br from-yellow-400 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
-            >
-              <Target className="text-white" size={32} />
-            </motion.div>
-            <h3 className="text-2xl font-black text-gray-900 mb-2">Global Reach</h3>
-            <p className="text-gray-600">International Trading Networks</p>
-          </motion.div>
+            return (
+              <motion.div
+                key={stat.id}
+                variants={animationVariants.item}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group text-center p-8 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 transition-colors duration-300"
+              >
+                <motion.div
+                  animate={stat.animate}
+                  className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 p-3 transition-colors duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30"
+                >
+                  <Icon size={28} className="text-white" />
+                </motion.div>
 
-          <motion.div
-            variants={animationVariants.item}
-            whileHover={{ y: -5 }}
-            className="text-center p-8 rounded-2xl bg-linear-to-br from-amber-50 to-transparent border border-amber-100 hover:border-amber-300 transition-color duration-150"
-          >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="w-16 h-16 bg-linear-to-br from-amber-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
-            >
-              <Zap className="text-white" size={32} />
-            </motion.div>
-            <h3 className="text-2xl font-black text-gray-900 mb-2">Excellence</h3>
-            <p className="text-gray-600">Commitment to Quality & Trust</p>
-          </motion.div>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {stat.title}
+                </h3>
+
+                <p className="text-sm text-zinc-400">
+                  {stat.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* partners */}
-        <PartnerSection partners={partnersData} />
         {/* CTA Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={animationVariants.container}
-          className="mt-20 text-center"
+          className="text-center"
         >
           <motion.p
             variants={animationVariants.item}
-            className="text-gray-600 text-lg mb-6"
+            className="text-zinc-400 text-lg mb-6"
           >
             Join our expert-led platform for premium precious metals trading
           </motion.p>
           <motion.button
             type="button"
             variants={animationVariants.item}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-color duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-3 mx-auto"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
           >
             Connect With Our Team
             <motion.div
-              animate={{ x: [0, 5, 0] }}
+              animate={{ x: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <ArrowRight size={20} />

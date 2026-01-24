@@ -138,8 +138,8 @@ const categoriesWithCount = categories.map((category) => ({
     category.id === "all"
       ? resources.length
       : resources.filter(
-          (r) => normalize(r.categoryLabel) === normalize(category.id),
-        ).length,
+        (r) => normalize(r.categoryLabel) === normalize(category.id),
+      ).length,
 }));
 
 const getAnimationVariants = (): AnimationVariants => ({
@@ -213,13 +213,11 @@ interface ResourcesPageProps {
   readonly className?: string;
 }
 
-export const ResourcesPage: FC<ResourcesPageProps> = ({
-  className = "",
-}): JSX.Element => {
+export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.Element => {
   const [selectedCategory, setSelectedCategory] =
     useState<SelectedCategory>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const variants = getAnimationVariants(); // Ensure this is called with parentheses
+  const variants = getAnimationVariants();
 
   type DownloadResource = {
     download: string;
@@ -256,72 +254,56 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
   const getIconComponent = (icon: string): JSX.Element => {
     switch (icon) {
       case "dmcc":
-        return <Award className="text-amber-600" size={24} />;
+        return <Award className="text-white group-hover:text-amber-500" size={24} />;
       case "lbma":
-        return <Globe className="text-amber-600" size={24} />;
+        return <Globe className="text-white group-hover:text-amber-500" size={24} />;
       case "oecd":
-        return <TrendingUp className="text-amber-600" size={24} />;
+        return <TrendingUp className="text-white group-hover:text-amber-500" size={24} />;
       default:
-        return <FileText className="text-amber-600" size={24} />;
+        return <FileText className="text-white group-hover:text-amber-500" size={24} />;
     }
   };
 
   return (
     <section
       id="resources"
-      className={`py-32 bg-linear-to-b from-white via-amber-50/5 to-white relative overflow-hidden ${className}`}
+      className="py-24 bg-black relative overflow-hidden"
     >
-      {/* Floating background elements */}
-      <motion.div
-        className="absolute top-20 right-10 w-72 h-72 rounded-full bg-linear-to-br from-amber-200/20 to-orange-200/10 blur-3xl -z-10"
-        variants={variants.floating}
-        initial="initial"
-        animate="animate"
-      />
-      <motion.div
-        className="absolute bottom-40 left-20 w-96 h-96 rounded-full bg-linear-to-tr from-amber-100/15 to-yellow-100/10 blur-3xl -z-10"
-        variants={variants.floating}
-        initial="initial"
-        animate="animate"
-        transition={{ delay: 0.5 }}
-      />
+      {/* Subtle background linears */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           variants={variants.container}
           className="text-center mb-16"
         >
           <motion.div
             variants={variants.item}
-            className="flex items-center justify-center gap-2 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
           >
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            >
-              <BookOpen className="text-amber-600" size={24} />
-            </motion.div>
-            <span className="text-amber-600 font-bold tracking-widest uppercase text-sm">
+            <BookOpen className="text-amber-500" size={16} />
+            <span className="text-zinc-400 text-sm font-medium">
               Knowledge Center
             </span>
           </motion.div>
 
           <motion.h2
             variants={variants.item}
-            className="text-5xl md:text-6xl font-black leading-tight mb-6 text-gray-900"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
           >
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-600 to-orange-500">
+            <span className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
               Resources & Guidelines
             </span>
           </motion.h2>
 
           <motion.p
             variants={variants.item}
-            className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto"
+            className="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto"
           >
             Access comprehensive compliance documents, industry standards, and
             market insights to enhance your precious metals trading operations.
@@ -338,7 +320,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
         >
           <div className="relative max-w-2xl mx-auto">
             <Search
-              className="absolute left-4 top-4 text-amber-600/60"
+              className="absolute left-4 top-4 text-amber-500/60"
               size={20}
             />
             <input
@@ -346,7 +328,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               placeholder="Search resources, guidelines, documents..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full pl-12 pr-6 py-4 rounded-2xl border-2 border-amber-200/30 bg-white hover:border-amber-300/50 focus:border-amber-500/70 focus:outline-none transition-all duration-300 text-gray-800 placeholder-gray-500"
+              className="w-full pl-12 pr-6 py-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 focus:border-amber-500/50 focus:outline-none transition-all duration-300 text-white placeholder-zinc-500"
             />
           </div>
         </motion.div>
@@ -355,7 +337,6 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
         <motion.div
           initial="hidden"
           animate="visible"
-          // viewport={{ once: true }}
           variants={variants.container}
           className="flex flex-wrap justify-center gap-3 mb-16"
         >
@@ -366,11 +347,10 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               onClick={() => handleCategoryClick(category.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 ${
-                selectedCategory === category.id
-                  ? "bg-linear-to-r from-amber-500 to-orange-500 text-white border-amber-600 shadow-lg shadow-amber-500/30"
-                  : "bg-white text-gray-700 border-amber-200/40 hover:border-amber-300/60"
-              }`}
+              className={`px-6 py-3 rounded-full font-semibold ${selectedCategory === category.id
+                ? "bg-linear-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/20"
+                : "bg-white/5 backdrop-blur-md border border-white/10 text-zinc-300 hover:border-amber-500/30 hover:bg-white/10"
+                }`}
               type="button"
             >
               {category.name}
@@ -387,8 +367,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           initial="hidden"
           animate="visible"
           key={selectedCategory}
-          // viewport={{ once: true }}
-          className="grid lg:grid-cols-2 gap-8 mb-20"
+          className="grid lg:grid-cols-2 gap-6 mb-20"
         >
           {filteredResources.map((resource: ResourceDocument) => (
             <motion.div
@@ -396,19 +375,19 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               animate="visible"
               key={resource.id}
               variants={variants.card}
+              whileHover={{ y: -4 }}
               className="group"
             >
-              <div className="bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-300 border border-amber-100/60 h-full flex flex-col p-8">
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col p-8">
                 {/* Icon and Category */}
                 <div className="flex items-start justify-between mb-6">
-                  <motion.div
-                    className="p-4 rounded-2xl bg-linear-to-br from-amber-100/50 to-orange-100/30"
-                    whileHover={{ rotate: 15, scale: 1.1 }}
-                  >
-                    {getIconComponent(resource.icon)}
-                  </motion.div>
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30">
+                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                      {getIconComponent(resource.icon)}
+                    </span>
+                  </div>
                   <motion.span
-                    className="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-100/70 px-4 py-2 rounded-full"
+                    className="text-xs font-semibold uppercase tracking-widest text-amber-500 bg-amber-500/10 backdrop-blur-md border border-amber-500/20 px-4 py-2 rounded-full"
                     variants={variants.badge}
                     initial="rest"
                     whileHover="hover"
@@ -418,15 +397,15 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-black text-gray-900 mb-3 leading-tight">
+                <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-amber-500 transition-colors">
                   {resource.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 grow">
+                <p className="text-zinc-400 text-sm leading-relaxed mb-6 grow">
                   {resource.description}
                 </p>
 
                 {/* Meta Information */}
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-6 pb-6 border-b border-gray-200/50">
+                <div className="flex items-center justify-between text-xs text-zinc-500 mb-6 pb-6 border-b border-white/10">
                   <span className="font-semibold">{resource.fileSize}</span>
                   <span>
                     {new Date(resource.dateAdded).toLocaleDateString()}
@@ -438,9 +417,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   <motion.button
                     type="button"
                     onClick={() => handleDownload(resource)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 bg-linear-to-r from-amber-500 to-orange-500 text-white py-3 rounded-xl font-bold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 bg-white text-black py-3 rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
                   >
                     <Download size={18} />
                     Download
@@ -449,9 +428,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                     href={`/${resource.download}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 bg-amber-100/60 text-amber-700 py-3 rounded-xl font-bold hover:bg-amber-200/70 transition-all duration-300 flex items-center justify-center gap-2 border border-amber-300/40"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 text-white py-3 rounded-xl font-semibold hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <Eye size={18} />
                     Preview
@@ -470,11 +449,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
             transition={{ duration: 0.5 }}
             className="text-center py-16"
           >
-            <FileText className="mx-auto mb-4 text-gray-300" size={64} />
-            <h3 className="text-2xl font-bold text-gray-700 mb-2">
+            <FileText className="mx-auto mb-4 text-zinc-600" size={64} />
+            <h3 className="text-2xl font-bold text-white mb-2">
               No Resources Found
             </h3>
-            <p className="text-gray-600">
+            <p className="text-zinc-400">
               Try adjusting your search or category filters.
             </p>
           </motion.div>
@@ -486,11 +465,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="mt-24 bg-linear-to-r from-amber-600 to-orange-500 rounded-3xl p-12 text-white text-center relative overflow-hidden"
+          className="mt-24 rounded-2xl p-12 text-white text-center relative overflow-hiddenbg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:bg-amber-400/20 group-hover:border-amber-400/30"
         >
           {/* Background decoration */}
           <motion.div
-            className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -z-10"
+            className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl"
             animate={{ y: [0, -20, 0] }}
             transition={{ duration: 4, repeat: Infinity }}
           />
@@ -503,7 +482,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           >
             <motion.h3
               variants={variants.item}
-              className="text-4xl font-black mb-4"
+              className="text-3xl md:text-4xl font-bold mb-4"
             >
               Need Custom Documentation?
             </motion.h3>
@@ -517,9 +496,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
             <motion.button
               type="button"
               variants={variants.item}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-amber-600 px-10 py-4 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl shadow-amber-600/40 inline-flex items-center gap-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-white text-black px-10 py-4 rounded-xl font-semibold hover:bg-zinc-100 transition-all duration-300 shadow-lg inline-flex items-center gap-2"
             >
               Request Documentation
               <Zap size={18} />
@@ -529,4 +508,4 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       </div>
     </section>
   );
-};
+}

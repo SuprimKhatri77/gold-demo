@@ -121,3 +121,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+.overflow-scroll,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #d97706 #fff7ed;
+}
+
+/* WebKit Engines (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Thickness of the vertical scrollbar */
+  height: 8px; /* Thickness of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #fff7ed; /* Light amber background (amber-50) */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Goldish Gradient */
+  background: linear-gradient(to bottom, #f59e0b, #b45309);
+  border-radius: 10px;
+  border: 2px solid #fff7ed; /* Creates a padding effect around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* Darker gold on hover */
+  background: linear-gradient(to bottom, #d97706, #92400e);
+}
+
+.scroller {
+  width: 300px;
+  height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}

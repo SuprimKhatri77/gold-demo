@@ -9,31 +9,31 @@ interface ContactInfoItem {
 export const ContactInformation: React.FC = () => {
   const contactItems: ContactInfoItem[] = [
     {
-      icon: <MapPin className="w-6 h-6" />,
+      icon: <MapPin className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Office Address",
       value: "123 Gold Exchange Street, Financial District, New York, NY 10005",
     },
     {
-      icon: <Phone className="w-6 h-6" />,
+      icon: <Phone className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Phone",
       value: "+1 (800) 555-GOLD",
       href: "tel:+18005554653",
     },
     {
-      icon: <Mail className="w-6 h-6" />,
+      icon: <Mail className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Email",
       value: "info@premiumgold.com",
       href: "mailto:info@premiumgold.com",
     },
     {
-      icon: <Clock className="w-6 h-6" />,
+      icon: <Clock className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Business Hours",
       value: "Monday - Friday: 9:00 AM - 6:00 PM EST",
     },
   ];
 
   return (
-    <section className="py-12 md:py-16 px-4 bg-gradient-to-br from-zinc-950 via-black to-zinc-950 border-y border-white/10">
+    <section className="py-12 md:py-16 px-4 bg-linear-to-br from-zinc-950 via-black to-zinc-950 border-y border-white/10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 md:mb-10">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
@@ -47,10 +47,10 @@ export const ContactInformation: React.FC = () => {
           {contactItems.map((item, index) => (
             <div
               key={index}
-              className="bg-white/5 backdrop-blur-md rounded-lg md:rounded-xl border border-white/10 p-5 md:p-6 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300"
+              className="group bg-white/5 backdrop-blur-md rounded-lg md:rounded-xl border border-white/10 p-5 md:p-6 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300"
             >
               <div className="flex items-start">
-                <div className="shrink-0 w-12 h-12 bg-amber-500/10 backdrop-blur-md rounded-lg flex items-center justify-center text-amber-500/70 border border-amber-500/20">
+                <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-white bg-white/10 backdrop-blur-md border border-white/20 p-3 transition-color duration-150 group-hover:bg-amber-400/20 group-hover:border-amber-400/30">
                   {item.icon}
                 </div>
                 <div className="ml-4">

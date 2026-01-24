@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { FC, JSX } from 'react';
-import type { Variants } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import {
   Briefcase,
   MapPin,
@@ -14,21 +12,9 @@ import {
   Lightbulb,
   ChevronDown,
   ArrowRight,
-  CircleStar,
+  CircleDollarSign,
 } from 'lucide-react';
 import Image from 'next/image';
-
-const cardVariants = {
-  rest: {
-    scale: 1,
-    opacity: 1,
-  },
-  hover: {
-    scale: 1.05,
-    transition: { duration: 0.3 },
-  },
-};
-
 
 // Type definitions
 interface Benefit {
@@ -56,16 +42,6 @@ interface CultureValue {
   readonly description: string;
   readonly icon: string;
 }
-
-interface AnimationVariants {
-  container: Variants;
-  item: Variants;
-  card: Variants;
-  floating: Variants;
-  hover: Variants;
-}
-
-type ExpandedJobId = number | null;
 
 const benefits: readonly Benefit[] = [
   {
@@ -220,131 +196,81 @@ const cultureValues: readonly CultureValue[] = [
   },
 ];
 
-const getAnimationVariants = (): AnimationVariants => ({
-  container: {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  } as Variants,
-  item: {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-  card: {
-    hidden: { opacity: 0, scale: 0.9, y: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-  floating: {
-    initial: { y: 0 },
-    animate: {
-      y: [0, -15, 0],
-      transition: {
-        duration: 5,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  } as Variants,
-  hover: {
-    rest: { scale: 1, y: 0 },
-    hover: {
-      scale: 1.03,
-      y: -10,
-      transition: {
-        duration: 0.3,
-        ease: 'easeOut',
-      },
-    },
-  } as Variants,
-});
-
 const getIconComponent = (iconName: string) => {
+  const iconProps = { className: "w-6 h-6" };
   switch (iconName) {
     case 'circleStar':
-      return <CircleStar className="w-6 h-6" />;
+      return <CircleDollarSign {...iconProps} />;
     case 'zap':
-      return <Zap className="w-6 h-6" />;
+      return <Zap {...iconProps} />;
     case 'heart':
-      return <Heart className="w-6 h-6" />;
+      return <Heart {...iconProps} />;
     case 'users':
-      return <Users className="w-6 h-6" />;
+      return <Users {...iconProps} />;
     case 'lightbulb':
-      return <Lightbulb className="w-6 h-6" />;
+      return <Lightbulb {...iconProps} />;
     case 'briefcase':
-      return <Briefcase className="w-6 h-6" />;
+      return <Briefcase {...iconProps} />;
     default:
       return null;
   }
 };
 
-const ArrowRightIcon = () => <ArrowRight size={20} />; // Declared ArrowRightIcon for use in JSX
+export default function CareerPage() {
+  const [expandedJobId, setExpandedJobId] = useState<number | null>(null);
 
-interface CareerPageProps {
-  readonly className?: string;
-}
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-export const CareerPage: FC<CareerPageProps> = ({
-  className = '',
-}: CareerPageProps): JSX.Element => {
-  const [expandedJobId, setExpandedJobId] = useState<ExpandedJobId>(null);
-  const variants = getAnimationVariants();
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
 
   const handleJobExpand = (id: number): void => {
     setExpandedJobId(expandedJobId === id ? null : id);
   };
 
   return (
-    <section
-      id="career"
-      className={`relative overflow-hidden bg-linear-to-b from-white via-amber-50/5 to-white ${className}`}
-    >
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-20 right-0 w-96 h-96 bg-linear-to-br from-amber-100 to-amber-50 rounded-full opacity-30 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-40 left-0 w-96 h-96 bg-linear-to-tr from-amber-100 to-transparent rounded-full opacity-20 blur-3xl"
-        />
-      </div>
+    <section id="career" className="relative overflow-hidden bg-black">
+      {/* Subtle background linears */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        {/* Split Hero Section */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid xl:grid-cols-2 gap-12 items-center py-20 mb-20"
+          className="grid lg:grid-cols-2 gap-12 items-center py-20 mb-20"
         >
           {/* Left: Image */}
           <motion.div
@@ -352,9 +278,9 @@ export const CareerPage: FC<CareerPageProps> = ({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative lg:h-full min-h-74 sm:min-h-100 rounded-3xl hover:shadow-orange-300 md:w-140 md:mx-auto md:h-105 overflow-hidden shadow-2xl transition-shadow duration-200"
+            className="relative lg:h-full min-h-74 sm:min-h-100 rounded-3xl hover:shadow-orange-800 md:w-140 md:mx-auto md:h-105 overflow-hidden shadow-2xl transition-shadow duration-200"
           >
-            <div className="md:pb-2 pb-1 absolute inset-0 bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center">
+            <div className="md:pb-2 pb-1 absolute inset-0 bg-linear-to-br from-amber-600 via-amber-500 to-amber-700 flex items-center justify-center">
               <div className="text-center text-white px-4 md:px-0">
                 <Image className='mx-auto mt-6 mb-2 rounded-xl shadow-2xl border-2' src={'/sr-team.jpg'} height={700} width={500} alt='sr-team' />
                 <p className="text-lg font-semibold">Join Our Elite Team</p>
@@ -364,37 +290,32 @@ export const CareerPage: FC<CareerPageProps> = ({
 
           {/* Right: Hero Text */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="mb-6">
-              <motion.span
-                className="text-amber-600 font-bold tracking-widest uppercase text-sm"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              >
-                ✨ Build Your Future
-              </motion.span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
+              <Zap className="text-amber-500" size={16} />
+              <span className="text-zinc-400 text-sm font-medium">Build Your Future</span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-black leading-tight mb-6 text-gray-900">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
               Join SR Bullion&apos;s Elite Team
             </h1>
 
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
+            <p className="text-lg text-zinc-400 leading-relaxed mb-8">
               Embrace the flexibility and convenience of working from anywhere by joining our remote workforce. Enjoy the freedom to balance your professional goals with your personal life while contributing to the world&apos;s most trusted precious metals trading company.
             </p>
 
             <motion.button
               type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 font-bold flex items-center gap-3"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
             >
               Explore Opportunities
-              <ArrowRightIcon />
+              <ArrowRight size={20} />
             </motion.button>
           </motion.div>
         </motion.div>
@@ -403,58 +324,48 @@ export const CareerPage: FC<CareerPageProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={variants.container}
-          className="mb-24"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="mb-20"
         >
           <motion.h2
-            variants={variants.item}
-            className="text-4xl font-black text-center mb-4 text-gray-900"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-white"
           >
             Competitive Benefits
           </motion.h2>
           <motion.p
-            variants={variants.item}
-            className="text-center text-gray-600 text-lg mb-12 max-w-2xl mx-auto"
+            variants={itemVariants}
+            className="text-center text-zinc-400 text-lg mb-12 max-w-2xl mx-auto"
           >
             We invest in our people because they are our greatest asset
           </motion.p>
 
           <motion.div
-            variants={variants.container}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {benefits.map((benefit: Benefit) => (
+            {benefits.map((benefit) => (
               <motion.div
                 key={benefit.id}
                 variants={cardVariants}
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
+                whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-amber-100 h-full flex flex-col">
-                  <div className="mb-4 inline-flex">
-                    <div className="p-3 bg-linear-to-br from-amber-100 to-amber-50 rounded-xl text-amber-600">
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4">
+                    <span className="text-white group-hover:text-amber-500 transition-colors">
                       {getIconComponent(benefit.icon)}
-                    </div>
+                    </span>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">
+                  <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-amber-500 transition-colors">
                     {benefit.title}
                   </h3>
 
-                  <p className="text-gray-600 leading-relaxed flex-1">
+                  <p className="text-zinc-400 text-sm leading-relaxed">
                     {benefit.description}
                   </p>
-
-                  <motion.div
-                    className="mt-4 flex items-center gap-2 text-amber-600 font-semibold"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    SR Jewellers <ArrowRightIcon />
-                  </motion.div>
                 </div>
               </motion.div>
             ))}
@@ -465,57 +376,56 @@ export const CareerPage: FC<CareerPageProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={variants.container}
-          className="mb-24"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="mb-20"
         >
           <motion.h2
-            variants={variants.item}
-            className="text-4xl font-black text-center mb-4 text-gray-900"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-white"
           >
             Current Openings
           </motion.h2>
           <motion.p
-            variants={variants.item}
-            className="text-center text-gray-600 text-lg mb-12 max-w-2xl mx-auto"
+            variants={itemVariants}
+            className="text-center text-zinc-400 text-lg mb-12 max-w-2xl mx-auto"
           >
             Explore career opportunities with competitive packages and growth potential
           </motion.p>
 
           <motion.div
-            variants={variants.container}
+            variants={containerVariants}
             className="space-y-6"
           >
-            {jobPositions.map((job: JobPosition) => (
+            {jobPositions.map((job) => (
               <motion.div
                 key={job.id}
-                variants={variants.card}
-                className="bg-white rounded-2xl border border-amber-100 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                variants={cardVariants}
+                className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 {/* Job Header */}
                 <motion.button
                   type="button"
                   onClick={() => handleJobExpand(job.id)}
-                  className="w-full p-6 md:p-8 flex items-start md:items-center justify-between gap-4 hover:bg-amber-50 transition-colors"
-                  whileHover={{ backgroundColor: 'rgba(251, 191, 36, 0.05)' }}
+                  className="w-full p-6 md:p-8 flex items-start md:items-center justify-between gap-4 hover:bg-white/5 transition-colors text-left"
                 >
-                  <div className="flex-1 text-left">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
                       {job.title}
                     </h3>
 
                     <div className="flex flex-wrap gap-4 md:gap-6">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <MapPin size={18} className="text-amber-600" />
-                        <span>{job.location}</span>
+                      <div className="flex items-center gap-2 text-zinc-400">
+                        <MapPin size={16} className="text-amber-500" />
+                        <span className="text-sm">{job.location}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock size={18} className="text-amber-600" />
-                        <span>{job.experience}</span>
+                      <div className="flex items-center gap-2 text-zinc-400">
+                        <Clock size={16} className="text-amber-500" />
+                        <span className="text-sm">{job.experience}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Briefcase size={18} className="text-amber-600" />
-                        <span>{job.type}</span>
+                      <div className="flex items-center gap-2 text-zinc-400">
+                        <Briefcase size={16} className="text-amber-500" />
+                        <span className="text-sm">{job.type}</span>
                       </div>
                     </div>
                   </div>
@@ -523,7 +433,7 @@ export const CareerPage: FC<CareerPageProps> = ({
                   <motion.div
                     animate={{ rotate: expandedJobId === job.id ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-amber-600 shrink-0"
+                    className="text-amber-500 shrink-0"
                   >
                     <ChevronDown size={24} />
                   </motion.div>
@@ -534,73 +444,54 @@ export const CareerPage: FC<CareerPageProps> = ({
                   initial={false}
                   animate={expandedJobId === job.id ? { height: 'auto' } : { height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="overflow-hidden border-t border-amber-100"
+                  className="overflow-hidden border-t border-white/10"
                 >
                   <div className="p-6 md:p-8 space-y-6">
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      <h4 className="text-base font-semibold text-white mb-3">
                         Position Overview
                       </h4>
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-zinc-400 text-sm leading-relaxed">
                         {job.overview}
                       </p>
                     </div>
 
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      <h4 className="text-base font-semibold text-white mb-3">
                         Key Responsibilities
                       </h4>
                       <ul className="space-y-2">
-                        {job.responsibilities.map(
-                          (responsibility: string, index: number) => (
-                            <li
-                              key={`${job.id}-resp-${index}`}
-                              className="flex gap-3 text-gray-600"
-                            >
-                              <span className="text-amber-600 font-bold mt-1">
-                                •
-                              </span>
-                              <span>{responsibility}</span>
-                            </li>
-                          )
-                        )}
+                        {job.responsibilities.map((responsibility, index) => (
+                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
+                            <span className="text-amber-500 font-bold mt-0.5">•</span>
+                            <span>{responsibility}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      <h4 className="text-base font-semibold text-white mb-3">
                         Requirements
                       </h4>
                       <ul className="space-y-2">
-                        {job.requirements.map(
-                          (requirement: string, index: number) => (
-                            <li
-                              key={`${job.id}-req-${index}`}
-                              className="flex gap-3 text-gray-600"
-                            >
-                              <span className="text-amber-600 font-bold mt-1">
-                                •
-                              </span>
-                              <span>{requirement}</span>
-                            </li>
-                          )
-                        )}
+                        {job.requirements.map((requirement, index) => (
+                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
+                            <span className="text-amber-500 font-bold mt-0.5">•</span>
+                            <span>{requirement}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      <h4 className="text-base font-semibold text-white mb-3">
                         What We Offer
                       </h4>
                       <ul className="space-y-2">
-                        {job.offers.map((offer: string, index: number) => (
-                          <li
-                            key={`${job.id}-offer-${index}`}
-                            className="flex gap-3 text-gray-600"
-                          >
-                            <span className="text-amber-600 font-bold mt-1">
-                              •
-                            </span>
+                        {job.offers.map((offer, index) => (
+                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
+                            <span className="text-amber-500 font-bold mt-0.5">•</span>
                             <span>{offer}</span>
                           </li>
                         ))}
@@ -609,12 +500,12 @@ export const CareerPage: FC<CareerPageProps> = ({
 
                     <motion.button
                       type="button"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-bold flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-3 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-semibold flex items-center justify-center gap-2"
                     >
                       Apply Now
-                      <ArrowRightIcon />
+                      <ArrowRight size={18} />
                     </motion.button>
                   </div>
                 </motion.div>
@@ -627,52 +518,50 @@ export const CareerPage: FC<CareerPageProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={variants.container}
-          className="mb-24"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="mb-20"
         >
           <motion.h2
-            variants={variants.item}
-            className="text-4xl font-black text-center mb-4 text-gray-900"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-white"
           >
             Our Culture & Values
           </motion.h2>
           <motion.p
-            variants={variants.item}
-            className="text-center text-gray-600 text-lg mb-12 max-w-2xl mx-auto"
+            variants={itemVariants}
+            className="text-center text-zinc-400 text-lg mb-12 max-w-2xl mx-auto"
           >
             We thrive on innovation, integrity, and impactful solutions
           </motion.p>
 
           <motion.div
-            variants={variants.container}
-            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            className="grid md:grid-cols-3 gap-6"
           >
-            {cultureValues.map((value: CultureValue) => (
+            {cultureValues.map((value) => (
               <motion.div
                 key={value.id}
                 variants={cardVariants}
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
+                whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-linear-to-br from-amber-50 to-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-amber-100 h-full flex flex-col">
+                <div className="bg-linear-to-br from-amber-500/10 to-amber-600/5 backdrop-blur-md border border-amber-500/20 rounded-xl p-8 h-full transition-all duration-300 hover:border-amber-500/40">
                   <div className="mb-6 inline-flex">
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                      className="p-4 bg-linear-to-br from-amber-400 to-amber-600 rounded-2xl text-white"
+                      className="p-4 bg-linear-to-br from-amber-500 to-amber-600 rounded-xl text-white shadow-lg shadow-amber-500/20"
                     >
                       {getIconComponent(value.icon)}
                     </motion.div>
                   </div>
 
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                  <h3 className="text-xl font-bold mb-3 text-white">
                     {value.title}
                   </h3>
 
-                  <p className="text-gray-600 leading-relaxed flex-1">
+                  <p className="text-zinc-400 text-sm leading-relaxed">
                     {value.description}
                   </p>
                 </div>
@@ -685,38 +574,38 @@ export const CareerPage: FC<CareerPageProps> = ({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={variants.container}
+          viewport={{ once: true }}
+          variants={containerVariants}
           className="py-20 text-center"
         >
           <motion.h2
-            variants={variants.item}
-            className="text-4xl font-black mb-6 text-gray-900"
+            variants={itemVariants}
+            className="text-3xl md:text-4xl font-bold mb-6 text-white"
           >
             Ready to Join Us?
           </motion.h2>
 
           <motion.p
-            variants={variants.item}
-            className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+            variants={itemVariants}
+            className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto"
           >
             Apply now to become part of a dynamic team that shapes the future of precious metals trading
           </motion.p>
 
           <motion.button
-            variants={variants.item}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            variants={itemVariants}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="button"
-            className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 font-bold flex items-center gap-3 mx-auto"
+            className="group bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
           >
             View All Opportunities
-            <motion.div animate={{ x: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-              <ArrowRightIcon />
+            <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+              <ArrowRight size={20} />
             </motion.div>
           </motion.button>
         </motion.div>
       </div>
     </section>
   );
-};
+}

@@ -1,4 +1,4 @@
-import { CareerPage } from "@/modules/career/CarrerPage";
+import CareerPage from "@/modules/career/CarrerPage";
 
 export default function Page() {
   return (

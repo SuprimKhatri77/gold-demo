@@ -2,6 +2,7 @@
 
 import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Product {
@@ -89,6 +90,7 @@ const products: Product[] = [
 ];
 
 export function Collection() {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("All");
   const filters = ["All", "Bars", "Coins", "Jewelry", "Bullion"];
 
@@ -202,10 +204,10 @@ export function Collection() {
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black text-white py-3 rounded-lg transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
+                {/* <button className="w-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-black text-white py-3 rounded-lg transition-all duration-300 font-semibold flex items-center justify-center gap-2 group/btn">
                   View Details
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
@@ -213,7 +215,10 @@ export function Collection() {
 
         {/* View Full Collection Button */}
         <div className="text-center mt-16">
-          <button className="group bg-white hover:bg-zinc-100 text-black px-10 py-4 rounded-lg transition-all duration-300 font-semibold text-lg flex items-center gap-3 mx-auto">
+          <button
+            onClick={() => router.push("/our-products")}
+            className="group bg-white hover:bg-zinc-100 text-black px-10 py-4 rounded-lg transition-all duration-300 font-semibold text-lg flex items-center gap-3 mx-auto"
+          >
             View Full Collection
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </button>

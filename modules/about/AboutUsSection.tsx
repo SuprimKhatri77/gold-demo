@@ -34,25 +34,45 @@ const stats: Stat[] = [
     number: "25",
     label: "Years of Trust",
     suffix: "+",
-    icon: <TrendingUp className="text-white group-hover:text-amber-400 transition-colors" size={24} />,
+    icon: (
+      <TrendingUp
+        className="text-white group-hover:text-amber-400 transition-colors"
+        size={24}
+      />
+    ),
   },
   {
     number: "50K",
     label: "Satisfied Clients",
     suffix: "+",
-    icon: <Users className="text-white group-hover:text-amber-400 transition-colors" size={24} />,
+    icon: (
+      <Users
+        className="text-white group-hover:text-amber-400 transition-colors"
+        size={24}
+      />
+    ),
   },
   {
     number: "500M",
     label: "Oz Delivered",
     suffix: "+",
-    icon: <Globe className="text-white group-hover:text-amber-400 transition-colors" size={24} />,
+    icon: (
+      <Globe
+        className="text-white group-hover:text-amber-400 transition-colors"
+        size={24}
+      />
+    ),
   },
   {
     number: "99.9",
     label: "Purity Guarantee",
     suffix: "%",
-    icon: <Lock className="text-white group-hover:text-amber-400 transition-colors" size={24} />,
+    icon: (
+      <Lock
+        className="text-white group-hover:text-amber-400 transition-colors"
+        size={24}
+      />
+    ),
   },
 ];
 
@@ -174,7 +194,9 @@ export const AboutUsSection: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
             <Zap className="text-amber-500" size={16} />
-            <span className="text-zinc-400 text-sm font-medium">About Our Company</span>
+            <span className="text-zinc-400 text-sm font-medium">
+              About Our Company
+            </span>
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -197,10 +219,18 @@ export const AboutUsSection: React.FC = () => {
           >
             <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10">
               <p className="text-zinc-300 text-lg leading-relaxed mb-4">
-                For over two decades, Serbian Bullion DMCC has been the premier destination for precious metals collectors, investors, and institutions worldwide. Our journey began with a steadfast commitment to providing authentic, certified, and competitively priced precious metals.
+                For over two decades, Serbian Bullion DMCC has been the premier
+                destination for precious metals collectors, investors, and
+                institutions worldwide. Our journey began with a steadfast
+                commitment to providing authentic, certified, and competitively
+                priced precious metals.
               </p>
               <p className="text-zinc-400 leading-relaxed">
-                Today, we proudly maintain one of the most comprehensive and authenticated collections of bullion, from investment-grade bars to rare collector coins. Every product undergoes rigorous certification and comes with complete documentation and insurance coverage.
+                Today, we proudly maintain one of the most comprehensive and
+                authenticated collections of bullion, from investment-grade bars
+                to rare collector coins. Every product undergoes rigorous
+                certification and comes with complete documentation and
+                insurance coverage.
               </p>
             </div>
 
@@ -216,9 +246,13 @@ export const AboutUsSection: React.FC = () => {
                   whileHover={{ x: 4 }}
                   className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 transition-all duration-300 cursor-pointer group"
                 >
-                  <div className="w-12 h-12  rounded-lg bg-white/10 backdrop-blur-md
-               border border-white/20 p-3 transition-colors duration-150 group-hover:bg-amber-400/20 group-hover:border-amber-400/30">
-                    <span className="text-white group-hover:text-amber-400 transition-colors">{feature.icon}</span>
+                  <div
+                    className="w-12 h-12  rounded-lg bg-white/10 backdrop-blur-md
+               border border-white/20 p-3 transition-colors duration-150 group-hover:bg-amber-400/20 group-hover:border-amber-400/30"
+                  >
+                    <span className="text-white group-hover:text-amber-400 transition-colors">
+                      {feature.icon}
+                    </span>
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-white mb-1 group-hover:text-amber-500 transition-colors">
@@ -244,13 +278,17 @@ export const AboutUsSection: React.FC = () => {
               whileHover={{ scale: 1.02 }}
               className="p-8 rounded-2xl bg-linear-to-br from-amber-500/10 to-amber-600/5 backdrop-blur-md border border-amber-500/20"
             >
-              <div className="flex items-center gap-6">
+              <div className="flex items-center justify-center gap-6">
                 <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
                   <TrendingUp className="text-white" size={32} />
                 </div>
                 <div>
-                  <div className="text-5xl font-bold text-white mb-1">99.9%</div>
-                  <div className="text-zinc-400 font-medium">Purity Certified</div>
+                  <div className="text-5xl font-bold text-white mb-1">
+                    99.9%
+                  </div>
+                  <div className="text-zinc-400 font-medium">
+                    Purity Certified
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -272,7 +310,7 @@ export const AboutUsSection: React.FC = () => {
                   whileHover={{ scale: 1.04 }}
                   className="p-6 rounded-xl bg-white/5 backdrop-blur-md
              border border-white/10 hover:border-amber-500/30
-             text-center group"
+             text-center group flex flex-col items-center justify-center gap-2"
                 >
                   <div
                     className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md
@@ -285,14 +323,14 @@ export const AboutUsSection: React.FC = () => {
                   </div>
 
                   <div className="text-3xl font-bold text-white mb-1">
-                    {stat.number}{stat.suffix}
+                    {stat.number}
+                    {stat.suffix}
                   </div>
 
                   <div className="text-zinc-400 text-sm font-medium">
                     {stat.label}
                   </div>
                 </motion.div>
-
               ))}
             </div>
 
@@ -337,8 +375,10 @@ export const AboutUsSection: React.FC = () => {
                 <span className="text-white">{feature.icon}</span>
               </motion.div>
 
-              <h3 className="font-semibold text-lg text-white mb-2
-                 group-hover:text-amber-500 transition-colors">
+              <h3
+                className="font-semibold text-lg text-white mb-2
+                 group-hover:text-amber-500 transition-colors"
+              >
                 {feature.title}
               </h3>
 
@@ -346,7 +386,6 @@ export const AboutUsSection: React.FC = () => {
                 {feature.desc}
               </p>
             </motion.div>
-
           ))}
         </motion.div>
       </div>

@@ -1,5 +1,22 @@
 import { useState } from "react";
 import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { toast } from "sonner";
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+}
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,21 +38,104 @@ const useScrollAnimation = () => {
 
 export const Contact: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    // Handle form submission here
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Phone validation
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[\d\s+()-]{10,}$/.test(formData.phone)) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+
+    // Subject validation
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
+    } else if (formData.subject.trim().length < 3) {
+      newErrors.subject = "Subject must be at least 3 characters";
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleSubmit = (): void => {
+    if (!validateForm()) {
+      toast.error("Please fix the errors in the form");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const subject = encodeURIComponent(formData.subject);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+          `Email: ${formData.email}\n` +
+          `Phone: ${formData.phone}\n\n` +
+          `Message:\n${formData.message}`,
+      );
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@srgold.com&su=${subject}&body=${body}`;
+
+      window.open(gmailUrl, "_blank");
+
+      toast.success("Opening Gmail in new tab...");
+
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+        setErrors({});
+        setIsSubmitting(false);
+      }, 1000);
+    } catch {
+      toast.error("Failed to open email client");
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (field: keyof FormData, value: string): void => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error for this field when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   return (
@@ -132,46 +232,86 @@ export const Contact: React.FC = () => {
             Send Us a Message
           </h3>
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={(e) => handleChange("name", e.target.value)}
-              className="px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border border-white/10 focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={(e) => handleChange("email", e.target.value)}
-              className="px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border border-white/10 focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm"
-            />
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={(e) => handleChange("phone", e.target.value)}
-              className="px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border border-white/10 focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm"
-            />
-            <input
-              type="text"
-              placeholder="Subject"
-              value={formData.subject}
-              onChange={(e) => handleChange("subject", e.target.value)}
-              className="px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border border-white/10 focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm"
-            />
-            <textarea
-              placeholder="Your Message"
-              rows={6}
-              value={formData.message}
-              onChange={(e) => handleChange("message", e.target.value)}
-              className="md:col-span-2 px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border border-white/10 focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 resize-none backdrop-blur-sm"
-            ></textarea>
+            <div>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                className={`w-full px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border ${
+                  errors.name ? "border-red-500" : "border-white/10"
+                } focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm`}
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{errors.name}</p>
+              )}
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                className={`w-full px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border ${
+                  errors.email ? "border-red-500" : "border-white/10"
+                } focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm`}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{errors.email}</p>
+              )}
+            </div>
+            <div>
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                className={`w-full px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border ${
+                  errors.phone ? "border-red-500" : "border-white/10"
+                } focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm`}
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1 ml-1">{errors.phone}</p>
+              )}
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Subject"
+                value={formData.subject}
+                onChange={(e) => handleChange("subject", e.target.value)}
+                className={`w-full px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border ${
+                  errors.subject ? "border-red-500" : "border-white/10"
+                } focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 backdrop-blur-sm`}
+              />
+              {errors.subject && (
+                <p className="text-red-500 text-sm mt-1 ml-1">
+                  {errors.subject}
+                </p>
+              )}
+            </div>
+            <div className="md:col-span-2">
+              <textarea
+                placeholder="Your Message"
+                rows={6}
+                value={formData.message}
+                onChange={(e) => handleChange("message", e.target.value)}
+                className={`w-full px-4 md:px-6 py-3 md:py-4 rounded-lg md:rounded-xl bg-white/5 border ${
+                  errors.message ? "border-red-500" : "border-white/10"
+                } focus:border-amber-500/50 focus:outline-none transition-colors text-white placeholder:text-zinc-500 resize-none backdrop-blur-sm`}
+              ></textarea>
+              {errors.message && (
+                <p className="text-red-500 text-sm mt-1 ml-1">
+                  {errors.message}
+                </p>
+              )}
+            </div>
             <button
               onClick={handleSubmit}
-              className="md:col-span-2  group bg-linear-to-r bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 md:px-10 py-4 md:py-5 rounded-full hover:bg-amber-500/20 hover:border-amber-500/30 transition-all duration-300 font-bold text-base md:text-lg transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40"
+              disabled={isSubmitting}
+              className="md:col-span-2 group bg-linear-to-r bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 md:px-10 py-4 md:py-5 rounded-full hover:bg-amber-500/20 hover:border-amber-500/30 transition-all duration-300 font-bold text-base md:text-lg transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
               <Send
                 size={24}
                 className="group-hover:translate-x-1 transition-transform"

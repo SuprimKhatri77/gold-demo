@@ -5,6 +5,7 @@ import { Footer } from "@/modules/landing/footer";
 import { Navbar } from "@/modules/landing/navbar";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { Raleway } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -33,6 +34,7 @@ export default function RootLayout({
           {children}
           {/* <LiveRatePopup /> */}
           <Footer />
+          <Toaster />
         </ReactQueryProvider>
       </body>
     </html>

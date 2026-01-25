@@ -2,6 +2,7 @@
 
 import { AlertCircle, CheckCircle } from "lucide-react";
 import { ChangeEvent, useState } from "react";
+import { toast } from "sonner";
 
 interface FormData {
   fullName: string;
@@ -17,6 +18,7 @@ interface FormErrors {
   subject?: string;
   message?: string;
 }
+
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -46,6 +48,8 @@ export const ContactForm: React.FC = () => {
 
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full name is required";
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = "Full name must be at least 2 characters";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -82,6 +86,7 @@ export const ContactForm: React.FC = () => {
 
   const handleSubmit = async (): Promise<void> => {
     if (!validateForm()) {
+      toast.error("Please fix the errors in the form");
       return;
     }
 
@@ -89,21 +94,37 @@ export const ContactForm: React.FC = () => {
     setSubmitStatus("idle");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form submitted:", formData);
+      const subject = encodeURIComponent(formData.subject);
+      const body = encodeURIComponent(
+        `Name: ${formData.fullName}\n` +
+          `Email: ${formData.email}\n` +
+          `Phone: ${formData.phone || "Not provided"}\n\n` +
+          `Subject: ${formData.subject}\n\n` +
+          `Message:\n${formData.message}`,
+      );
 
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@srgold.com&su=${subject}&body=${body}`;
+
+      window.open(gmailUrl, "_blank");
+
+      toast.success("Opening Gmail in new tab...");
       setSubmitStatus("success");
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
+
+      setTimeout(() => {
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+        setErrors({});
+        setIsSubmitting(false);
+      }, 1000);
     } catch (error) {
+      toast.error("Failed to open Gmail");
       setSubmitStatus("error");
       console.error("Submission error:", error);
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -255,10 +276,11 @@ export const ContactForm: React.FC = () => {
                 <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-green-300 font-semibold">
-                    Message sent successfully!
+                    Gmail opened successfully!
                   </p>
                   <p className="text-green-400/80 text-sm">
-                    We&apos;ll get back to you within 24 hours.
+                    Please send the email from your Gmail to complete the
+                    submission.
                   </p>
                 </div>
               </div>
@@ -272,7 +294,7 @@ export const ContactForm: React.FC = () => {
                     Something went wrong
                   </p>
                   <p className="text-red-400/80 text-sm">
-                    Please try again or contact us directly.
+                    Please try again or contact us directly at info@srgold.com
                   </p>
                 </div>
               </div>
@@ -284,7 +306,7 @@ export const ContactForm: React.FC = () => {
               disabled={isSubmitting}
               className="w-full bg-white/5 backdrop-blur-md border border-white/10 text-white font-semibold py-3.5 md:py-4 px-6 rounded-lg hover:bg-amber-500/20 hover:border-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-white/5"
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitting ? "Opening Gmail..." : "Send Message"}
             </button>
           </div>
         </div>

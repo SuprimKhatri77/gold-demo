@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { FC, JSX } from 'react';
-import type { Variants } from 'framer-motion';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import type { FC, JSX } from "react";
+import type { Variants } from "framer-motion";
 import {
   FileText,
   MapPin,
@@ -18,8 +18,9 @@ import {
   Zap,
   CheckCheck,
   UserCircle,
-} from 'lucide-react';
-import { ApplicationForm } from './ApplicationForm';
+} from "lucide-react";
+import { ApplicationForm } from "./ApplicationForm";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface RequirementCategory {
@@ -57,48 +58,44 @@ interface AccountBenefit {
 const requirementCategories: readonly RequirementCategory[] = [
   {
     id: 1,
-    title: 'Proof of Legal Existence',
-    description: 'Company registration and incorporation documents',
-    icon: 'building',
+    title: "Proof of Legal Existence",
+    description: "Company registration and incorporation documents",
+    icon: "building",
     items: [
-      'Valid Trade License (if applicable)',
-      'Certificate of Incorporation',
-      'Memorandum & Articles of Association',
-      'Tax Registration Certificate (if applicable)',
-      'Shareholders Register',
+      "Valid Trade License (if applicable)",
+      "Certificate of Incorporation",
+      "Memorandum & Articles of Association",
+      "Tax Registration Certificate (if applicable)",
+      "Shareholders Register",
     ],
   },
   {
     id: 2,
-    title: 'Address Details',
-    description: 'Physical address verification documents',
-    icon: 'map',
+    title: "Address Details",
+    description: "Physical address verification documents",
+    icon: "map",
     items: [
-      'Proof of physical address in country of incorporation',
-      'Proof of physical address in UAE (if applicable)',
+      "Proof of physical address in country of incorporation",
+      "Proof of physical address in UAE (if applicable)",
     ],
   },
   {
     id: 3,
-    title: 'Contact Information',
-    description: 'Official communication details',
-    icon: 'users',
-    items: [
-      'Official email address',
-      'Phone number',
-      'Website (if available)',
-    ],
+    title: "Contact Information",
+    description: "Official communication details",
+    icon: "users",
+    items: ["Official email address", "Phone number", "Website (if available)"],
   },
   {
     id: 4,
-    title: 'Key Individuals',
-    description: 'Details of authorized personnel',
-    icon: 'shield',
+    title: "Key Individuals",
+    description: "Details of authorized personnel",
+    icon: "shield",
     items: [
-      'Shareholders / Beneficial Owners',
-      'Authorized Signatories',
-      'Persons authorized to act on behalf of company',
-      'Identities and addresses of all individuals',
+      "Shareholders / Beneficial Owners",
+      "Authorized Signatories",
+      "Persons authorized to act on behalf of company",
+      "Identities and addresses of all individuals",
     ],
   },
 ];
@@ -107,96 +104,97 @@ const processSteps: readonly ProcessStep[] = [
   {
     id: 1,
     number: 1,
-    title: 'Submit Application',
-    description: 'Complete the account opening form with all required information',
-    icon: 'file',
+    title: "Submit Application",
+    description:
+      "Complete the account opening form with all required information",
+    icon: "file",
   },
   {
     id: 2,
     number: 2,
-    title: 'Document Verification',
-    description: 'Our compliance team reviews all submitted documents',
-    icon: 'shield',
+    title: "Document Verification",
+    description: "Our compliance team reviews all submitted documents",
+    icon: "shield",
   },
   {
     id: 3,
     number: 3,
-    title: 'Due Diligence Review',
-    description: 'Comprehensive KYC and AML compliance checks',
-    icon: 'lock',
+    title: "Due Diligence Review",
+    description: "Comprehensive KYC and AML compliance checks",
+    icon: "lock",
   },
   {
     id: 4,
     number: 4,
-    title: 'Account Activation',
-    description: 'Your account is approved and ready for trading',
-    icon: 'zap',
+    title: "Account Activation",
+    description: "Your account is approved and ready for trading",
+    icon: "zap",
   },
 ];
 
 const documentResources: readonly DocumentResource[] = [
   {
     id: 1,
-    title: 'Account Opening Form (Corporate)',
-    description: 'Complete application form for corporate accounts',
-    type: 'PDF',
-    icon: 'file',
-    downloadUrl: '/forms/account-opening-corporate.pdf',
+    title: "Account Opening Form (Corporate)",
+    description: "Complete application form for corporate accounts",
+    type: "PDF",
+    icon: "file",
+    downloadUrl: "/forms/account-opening-corporate.pdf",
   },
   {
     id: 2,
-    title: 'AML Policy',
-    description: 'Anti-Money Laundering compliance policy',
-    type: 'PDF',
-    icon: 'shield',
-    downloadUrl: '/policies/aml-policy.pdf',
+    title: "AML Policy",
+    description: "Anti-Money Laundering compliance policy",
+    type: "PDF",
+    icon: "shield",
+    downloadUrl: "/policies/aml-policy.pdf",
   },
   {
     id: 3,
-    title: 'Supply Chain Policy',
-    description: 'Ethical sourcing and supply chain standards',
-    type: 'PDF',
-    icon: 'zap',
-    downloadUrl: '/policies/supply-chain-policy.pdf',
+    title: "Supply Chain Policy",
+    description: "Ethical sourcing and supply chain standards",
+    type: "PDF",
+    icon: "zap",
+    downloadUrl: "/policies/supply-chain-policy.pdf",
   },
 ];
 
 const accountBenefits: readonly AccountBenefit[] = [
   {
     id: 1,
-    title: 'Competitive Pricing',
-    description: 'Access to competitive market rates for all precious metals',
-    icon: 'zap',
+    title: "Competitive Pricing",
+    description: "Access to competitive market rates for all precious metals",
+    icon: "zap",
   },
   {
     id: 2,
-    title: 'Global Reach',
-    description: 'Trade across multiple markets with our global network',
-    icon: 'map',
+    title: "Global Reach",
+    description: "Trade across multiple markets with our global network",
+    icon: "map",
   },
   {
     id: 3,
-    title: 'Expert Support',
-    description: 'Dedicated account managers and 24/7 customer support',
-    icon: 'users',
+    title: "Expert Support",
+    description: "Dedicated account managers and 24/7 customer support",
+    icon: "users",
   },
   {
     id: 4,
-    title: 'Secure Trading',
-    description: 'Industry-leading security and compliance standards',
-    icon: 'lock',
+    title: "Secure Trading",
+    description: "Industry-leading security and compliance standards",
+    icon: "lock",
   },
   {
     id: 5,
-    title: 'Fast Settlement',
-    description: 'Quick and efficient settlement processes',
-    icon: 'zap',
+    title: "Fast Settlement",
+    description: "Quick and efficient settlement processes",
+    icon: "zap",
   },
   {
     id: 6,
-    title: 'Transparency',
-    description: 'Complete transparency in all pricing and operations',
-    icon: 'shield',
+    title: "Transparency",
+    description: "Complete transparency in all pricing and operations",
+    icon: "shield",
   },
 ];
 
@@ -205,13 +203,14 @@ interface AccountOpeningProps {
 }
 
 export const AccountOpening: FC<AccountOpeningProps> = ({
-  className = '',
+  className = "",
 }: AccountOpeningProps): JSX.Element => {
+  const router = useRouter();
   const [isApplicationFormOpen, setApplicationFormOpen] = useState(false);
 
   const handleOpenApplicationForm = () => {
     setApplicationFormOpen(!isApplicationFormOpen);
-  }
+  };
   const [expandedCategory, setExpandedCategory] = useState<number | null>(1);
 
   const containerVariants: Variants = {
@@ -232,7 +231,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -244,7 +243,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -254,7 +253,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   };
 
   const renderIcon = (iconName: string): JSX.Element => {
-    const iconProps = { className: 'w-6 h-6 group-hover:text-amber-500', strokeWidth: 1.5 };
+    const iconProps = {
+      className: "w-6 h-6 group-hover:text-amber-500",
+      strokeWidth: 1.5,
+    };
     const iconMap: Record<string, JSX.Element> = {
       building: <Building2 {...iconProps} />,
       map: <MapPin {...iconProps} />,
@@ -294,7 +296,11 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               <div className="w-full h-full bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 relative flex items-center justify-center">
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
                   <UserCircle className="w-32 h-32 text-white/30" />
                 </motion.div>
@@ -315,8 +321,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               </h1>
 
               <p className="text-lg text-zinc-400 leading-relaxed">
-                Join SR Bullion and start trading precious metals with confidence. Our streamlined account opening
-                process ensures you get started quickly while maintaining highest compliance standards.
+                Join SR Jewellers and start trading precious metals with
+                confidence. Our streamlined account opening process ensures you
+                get started quickly while maintaining highest compliance
+                standards.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
@@ -386,7 +394,9 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                   <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-amber-500 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">{step.description}</p>
+                  <p className="text-zinc-400 text-sm leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -407,7 +417,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               Required Documents
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              All documents must be in English or accompanied by certified translation
+              All documents must be in English or accompanied by certified
+              translation
             </p>
           </motion.div>
 
@@ -430,13 +441,19 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg text-white">{category.title}</h3>
-                      <p className="text-sm text-zinc-400">{category.description}</p>
+                      <h3 className="font-semibold text-lg text-white">
+                        {category.title}
+                      </h3>
+                      <p className="text-sm text-zinc-400">
+                        {category.description}
+                      </p>
                     </div>
                   </div>
 
                   <motion.div
-                    animate={{ rotate: expandedCategory === category.id ? 180 : 0 }}
+                    animate={{
+                      rotate: expandedCategory === category.id ? 180 : 0,
+                    }}
                     transition={{ duration: 0.3 }}
                   >
                     <ChevronDown className="w-6 h-6 text-amber-500 shrink-0" />
@@ -446,7 +463,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{
-                    height: expandedCategory === category.id ? 'auto' : 0,
+                    height: expandedCategory === category.id ? "auto" : 0,
                     opacity: expandedCategory === category.id ? 1 : 0,
                   }}
                   transition={{ duration: 0.3 }}
@@ -458,12 +475,18 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                         <motion.li
                           key={index}
                           initial={{ opacity: 0, x: -10 }}
-                          animate={expandedCategory === category.id ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                          animate={
+                            expandedCategory === category.id
+                              ? { opacity: 1, x: 0 }
+                              : { opacity: 0, x: -10 }
+                          }
                           transition={{ delay: index * 0.05 }}
                           className="flex items-start gap-3 text-zinc-300"
                         >
                           <CheckCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                          <span className="text-sm leading-relaxed">{item}</span>
+                          <span className="text-sm leading-relaxed">
+                            {item}
+                          </span>
                         </motion.li>
                       ))}
                     </ul>
@@ -509,10 +532,14 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                   <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
                     {doc.title}
                   </h3>
-                  <p className="text-sm text-zinc-400 mb-6 grow">{doc.description}</p>
+                  <p className="text-sm text-zinc-400 mb-6 grow">
+                    {doc.description}
+                  </p>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-xs font-semibold text-amber-500 uppercase">{doc.type}</span>
+                    <span className="text-xs font-semibold text-amber-500 uppercase">
+                      {doc.type}
+                    </span>
                     <motion.button
                       type="button"
                       whileHover={{ scale: 1.1 }}
@@ -538,7 +565,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
         >
           <motion.div variants={itemVariants} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-              Why Choose SR Bullion?
+              Why Choose SR Jewellers?
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               Experience premium service and market-leading advantages
@@ -563,7 +590,9 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                   <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
                     {benefit.title}
                   </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">{benefit.description}</p>
+                  <p className="text-zinc-400 text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -586,31 +615,36 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               Ready to Get Started?
             </h2>
             <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of satisfied clients trading precious metals with SR Bullion
+              Join thousands of satisfied clients trading precious metals with
+              SR Bullion
             </p>
 
             <motion.button
               type="button"
+              onClick={() => router.push("/contact")}
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-10 py-4 bg-white text-black font-semibold rounded-xl  transition-shadow duration-100 shadow-lg shadow-amber-500/20 inline-flex items-center justify-center gap-2"
             >
               Contact Our Team
-              <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+              <motion.div
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 <ArrowRight className="w-5 h-5" />
               </motion.div>
             </motion.button>
           </motion.div>
         </motion.div>
       </div>
-      {
-        isApplicationFormOpen && (
-          // <div className=''>
-          <ApplicationForm onClose={() => setApplicationFormOpen(!isApplicationFormOpen)} />
-          // </div>
-        )
-      }
+      {isApplicationFormOpen && (
+        // <div className=''>
+        <ApplicationForm
+          onClose={() => setApplicationFormOpen(!isApplicationFormOpen)}
+        />
+        // </div>
+      )}
     </section>
   );
 };

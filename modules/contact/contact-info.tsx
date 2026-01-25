@@ -1,3 +1,4 @@
+import { companyDetails } from "@/utils/info/details";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 interface ContactInfoItem {
@@ -11,19 +12,19 @@ export const ContactInformation: React.FC = () => {
     {
       icon: <MapPin className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Office Address",
-      value: "123 Gold Exchange Street, Financial District, New York, NY 10005",
+      value: `${companyDetails.longAddress}`,
     },
     {
       icon: <Phone className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Phone",
-      value: "+1 (800) 555-GOLD",
-      href: "tel:+18005554653",
+      value: `${companyDetails.phoneNumber}`,
+      href: `tel:${companyDetails.phoneNumber}`,
     },
     {
       icon: <Mail className="w-6 h-6 group-hover:text-amber-500" />,
       label: "Email",
-      value: "info@premiumgold.com",
-      href: "mailto:info@premiumgold.com",
+      value: `${companyDetails.email}`,
+      href: `mailto:${companyDetails.email}`,
     },
     {
       icon: <Clock className="w-6 h-6 group-hover:text-amber-500" />,

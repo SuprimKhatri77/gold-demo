@@ -1,3 +1,4 @@
+import { companyDetails } from "@/utils/info/details";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export const Header: React.FC = () => {
@@ -14,7 +15,7 @@ export const Header: React.FC = () => {
                 size={14}
                 className="text-amber-500 group-hover:scale-110 transition-transform"
               />
-              <span className="font-medium">+971 4 225 5442</span>
+              <span className="font-medium">{companyDetails.phoneNumber}</span>
             </a>
             <a
               href="mailto:info@srgold.com"
@@ -24,12 +25,12 @@ export const Header: React.FC = () => {
                 size={14}
                 className="text-amber-500 group-hover:scale-110 transition-transform"
               />
-              <span className="font-medium">info@srgold.com</span>
+              <span className="font-medium">{companyDetails.email}</span>
             </a>
             <div className="flex items-center gap-2 text-zinc-400">
               <MapPin size={14} className="text-amber-500" />
               <span className="font-medium hidden sm:inline">
-                Gold Souq, Deira - Dubai
+                {companyDetails.shortAddress}
               </span>
               <span className="font-medium sm:hidden">Dubai, UAE</span>
             </div>

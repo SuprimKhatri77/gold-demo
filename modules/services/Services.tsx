@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import type { FC, JSX } from "react";
-import type { Variant, Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
 import {
   TrendingUp,
   Briefcase,
@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Settings,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface Service {
@@ -227,7 +228,11 @@ const getAnimationVariants = (): AnimationVariants => ({
 });
 
 const getIconComponent = (iconType: Service["icon"]): React.ReactNode => {
-  const iconProps = { className: "text-white transition-colors duration-300 group-hover:text-amber-500", size: 24 };
+  const iconProps = {
+    className:
+      "text-white transition-colors duration-300 group-hover:text-amber-500",
+    size: 24,
+  };
   switch (iconType) {
     case "trading":
       return <TrendingUp {...iconProps} />;
@@ -247,6 +252,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
 }: ServiceSectionProps): JSX.Element => {
   const [hoveredId, setHoveredId] = useState<HoveredServiceId>(null);
   const variants = getAnimationVariants();
+  const router = useRouter();
 
   const handleMouseEnter = (id: number): void => {
     setHoveredId(id);
@@ -283,8 +289,9 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
               transition={{
                 repeat: Infinity,
                 duration: 3,
-                ease: "linear"
-              }}>
+                ease: "linear",
+              }}
+            >
               <Settings className="text-amber-500" size={16} />
             </motion.div>
             <span className="text-zinc-400 text-sm font-medium">
@@ -306,7 +313,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             className="text-zinc-400 text-lg leading-relaxed max-w-3xl mx-auto"
           >
-            At SR Bullion FZCO, we deliver institutional-grade precious metal
+            At SR Jewellers, we deliver institutional-grade precious metal
             solutions backed by experience, regulatory compliance, and a deep
             understanding of the bullion market. Our services are designed to
             support financial institutions, bullion dealers, industrial buyers,
@@ -437,7 +444,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         >
           <motion.div variants={variants.item} className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Why SR Bullion
+              Why SR Jewellers
             </h3>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               A legacy of trust, delivering excellence in precious metals.
@@ -460,7 +467,11 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   <div className="flex items-start gap-4">
                     <motion.div
                       whileHover={{ scale: 1.15 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 18,
+                      }}
                       className="w-3 h-3 rounded-full bg-linear-to-r from-amber-500 to-amber-600 mt-1.5 shrink-0"
                     />
 
@@ -498,12 +509,13 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto"
           >
-            Get in touch with SR Bullion FZCO for wholesale precious metals in
-            kilo and large bar formats delivered with integrity, compliance, and
+            Get in touch with SR Jewellers for wholesale precious metals in kilo
+            and large bar formats delivered with integrity, compliance, and
             confidentiality.
           </motion.p>
 
           <motion.button
+            onClick={() => router.push("/contact")}
             type="button"
             variants={variants.item}
             whileHover={{ scale: 1.02 }}

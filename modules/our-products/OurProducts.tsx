@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import type { LucideProps } from "lucide-react";
-
 
 import {
   Zap,
@@ -19,6 +17,7 @@ import {
   Eye,
   Database,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface ProductSpec {
@@ -42,12 +41,12 @@ interface Feature {
   readonly title: string;
   readonly description: string;
   readonly icon:
-  | "certified"
-  | "storage"
-  | "pricing"
-  | "expertise"
-  | "reach"
-  | "solutions";
+    | "certified"
+    | "storage"
+    | "pricing"
+    | "expertise"
+    | "reach"
+    | "solutions";
 }
 
 const products: readonly Product[] = [
@@ -159,8 +158,7 @@ const features: readonly Feature[] = [
 ];
 
 export default function OurProducts() {
-  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
-
+  const router = useRouter();
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -206,7 +204,6 @@ export default function OurProducts() {
     | "storage"
     | "solutions";
 
-
   const renderProductIcon = (icon: ProductIconType): React.ReactNode => {
     const iconProps = { size: 28, className: "text-white" };
     const icons = {
@@ -219,7 +216,10 @@ export default function OurProducts() {
   };
 
   const renderFeatureIcon = (icon: FeatureIconType): React.ReactNode => {
-    const iconProps: LucideProps = { size: 20, className: "text-white group-hover:text-amber-500 transition-colors" };
+    const iconProps: LucideProps = {
+      size: 20,
+      className: "text-white group-hover:text-amber-500 transition-colors",
+    };
     const icons = {
       certified: <ShieldCheck {...iconProps} />,
       expertise: <HeartHandshake {...iconProps} />,
@@ -288,11 +288,18 @@ export default function OurProducts() {
               layout
               className="group"
               whileHover={{ y: -6 }} // small upward movement for smooth hover
-              transition={{ type: "spring", stiffness: 120, damping: 14, duration: 0.3 }} // smooth spring
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 14,
+                duration: 0.3,
+              }} // smooth spring
             >
               <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col">
                 {/* Product Header */}
-                <div className={`bg-linear-to-br ${product.color} p-8 relative overflow-hidden`}>
+                <div
+                  className={`bg-linear-to-br ${product.color} p-8 relative overflow-hidden`}
+                >
                   <motion.div
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{
@@ -313,14 +320,20 @@ export default function OurProducts() {
                       </span>
                     </div>
 
-                    <h3 className="text-2xl font-bold mb-2 text-white">{product.name}</h3>
-                    <p className="text-white/80 text-sm">Purity: {product.purity}</p>
+                    <h3 className="text-2xl font-bold mb-2 text-white">
+                      {product.name}
+                    </h3>
+                    <p className="text-white/80 text-sm">
+                      Purity: {product.purity}
+                    </p>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 p-8">
-                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">{product.description}</p>
+                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                    {product.description}
+                  </p>
 
                   {/* Specifications */}
                   <div className="space-y-3 mb-6">
@@ -330,14 +343,20 @@ export default function OurProducts() {
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+                        transition={{
+                          delay: index * 0.1,
+                          duration: 0.5,
+                          ease: "easeOut",
+                        }}
                         className="flex items-start gap-3"
                       >
                         <div className="shrink-0 mt-1">
                           <CheckCircle className="text-amber-500" size={16} />
                         </div>
                         <div>
-                          <p className="font-semibold text-white text-sm">{spec.label}</p>
+                          <p className="font-semibold text-white text-sm">
+                            {spec.label}
+                          </p>
                           <p className="text-zinc-400 text-xs">{spec.value}</p>
                         </div>
                       </motion.div>
@@ -354,7 +373,11 @@ export default function OurProducts() {
                         <motion.span
                           key={index}
                           whileHover={{ scale: 1.06 }}
-                          transition={{ type: "spring", stiffness: 150, damping: 12 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 150,
+                            damping: 12,
+                          }}
                           className="bg-white/5 backdrop-blur-md border border-white/10 text-zinc-300 px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-amber-500/20 hover:border-amber-500/30 hover:text-amber-500 transition-all duration-300"
                         >
                           {format}
@@ -368,7 +391,6 @@ export default function OurProducts() {
           ))}
         </motion.div>
 
-
         {/* Why SR Bullion Section */}
         <motion.div
           initial="hidden"
@@ -381,7 +403,7 @@ export default function OurProducts() {
             variants={itemVariants}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-12"
           >
-            Why SR Bullion
+            Why SR Jewellers
           </motion.h3>
 
           <motion.div
@@ -431,11 +453,12 @@ export default function OurProducts() {
             variants={itemVariants}
             className="text-zinc-400 text-lg max-w-2xl mx-auto mb-8"
           >
-            Get in touch with SR Bullion FZCO for wholesale precious metals
+            Get in touch with SR Jewellers for wholesale precious metals
             delivered with integrity, compliance, and confidentiality.
           </motion.p>
 
           <motion.button
+            onClick={() => router.push("/contact")}
             type="button"
             variants={itemVariants}
             whileHover={{ scale: 1.02 }}

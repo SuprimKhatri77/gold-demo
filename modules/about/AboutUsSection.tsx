@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import type { Variants } from "framer-motion";
 import {
   Award,
@@ -104,8 +103,6 @@ const features: Feature[] = [
 ];
 
 export const AboutUsSection: React.FC = () => {
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
-
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -219,11 +216,14 @@ export const AboutUsSection: React.FC = () => {
           >
             <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10">
               <p className="text-zinc-300 text-lg leading-relaxed mb-4">
-                For over two decades, Serbian Bullion DMCC has been the premier
-                destination for precious metals collectors, investors, and
-                institutions worldwide. Our journey began with a steadfast
-                commitment to providing authentic, certified, and competitively
-                priced precious metals.
+                For over two decades,{" "}
+                <b>
+                  <i>SR Jewellers</i>
+                </b>{" "}
+                has been the premier destination for precious metals collectors,
+                investors, and institutions worldwide. Our journey began with a
+                steadfast commitment to providing authentic, certified, and
+                competitively priced precious metals.
               </p>
               <p className="text-zinc-400 leading-relaxed">
                 Today, we proudly maintain one of the most comprehensive and

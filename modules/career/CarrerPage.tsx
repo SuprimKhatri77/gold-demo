@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { useState } from "react";
+import { motion, Variants } from "framer-motion";
 import {
   Briefcase,
   MapPin,
@@ -13,8 +13,10 @@ import {
   ChevronDown,
   ArrowRight,
   CircleDollarSign,
-} from 'lucide-react';
-import Image from 'next/image';
+} from "lucide-react";
+import Image from "next/image";
+import { router } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface Benefit {
@@ -46,131 +48,131 @@ interface CultureValue {
 const benefits: readonly Benefit[] = [
   {
     id: 1,
-    title: 'Competitive Salary',
-    description: 'Industry-leading compensation with performance-based bonuses',
-    icon: 'circleStar',
+    title: "Competitive Salary",
+    description: "Industry-leading compensation with performance-based bonuses",
+    icon: "circleStar",
   },
   {
     id: 2,
-    title: 'Innovation',
-    description: 'Work on cutting-edge solutions in precious metals trading',
-    icon: 'zap',
+    title: "Innovation",
+    description: "Work on cutting-edge solutions in precious metals trading",
+    icon: "zap",
   },
   {
     id: 3,
-    title: 'Health Insurance',
-    description: 'Comprehensive coverage for you and your family',
-    icon: 'heart',
+    title: "Health Insurance",
+    description: "Comprehensive coverage for you and your family",
+    icon: "heart",
   },
   {
     id: 4,
-    title: 'Team Building',
-    description: 'Regular activities and events to build strong team bonds',
-    icon: 'users',
+    title: "Team Building",
+    description: "Regular activities and events to build strong team bonds",
+    icon: "users",
   },
   {
     id: 5,
-    title: 'Friendly Environment',
-    description: 'Collaborative culture with inclusive team dynamics',
-    icon: 'lightbulb',
+    title: "Friendly Environment",
+    description: "Collaborative culture with inclusive team dynamics",
+    icon: "lightbulb",
   },
   {
     id: 6,
-    title: 'Remote Work',
-    description: 'Flexibility to work from anywhere with work-life balance',
-    icon: 'briefcase',
+    title: "Remote Work",
+    description: "Flexibility to work from anywhere with work-life balance",
+    icon: "briefcase",
   },
 ];
 
 const jobPositions: readonly JobPosition[] = [
   {
     id: 1,
-    title: 'General Manager',
-    location: 'Dubai',
-    experience: '10 Years',
-    type: 'Full Time',
+    title: "General Manager",
+    location: "Dubai",
+    experience: "10 Years",
+    type: "Full Time",
     overview:
-      'Lead and oversee daily operations while managing cross-functional teams to execute strategic growth initiatives. This is a high-impact leadership role for motivated, experienced professionals.',
+      "Lead and oversee daily operations while managing cross-functional teams to execute strategic growth initiatives. This is a high-impact leadership role for motivated, experienced professionals.",
     responsibilities: [
-      'Lead and manage company operations and cross-functional teams',
-      'Develop and execute growth strategies and business plans',
-      'Monitor performance metrics and drive operational efficiency',
-      'Oversee budgeting, forecasting, and financial planning',
-      'Ensure compliance with legal and company standards',
+      "Lead and manage company operations and cross-functional teams",
+      "Develop and execute growth strategies and business plans",
+      "Monitor performance metrics and drive operational efficiency",
+      "Oversee budgeting, forecasting, and financial planning",
+      "Ensure compliance with legal and company standards",
     ],
     requirements: [
-      '10+ years in senior management or operational leadership',
-      'Strong leadership and business development skills',
-      'Excellent communication and decision-making abilities',
-      'Proficiency in budgeting, strategic planning, and operations',
-      'Bachelor\'s degree (MBA preferred)',
+      "10+ years in senior management or operational leadership",
+      "Strong leadership and business development skills",
+      "Excellent communication and decision-making abilities",
+      "Proficiency in budgeting, strategic planning, and operations",
+      "Bachelor's degree (MBA preferred)",
     ],
     offers: [
-      'Competitive salary and performance-based bonuses',
-      'Opportunity to shape the company\'s future',
-      'Supportive and collaborative work environment',
-      'Flexible working arrangements',
-      'Health benefits and paid time off',
+      "Competitive salary and performance-based bonuses",
+      "Opportunity to shape the company's future",
+      "Supportive and collaborative work environment",
+      "Flexible working arrangements",
+      "Health benefits and paid time off",
     ],
   },
   {
     id: 2,
-    title: 'HR Manager',
-    location: 'Dubai',
-    experience: '8 Years',
-    type: 'Full Time',
+    title: "HR Manager",
+    location: "Dubai",
+    experience: "8 Years",
+    type: "Full Time",
     overview:
-      'Build and nurture a high-performing culture by managing recruitment, employee development, and company culture initiatives.',
+      "Build and nurture a high-performing culture by managing recruitment, employee development, and company culture initiatives.",
     responsibilities: [
-      'Recruit and onboard top talent aligned with company values',
-      'Develop and implement HR policies and procedures',
-      'Manage employee relations and performance management',
-      'Oversee training and professional development programs',
-      'Ensure workplace compliance and legal requirements',
+      "Recruit and onboard top talent aligned with company values",
+      "Develop and implement HR policies and procedures",
+      "Manage employee relations and performance management",
+      "Oversee training and professional development programs",
+      "Ensure workplace compliance and legal requirements",
     ],
     requirements: [
-      '8+ years of HR management experience',
-      'Strong knowledge of HR best practices and regulations',
-      'Excellent communication and interpersonal skills',
-      'Experience with HRIS systems and HR analytics',
-      'Bachelor\'s degree in HR, Business, or related field',
+      "8+ years of HR management experience",
+      "Strong knowledge of HR best practices and regulations",
+      "Excellent communication and interpersonal skills",
+      "Experience with HRIS systems and HR analytics",
+      "Bachelor's degree in HR, Business, or related field",
     ],
     offers: [
-      'Competitive salary package',
-      'Career growth and development opportunities',
-      'Health and wellness benefits',
-      'Flexible work arrangements',
-      'Professional development budget',
+      "Competitive salary package",
+      "Career growth and development opportunities",
+      "Health and wellness benefits",
+      "Flexible work arrangements",
+      "Professional development budget",
     ],
   },
   {
     id: 3,
-    title: 'Account Manager',
-    location: 'Dubai',
-    experience: '5 Years',
-    type: 'Full Time',
+    title: "Account Manager",
+    location: "Dubai",
+    experience: "5 Years",
+    type: "Full Time",
     overview:
-      'Drive revenue growth by managing key client relationships and identifying new business opportunities in the precious metals trading sector.',
+      "Drive revenue growth by managing key client relationships and identifying new business opportunities in the precious metals trading sector.",
     responsibilities: [
-      'Manage and nurture existing client relationships',
-      'Identify and pursue new business opportunities',
-      'Prepare quotes and negotiate contracts',
-      'Ensure client satisfaction and retention',
-      'Prepare sales reports and forecasts',
+      "Manage and nurture existing client relationships",
+      "Identify and pursue new business opportunities",
+      "Prepare quotes and negotiate contracts",
+      "Ensure client satisfaction and retention",
+      "Prepare sales reports and forecasts",
     ],
     requirements: [
-      '5+ years of account management experience',
-      'Strong sales and negotiation skills',
-      'Experience in commodities or trading (preferred)',
-      'Excellent communication and presentation abilities',
-      'Bachelor\'s degree in Business, Finance, or related field',
+      "5+ years of account management experience",
+      "Strong sales and negotiation skills",
+      "Experience in commodities or trading (preferred)",
+      "Excellent communication and presentation abilities",
+      "Bachelor's degree in Business, Finance, or related field",
     ],
     offers: [
-      'Competitive base salary + performance bonus',
-      'Commission structure based on sales targets',
-      'Company car allowance',
-      'Health insurance and retirement benefits',
-      'Career advancement opportunities',
+      "Competitive base salary + performance bonus",
+      "Commission structure based on sales targets",
+      "Company car allowance",
+      "Health insurance and retirement benefits",
+      "Career advancement opportunities",
     ],
   },
 ];
@@ -178,38 +180,38 @@ const jobPositions: readonly JobPosition[] = [
 const cultureValues: readonly CultureValue[] = [
   {
     id: 1,
-    title: 'Excellence',
-    description: 'We pursue excellence in every aspect of our operations',
-    icon: 'circleStar',
+    title: "Excellence",
+    description: "We pursue excellence in every aspect of our operations",
+    icon: "circleStar",
   },
   {
     id: 2,
-    title: 'Integrity',
-    description: 'Trust and transparency are the foundation of our business',
-    icon: 'zap',
+    title: "Integrity",
+    description: "Trust and transparency are the foundation of our business",
+    icon: "zap",
   },
   {
     id: 3,
-    title: 'Innovation',
-    description: 'We embrace change and drive industry evolution',
-    icon: 'lightbulb',
+    title: "Innovation",
+    description: "We embrace change and drive industry evolution",
+    icon: "lightbulb",
   },
 ];
 
 const getIconComponent = (iconName: string) => {
   const iconProps = { className: "w-6 h-6" };
   switch (iconName) {
-    case 'circleStar':
+    case "circleStar":
       return <CircleDollarSign {...iconProps} />;
-    case 'zap':
+    case "zap":
       return <Zap {...iconProps} />;
-    case 'heart':
+    case "heart":
       return <Heart {...iconProps} />;
-    case 'users':
+    case "users":
       return <Users {...iconProps} />;
-    case 'lightbulb':
+    case "lightbulb":
       return <Lightbulb {...iconProps} />;
-    case 'briefcase':
+    case "briefcase":
       return <Briefcase {...iconProps} />;
     default:
       return null;
@@ -218,6 +220,7 @@ const getIconComponent = (iconName: string) => {
 
 export default function CareerPage() {
   const [expandedJobId, setExpandedJobId] = useState<number | null>(null);
+  const router = useRouter();
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -237,7 +240,7 @@ export default function CareerPage() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -249,7 +252,7 @@ export default function CareerPage() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -282,7 +285,13 @@ export default function CareerPage() {
           >
             <div className="md:pb-2 pb-1 absolute inset-0 bg-linear-to-br from-amber-600 via-amber-500 to-amber-700 flex items-center justify-center">
               <div className="text-center text-white px-4 md:px-0">
-                <Image className='mx-auto mt-6 mb-2 rounded-xl shadow-2xl border-2' src={'/sr-team.jpg'} height={700} width={500} alt='sr-team' />
+                <Image
+                  className="mx-auto mt-6 mb-2 rounded-xl shadow-2xl border-2"
+                  src={"/sr-team.jpg"}
+                  height={700}
+                  width={500}
+                  alt="sr-team"
+                />
                 <p className="text-lg font-semibold">Join Our Elite Team</p>
               </div>
             </div>
@@ -297,18 +306,24 @@ export default function CareerPage() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
               <Zap className="text-amber-500" size={16} />
-              <span className="text-zinc-400 text-sm font-medium">Build Your Future</span>
+              <span className="text-zinc-400 text-sm font-medium">
+                Build Your Future
+              </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
-              Join SR Bullion&apos;s Elite Team
+              Join SR Jewellers Elite Team
             </h1>
 
             <p className="text-lg text-zinc-400 leading-relaxed mb-8">
-              Embrace the flexibility and convenience of working from anywhere by joining our remote workforce. Enjoy the freedom to balance your professional goals with your personal life while contributing to the world&apos;s most trusted precious metals trading company.
+              Embrace the flexibility and convenience of working from anywhere
+              by joining our remote workforce. Enjoy the freedom to balance your
+              professional goals with your personal life while contributing to
+              the world&apos;s most trusted precious metals trading company.
             </p>
 
             <motion.button
+              onClick={() => (window.location.href = "#current-openings")}
               type="button"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -374,6 +389,7 @@ export default function CareerPage() {
 
         {/* Job Openings Section */}
         <motion.div
+          id="current-openings"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -390,13 +406,11 @@ export default function CareerPage() {
             variants={itemVariants}
             className="text-center text-zinc-400 text-lg mb-12 max-w-2xl mx-auto"
           >
-            Explore career opportunities with competitive packages and growth potential
+            Explore career opportunities with competitive packages and growth
+            potential
           </motion.p>
 
-          <motion.div
-            variants={containerVariants}
-            className="space-y-6"
-          >
+          <motion.div variants={containerVariants} className="space-y-6">
             {jobPositions.map((job) => (
               <motion.div
                 key={job.id}
@@ -442,7 +456,11 @@ export default function CareerPage() {
                 {/* Job Details - Expandable */}
                 <motion.div
                   initial={false}
-                  animate={expandedJobId === job.id ? { height: 'auto' } : { height: 0 }}
+                  animate={
+                    expandedJobId === job.id
+                      ? { height: "auto" }
+                      : { height: 0 }
+                  }
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden border-t border-white/10"
                 >
@@ -462,8 +480,13 @@ export default function CareerPage() {
                       </h4>
                       <ul className="space-y-2">
                         {job.responsibilities.map((responsibility, index) => (
-                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
-                            <span className="text-amber-500 font-bold mt-0.5">•</span>
+                          <li
+                            key={index}
+                            className="flex gap-3 text-zinc-400 text-sm"
+                          >
+                            <span className="text-amber-500 font-bold mt-0.5">
+                              •
+                            </span>
                             <span>{responsibility}</span>
                           </li>
                         ))}
@@ -476,8 +499,13 @@ export default function CareerPage() {
                       </h4>
                       <ul className="space-y-2">
                         {job.requirements.map((requirement, index) => (
-                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
-                            <span className="text-amber-500 font-bold mt-0.5">•</span>
+                          <li
+                            key={index}
+                            className="flex gap-3 text-zinc-400 text-sm"
+                          >
+                            <span className="text-amber-500 font-bold mt-0.5">
+                              •
+                            </span>
                             <span>{requirement}</span>
                           </li>
                         ))}
@@ -490,8 +518,13 @@ export default function CareerPage() {
                       </h4>
                       <ul className="space-y-2">
                         {job.offers.map((offer, index) => (
-                          <li key={index} className="flex gap-3 text-zinc-400 text-sm">
-                            <span className="text-amber-500 font-bold mt-0.5">•</span>
+                          <li
+                            key={index}
+                            className="flex gap-3 text-zinc-400 text-sm"
+                          >
+                            <span className="text-amber-500 font-bold mt-0.5">
+                              •
+                            </span>
                             <span>{offer}</span>
                           </li>
                         ))}
@@ -550,7 +583,11 @@ export default function CareerPage() {
                   <div className="mb-6 inline-flex">
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                      transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                       className="p-4 bg-linear-to-br from-amber-500 to-amber-600 rounded-xl text-white shadow-lg shadow-amber-500/20"
                     >
                       {getIconComponent(value.icon)}
@@ -589,18 +626,23 @@ export default function CareerPage() {
             variants={itemVariants}
             className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto"
           >
-            Apply now to become part of a dynamic team that shapes the future of precious metals trading
+            Apply now to become part of a dynamic team that shapes the future of
+            precious metals trading
           </motion.p>
 
           <motion.button
+            onClick={() => router.push("/account-opening")}
             variants={itemVariants}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="button"
             className="group bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
           >
-            View All Opportunities
-            <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+            Apply Now
+            <motion.div
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
               <ArrowRight size={20} />
             </motion.div>
           </motion.button>

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import type { FC, JSX } from 'react';
-import type { MotionProps, Variants } from 'framer-motion';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import type { FC, JSX } from "react";
+import type { MotionProps, Variants } from "framer-motion";
 import {
   ArrowRight,
   Briefcase,
@@ -11,8 +11,9 @@ import {
   TrendingUp,
   Target,
   Zap,
-} from 'lucide-react';
-import Image from 'next/image';
+} from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Type definitions
 interface TeamMember {
@@ -38,23 +39,33 @@ type HoveredId = number | null;
 const teamMembers: readonly TeamMember[] = [
   {
     id: 1,
-    name: 'Mr. Shitiz Garg',
-    title: 'Managing Director & Founder',
+    name: "Mr. Shitiz Garg",
+    title: "Managing Director & Founder",
     description:
-      "Mr. Shitiz Garg is the Managing Director of SR Bullion FZCO with over nine years of experience in gold bullion trading, financial investments, and strategic business leadership. His expertise spans multiple sectors, including precious metals, petroleum, real estate, and general trading through the Synergy Finvest group. With strong knowledge of international markets, supply chain optimization, and risk-managed capital deployment, he plays a key role in driving the company's operational excellence and global competitiveness.",
-    expertise: ['Bullion Trading', 'Market Strategy', 'Global Expansion', 'Risk Management'],
-    image: '/shitiz-garg.jpg',
-    color: 'from-amber-500 to-amber-600',
+      "Mr. Shitiz Garg is the Managing Director of SR Jewellers with over nine years of experience in gold bullion trading, financial investments, and strategic business leadership. His expertise spans multiple sectors, including precious metals, petroleum, real estate, and general trading through the Synergy Finvest group. With strong knowledge of international markets, supply chain optimization, and risk-managed capital deployment, he plays a key role in driving the company's operational excellence and global competitiveness.",
+    expertise: [
+      "Bullion Trading",
+      "Market Strategy",
+      "Global Expansion",
+      "Risk Management",
+    ],
+    image: "/shitiz-garg.jpg",
+    color: "from-amber-500 to-amber-600",
   },
   {
     id: 2,
-    name: 'Mr. Kush Goel',
-    title: 'Director – SR Bullion FZCO',
+    name: "Mr. Kush Goel",
+    title: "Director – SR Jewellers",
     description:
-      'Mr. Kush Goel is a seasoned entrepreneur and chartered accountant with extensive experience in the oil & gas sector, precious metals trading, and diversified family businesses. With a professional background at global firms such as Deloitte, KPMG, and Grant Thornton, he brings financial expertise, strategic insight, and results-driven leadership to SR Bullion FZCO. Since 2012, he has led ventures across gold and silver trading, investment advisory, luxury car rentals, and commodities.',
-    expertise: ['Financial Strategy', 'Trading Dynamics', 'Governance', 'Business Growth'],
-    image: '/kush-geol.jpg',
-    color: 'from-amber-500 to-amber-600',
+      "Mr. Kush Goel is a seasoned entrepreneur and chartered accountant with extensive experience in the oil & gas sector, precious metals trading, and diversified family businesses. With a professional background at global firms such as Deloitte, KPMG, and Grant Thornton, he brings financial expertise, strategic insight, and results-driven leadership to SR Jewellers. Since 2012, he has led ventures across gold and silver trading, investment advisory, luxury car rentals, and commodities.",
+    expertise: [
+      "Financial Strategy",
+      "Trading Dynamics",
+      "Governance",
+      "Business Growth",
+    ],
+    image: "/kush-geol.jpg",
+    color: "from-amber-500 to-amber-600",
   },
 ];
 
@@ -70,7 +81,6 @@ type Stat = {
   animate: MotionProps["animate"];
   transition: MotionProps["transition"];
 };
-
 
 export const stats: Stat[] = [
   {
@@ -99,7 +109,6 @@ export const stats: Stat[] = [
   },
 ];
 
-
 export const animationVariants: {
   container: Variants;
   item: Variants;
@@ -127,7 +136,6 @@ export const animationVariants: {
   },
 };
 
-
 const getAnimationVariants = (): AnimationVariants => ({
   container: {
     hidden: { opacity: 0 },
@@ -146,7 +154,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -157,7 +165,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
@@ -168,7 +176,7 @@ const getAnimationVariants = (): AnimationVariants => ({
       transition: {
         duration: 4,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       },
     },
   } as Variants,
@@ -179,17 +187,18 @@ const getAnimationVariants = (): AnimationVariants => ({
       y: -8,
       transition: {
         duration: 0.3,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   } as Variants,
 });
 
 const TeamPremium: FC<TeamPremiumProps> = ({
-  className = '',
+  className = "",
 }: TeamPremiumProps): JSX.Element => {
   const [hoveredId, setHoveredId] = useState<HoveredId>(null);
   const animationVariants = getAnimationVariants();
+  const router = useRouter();
 
   const handleMouseEnter = (id: number): void => {
     setHoveredId(id);
@@ -222,7 +231,9 @@ const TeamPremium: FC<TeamPremiumProps> = ({
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
           >
             <Award className="text-amber-500" size={16} />
-            <span className="text-zinc-400 text-sm font-medium">Leadership Team</span>
+            <span className="text-zinc-400 text-sm font-medium">
+              Leadership Team
+            </span>
           </motion.div>
 
           <motion.h2
@@ -239,8 +250,9 @@ const TeamPremium: FC<TeamPremiumProps> = ({
             variants={animationVariants.item}
             className="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Meet the strategic minds driving SR Bullion FZCO forward with decades of combined expertise
-            in precious metals trading, finance, and international business.
+            Meet the strategic minds driving SR Jewellers forward with decades
+            of combined expertise in precious metals trading, finance, and
+            international business.
           </motion.p>
         </motion.div>
 
@@ -272,7 +284,7 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                       <Image
                         height={700}
                         width={700}
-                        src={member.image || '/placeholder.svg'}
+                        src={member.image || "/placeholder.svg"}
                         alt={member.name}
                         className="w-full h-full object-cover rounded-xl pointer-events-none"
                       />
@@ -287,7 +299,9 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                     className="absolute bottom-4 left-4 right-4"
                   >
                     <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full">
-                      <p className="text-white font-semibold text-sm">{member.title}</p>
+                      <p className="text-white font-semibold text-sm">
+                        {member.title}
+                      </p>
                     </div>
                   </motion.div>
                 </div>
@@ -333,14 +347,20 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                     transition={{ delay: 0.3 }}
                   >
                     <motion.div
-                      animate={hoveredId === member.id ? { rotate: 5, scale: 1.05 } : { rotate: 0, scale: 1 }}
+                      animate={
+                        hoveredId === member.id
+                          ? { rotate: 5, scale: 1.05 }
+                          : { rotate: 0, scale: 1 }
+                      }
                       transition={{ duration: 0.3 }}
                       className={`w-10 h-10 bg-linear-to-br ${member.color} rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/20`}
                     >
                       <Briefcase className="text-white" size={18} />
                     </motion.div>
                     <motion.div
-                      animate={hoveredId === member.id ? { scale: 1.1 } : { scale: 1 }}
+                      animate={
+                        hoveredId === member.id ? { scale: 1.1 } : { scale: 1 }
+                      }
                       transition={{ duration: 0.3 }}
                       className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg flex items-center justify-center hover:border-amber-500/30 transition-colors"
                     >
@@ -383,9 +403,7 @@ const TeamPremium: FC<TeamPremiumProps> = ({
                   {stat.title}
                 </h3>
 
-                <p className="text-sm text-zinc-400">
-                  {stat.description}
-                </p>
+                <p className="text-sm text-zinc-400">{stat.description}</p>
               </motion.div>
             );
           })}
@@ -406,6 +424,7 @@ const TeamPremium: FC<TeamPremiumProps> = ({
             Join our expert-led platform for premium precious metals trading
           </motion.p>
           <motion.button
+            onClick={() => router.push("/contact")}
             type="button"
             variants={animationVariants.item}
             whileHover={{ scale: 1.02 }}

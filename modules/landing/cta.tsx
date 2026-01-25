@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Award, Lock, Phone, Shield, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -70,7 +71,10 @@ export function CTASection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-12 md:mb-16">
-            <button className="group relative bg-white text-black px-8 md:px-10 lg:px-12 py-4 md:py-5 lg:py-6 rounded-full hover:bg-amber-400 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold text-base md:text-lg lg:text-xl transform hover:scale-105 overflow-hidden">
+            <Link
+              href="/our-products"
+              className="group relative bg-white text-black px-8 md:px-10 lg:px-12 py-4 md:py-5 lg:py-6 rounded-full hover:bg-amber-400 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold text-base md:text-lg lg:text-xl transform hover:scale-105 overflow-hidden"
+            >
               <span className="relative z-10 flex items-center justify-center gap-2 md:gap-3">
                 Browse Collection
                 <ArrowRight
@@ -79,15 +83,18 @@ export function CTASection() {
                 />
               </span>
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
+            </Link>
 
-            <button className="group bg-white/5 backdrop-blur-md text-white px-8 md:px-10 lg:px-12 py-4 md:py-5 lg:py-6 rounded-full hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 font-semibold text-base md:text-lg lg:text-xl transform hover:scale-105 flex items-center justify-center gap-2 md:gap-3">
+            <Link
+              href="/contact"
+              className="group bg-white/5 backdrop-blur-md text-white px-8 md:px-10 lg:px-12 py-4 md:py-5 lg:py-6 rounded-full hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 font-semibold text-base md:text-lg lg:text-xl transform hover:scale-105 flex items-center justify-center gap-2 md:gap-3"
+            >
               <Phone
                 size={20}
                 className="group-hover:rotate-12 transition-transform"
               />
               Schedule Consultation
-            </button>
+            </Link>
           </div>
 
           {/* Trust Indicators */}

@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Stat {
   number: string;
@@ -67,6 +68,7 @@ export function Hero() {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const router = useRouter();
 
   // Typewriter effect with smoother timing - on every slide change
   useEffect(() => {
@@ -260,12 +262,14 @@ export function Hero() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="group bg-white hover:bg-zinc-100 text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                    onClick={() => router.push("/our-products")}
                   >
                     View Gold Collection
                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </motion.button>
 
                   <motion.button
+                    onClick={() => router.push("/contact")}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="group bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2"

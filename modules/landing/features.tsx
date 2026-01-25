@@ -8,6 +8,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -141,13 +142,16 @@ export function Quality() {
                 the perfect pieces for your collection.
               </p>
             </div>
-            <button className="group bg-white text-black px-6 md:px-8 lg:px-10 py-3 md:py-4 rounded-full hover:bg-amber-400 transition-all duration-300 font-semibold text-sm md:text-base transform hover:scale-105 flex items-center gap-2 md:gap-3 whitespace-nowrap shadow-lg hover:shadow-xl">
+            <Link
+              href="/contact"
+              className="group bg-white text-black px-6 md:px-8 lg:px-10 py-3 md:py-4 rounded-full hover:bg-amber-400 transition-all duration-300 font-semibold text-sm md:text-base transform hover:scale-105 flex items-center gap-2 md:gap-3 whitespace-nowrap shadow-lg hover:shadow-xl"
+            >
               Book Consultation
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
               />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

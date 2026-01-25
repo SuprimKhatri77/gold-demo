@@ -1,4 +1,6 @@
+import { companyDetails } from "@/utils/info/details";
 import { ArrowRight, Send, Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
 
 interface FooterItem {
   label: string;
@@ -30,7 +32,7 @@ export const Footer: React.FC = () => {
               </div>
               <div>
                 <span className="text-xl md:text-2xl font-bold text-white">
-                  SR Gold
+                  SR Jewellers
                 </span>
               </div>
             </div>
@@ -48,7 +50,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 md:space-y-3">
               {footerLinks.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-zinc-400 hover:text-white transition-colors flex items-center gap-2 group text-sm md:text-base"
                   >
@@ -57,7 +59,7 @@ export const Footer: React.FC = () => {
                       className="group-hover:translate-x-1 transition-transform opacity-0 group-hover:opacity-100"
                     />
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,26 +73,26 @@ export const Footer: React.FC = () => {
             <ul className="space-y-3 md:space-y-4">
               <li>
                 <a
-                  href="tel:+97142255442"
+                  href={`tel:${companyDetails.phoneNumber}`}
                   className="text-zinc-400 hover:text-white transition-colors flex items-start gap-3 group text-sm md:text-base"
                 >
                   <Phone
                     size={18}
                     className="mt-0.5 shrink-0 text-zinc-500 group-hover:text-white transition-colors"
                   />
-                  <span>+971 4 225 5442</span>
+                  <span>{companyDetails.phoneNumber}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@srgold.com"
+                  href={`mailto:${companyDetails.email}`}
                   className="text-zinc-400 hover:text-white transition-colors flex items-start gap-3 group text-sm md:text-base break-all"
                 >
                   <Mail
                     size={18}
                     className="mt-0.5 shrink-0 text-zinc-500 group-hover:text-white transition-colors"
                   />
-                  <span>info@srgold.com</span>
+                  <span>{companyDetails.email}</span>
                 </a>
               </li>
               <li>
@@ -105,8 +107,7 @@ export const Footer: React.FC = () => {
                     className="mt-0.5 shrink-0 text-zinc-500 group-hover:text-white transition-colors"
                   />
                   <span className="leading-relaxed">
-                    Near Bait Al Banat Women&apos;s Museum, Al Sabkha, Gold
-                    Souq, Near - Al Khor Street - Deira - Dubai 14925
+                    {companyDetails.longAddress}
                   </span>
                 </a>
               </li>
@@ -142,27 +143,27 @@ export const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-6 md:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-zinc-400 text-xs md:text-sm text-center md:text-left">
-              © {new Date().getFullYear()} SR Gold. All rights reserved.
+              © {new Date().getFullYear()} SR Jewellers. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm">
-              <a
+              <Link
                 href="#"
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 Privacy Policy
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 Terms of Service
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

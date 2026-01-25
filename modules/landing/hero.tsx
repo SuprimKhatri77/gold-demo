@@ -10,9 +10,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 interface Stat {
   number: string;
@@ -36,7 +35,8 @@ const slides = [
   {
     image:
       "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80",
-    title: "Premium Gold Bullion",
+    title: "Premium Gold",
+    animatedWord: "Bullion",
     subtitle: "Invest in Your Future",
     description:
       "Discover certified investment-grade gold bars and coins. Secure your wealth with precious metals backed by authenticity and trust.",
@@ -44,7 +44,8 @@ const slides = [
   {
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80",
-    title: "Certified Excellence",
+    title: "Certified",
+    animatedWord: "Excellence",
     subtitle: "99.99% Pure Gold",
     description:
       "Every piece comes with complete certification and provenance documentation. Investment-grade quality guaranteed.",
@@ -52,7 +53,8 @@ const slides = [
   {
     image:
       "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=1920&q=80",
-    title: "Secure Investment",
+    title: "Secure",
+    animatedWord: "Investment",
     subtitle: "Build Lasting Wealth",
     description:
       "Join thousands of investors who trust us for authentic, premium gold bullion that stands the test of time.",
@@ -64,26 +66,32 @@ export function Hero() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-  const router = useRouter();
-
+  // Typewriter effect with smoother timing - on every slide change
   useEffect(() => {
     setDisplayedText("");
     setIsTyping(true);
-    const text = slides[currentSlide].title;
+    const text = slides[currentSlide].animatedWord;
     let currentIndex = 0;
 
-    const typeInterval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setDisplayedText(text.substring(0, currentIndex));
-        currentIndex++;
-      } else {
-        setIsTyping(false);
-        clearInterval(typeInterval);
-      }
-    }, 50);
+    // Start typing after a brief delay for smoothness
+    const startDelay = setTimeout(() => {
+      const typeInterval = setInterval(() => {
+        if (currentIndex <= text.length) {
+          setDisplayedText(text.substring(0, currentIndex));
+          currentIndex++;
+        } else {
+          setIsTyping(false);
+          if (currentSlide === 0) setHasAnimated(true);
+          clearInterval(typeInterval);
+        }
+      }, 80); // Slower, more natural typing speed
 
-    return () => clearInterval(typeInterval);
+      return () => clearInterval(typeInterval);
+    }, 200); // Delay before typing starts
+
+    return () => clearTimeout(startDelay);
   }, [currentSlide]);
 
   useEffect(() => {
@@ -112,31 +120,24 @@ export function Hero() {
   return (
     <section className="relative min-h-screen bg-black overflow-hidden">
       {/* Background Slides */}
-      <AnimatePresence mode="wait">
-        {slides.map(
-          (slide, index) =>
-            index === currentSlide && (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  fill
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-full object-cover"
-                />
-                {/* Darker gradient overlays - less gold tones */}
-                <div className="absolute inset-0 bg-linear-to-br from-black/85 via-zinc-900/75 to-black/70" />
-                <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
-              </motion.div>
-            ),
-        )}
-      </AnimatePresence>
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            index === currentSlide ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Image
+            fill
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover"
+          />
+          {/* Darker gradient overlays - less gold tones */}
+          <div className="absolute inset-0 bg-linear-to-br from-black/85 via-zinc-900/75 to-black/70" />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
+        </div>
+      ))}
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center">
@@ -148,7 +149,9 @@ export function Hero() {
               <div className="lg:col-span-7 space-y-8">
                 {/* Badge */}
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={
+                    !hasAnimated ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }
+                  }
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full"
@@ -162,33 +165,66 @@ export function Hero() {
                 {/* Main Heading with Typewriter */}
                 <div className="space-y-4">
                   <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
+                    key={currentSlide}
+                    initial={
+                      !hasAnimated
+                        ? { opacity: 0, y: 20 }
+                        : { opacity: 1, y: 0 }
+                    }
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: !hasAnimated ? 0.2 : 0,
+                      ease: "easeOut",
+                    }}
                     className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
                   >
                     <span className="block text-white">
-                      {displayedText}
-                      {isTyping && (
-                        <span className="inline-block w-1 h-16 sm:h-20 lg:h-24 xl:h-28 bg-white ml-1 animate-pulse" />
-                      )}
+                      {slides[currentSlide].title}{" "}
+                      <span className="inline-block min-w-50 sm:min-w-75 lg:min-w-100">
+                        {displayedText}
+                        {isTyping && (
+                          <motion.span
+                            animate={{ opacity: [1, 0, 1] }}
+                            transition={{
+                              duration: 0.8,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                            className="inline-block w-1 h-16 sm:h-20 lg:h-24 xl:h-28 bg-white ml-1"
+                          />
+                        )}
+                      </span>
                     </span>
                   </motion.h1>
 
                   {/* Subtitle with minimal gold accent */}
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    key={`subtitle-${currentSlide}`}
+                    initial={
+                      !hasAnimated
+                        ? { opacity: 0, y: 20 }
+                        : { opacity: 1, y: 0 }
+                    }
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: !hasAnimated ? 0.6 : 0,
+                      ease: "easeOut",
+                    }}
                     className="inline-block"
                   >
                     <p className="text-xl sm:text-2xl lg:text-3xl text-zinc-300 font-medium">
                       {slides[currentSlide].subtitle}
                     </p>
                     <motion.div
-                      initial={{ width: 0 }}
+                      initial={!hasAnimated ? { width: 0 } : { width: "6rem" }}
                       animate={{ width: "6rem" }}
-                      transition={{ duration: 0.8, delay: 0.7 }}
+                      transition={{
+                        duration: 1,
+                        delay: !hasAnimated ? 1 : 0,
+                        ease: "easeOut",
+                      }}
                       className="h-1 bg-linear-to-r from-amber-400 to-transparent mt-3"
                     />
                   </motion.div>
@@ -196,9 +232,16 @@ export function Hero() {
 
                 {/* Description */}
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  key={`desc-${currentSlide}`}
+                  initial={
+                    !hasAnimated ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }
+                  }
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: !hasAnimated ? 1.2 : 0,
+                    ease: "easeOut",
+                  }}
                   className="text-zinc-400 text-lg sm:text-xl leading-relaxed max-w-2xl"
                 >
                   {slides[currentSlide].description}
@@ -206,13 +249,14 @@ export function Hero() {
 
                 {/* CTA Buttons */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={
+                    !hasAnimated ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }
+                  }
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1 }}
+                  transition={{ duration: 0.6, delay: !hasAnimated ? 1 : 0 }}
                   className="flex flex-col sm:flex-row gap-4"
                 >
                   <motion.button
-                    onClick={() => router.push("/our-products")}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="group bg-white hover:bg-zinc-100 text-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2"
@@ -222,7 +266,6 @@ export function Hero() {
                   </motion.button>
 
                   <motion.button
-                    onClick={() => router.push("/contact")}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="group bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2"
@@ -241,11 +284,15 @@ export function Hero() {
                     return (
                       <motion.div
                         key={index}
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={
+                          !hasAnimated
+                            ? { opacity: 0, x: 20 }
+                            : { opacity: 1, x: 0 }
+                        }
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
                           duration: 0.6,
-                          delay: 0.4 + index * 0.15,
+                          delay: !hasAnimated ? 0.4 + index * 0.15 : 0,
                         }}
                         whileHover={{ scale: 1.02, y: -5 }}
                         className="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:bg-white/10"
@@ -261,11 +308,11 @@ export function Hero() {
 
                         {/* Number */}
                         <motion.div
-                          initial={{ scale: 0.5 }}
+                          initial={!hasAnimated ? { scale: 0.5 } : { scale: 1 }}
                           animate={{ scale: 1 }}
                           transition={{
                             duration: 0.5,
-                            delay: 0.6 + index * 0.15,
+                            delay: !hasAnimated ? 0.6 + index * 0.15 : 0,
                           }}
                           className="text-5xl sm:text-6xl font-bold text-white mb-2"
                         >
@@ -288,9 +335,11 @@ export function Hero() {
 
             {/* Navigation Controls */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={
+                !hasAnimated ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }
+              }
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.6, delay: !hasAnimated ? 1.2 : 0 }}
               className="mt-16 lg:mt-24 flex items-center justify-between"
             >
               {/* Navigation Arrows */}
@@ -335,23 +384,15 @@ export function Hero() {
 
               {/* Scroll Indicator */}
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={!hasAnimated ? { opacity: 0 } : { opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.5 }}
+                transition={{ duration: 0.6, delay: !hasAnimated ? 1.5 : 0 }}
                 className="hidden lg:flex flex-col items-center gap-2"
               >
                 <span className="text-white/60 text-xs font-medium uppercase tracking-wider">
                   Scroll
                 </span>
-                <motion.div
-                  animate={{ height: ["3rem", "2rem", "3rem"] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="w-px bg-linear-to-b from-white/40 to-transparent"
-                />
+                <div className="w-px h-12 bg-linear-to-b from-white/40 to-transparent" />
               </motion.div>
             </motion.div>
           </div>

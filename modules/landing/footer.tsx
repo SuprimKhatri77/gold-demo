@@ -7,10 +7,11 @@ interface FooterItem {
 
 const footerLinks: FooterItem[] = [
   { label: "About us", href: "/about-us" },
-  { label: "News", href: "/news" },
   { label: "Our products", href: "/our-products" },
   { label: "Contact", href: "/contact" },
-  { label: "Live rates", href: "/live-rates" },
+  { label: "News", href: "/news" },
+  { label: "Career", href: "/career" },
+  { label: "Account Opening", href: "/account-opening" },
 ];
 
 export const Footer: React.FC = () => {

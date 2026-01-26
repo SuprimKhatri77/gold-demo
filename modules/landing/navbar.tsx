@@ -14,8 +14,8 @@ const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about-us" },
   { label: "Services", href: "/services" },
+  { label: "Products", href: "/our-products" },
   { label: "Contact", href: "/contact" },
-  { label: "News", href: "/news" },
   {
     label: "Explore",
     children: [
@@ -26,9 +26,9 @@ const navItems: NavItem[] = [
       },
 
       {
-        label: "Products",
-        href: "/our-products",
-        description: "Our gold & bullion collection",
+        label: "News",
+        href: "/news",
+        description: "News and insights on gold, silver, and bullion",
       },
       { label: "Career", href: "/career", description: "Join our team" },
       {

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface Stat {
   number: string;
@@ -120,7 +121,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
+    <section className={cn("relative min-h-screen bg-black overflow-hidden")}>
       {/* Background Slides */}
       {slides.map((slide, index) => (
         <div

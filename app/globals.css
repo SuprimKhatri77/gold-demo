@@ -126,6 +126,7 @@
 body {
   scrollbar-width: thin;
   scrollbar-color: #d97706 #fff7ed;
+  scroll-behavior: smooth;
 }
 
 /* WebKit Engines (Chrome, Safari, Edge) */

@@ -28,7 +28,7 @@ const navItems: NavItem[] = [
       {
         label: "News",
         href: "/news",
-        description: "News and insights on gold, silver, and bullion",
+        description: "Latest metals news",
       },
       { label: "Career", href: "/career", description: "Join our team" },
       {

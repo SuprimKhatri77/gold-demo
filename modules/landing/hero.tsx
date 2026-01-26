@@ -125,9 +125,8 @@ export function Hero() {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
         >
           <Image
             fill
@@ -183,7 +182,7 @@ export function Hero() {
                   >
                     <span className="block text-white">
                       {slides[currentSlide].title}{" "}
-                      <span className="inline-block min-w-50 sm:min-w-75 lg:min-w-100">
+                      <span style={{ width: "18ch" }} className="inline-block whitespace-nowrap overflow-hidden align-baseline">
                         {displayedText}
                         {isTyping && (
                           <motion.span
@@ -193,8 +192,13 @@ export function Hero() {
                               repeat: Infinity,
                               ease: "easeInOut",
                             }}
-                            className="inline-block w-1 h-16 sm:h-20 lg:h-24 xl:h-28 bg-white ml-1"
+                            className="inline-block w-[0.08em] bg-white ml-[0.12em] align-bottom"
+                            style={{
+                              height: "1em",
+                              verticalAlign: "",
+                            }}
                           />
+
                         )}
                       </span>
                     </span>
@@ -376,11 +380,10 @@ export function Hero() {
                     onClick={() => goToSlide(index)}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentSlide
-                        ? "w-16 bg-white"
-                        : "w-10 bg-white/30 hover:bg-white/50"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide
+                      ? "w-16 bg-white"
+                      : "w-10 bg-white/30 hover:bg-white/50"
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}

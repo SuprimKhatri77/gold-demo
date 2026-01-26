@@ -4,14 +4,8 @@ import { Header } from "@/modules/landing/header";
 import { Footer } from "@/modules/landing/footer";
 import { Navbar } from "@/modules/landing/navbar";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
-import { Raleway } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-
-const raleway = Raleway({
-  variable: "--font-raleway",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
+import { geistMono, geistSans } from "@/utils/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${raleway.variable} antialiased font-(--font-raleway) bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-black`}
       >
         <ReactQueryProvider>
           <Header />

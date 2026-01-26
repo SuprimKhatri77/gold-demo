@@ -6,19 +6,39 @@ import { useEffect, useRef, useState } from "react";
 
 interface NavItem {
   label: string;
-  href: string;
+  href?: string;
+  children?: { label: string; href: string; description?: string }[];
 }
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about-us" },
   { label: "Services", href: "/services" },
-  { label: "Products", href: "/our-products" },
   { label: "Contact", href: "/contact" },
   { label: "News", href: "/news" },
-  { label: "Career", href: "/career" },
-  { label: "Account", href: "/account-opening" },
-  { label: "Resources", href: "/resources" },
+  {
+    label: "Explore",
+    children: [
+      {
+        label: "Estimation",
+        href: "/estimation",
+        description: "Get instant gold & silver value estimates",
+      },
+
+      {
+        label: "Products",
+        href: "/our-products",
+        description: "Our gold & bullion collection",
+      },
+      { label: "Career", href: "/career", description: "Join our team" },
+      {
+        label: "Account",
+        href: "/account-opening",
+        description: "Open an account",
+      },
+      { label: "Resources", href: "/resources", description: "Learn more" },
+    ],
+  },
 ];
 
 export function Navbar() {
@@ -26,7 +46,12 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<number | null>(
+    null,
+  );
   const navRef = useRef<HTMLDivElement>(null);
+  const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +63,7 @@ export function Navbar() {
 
   const handleMouseEnter = (
     index: number,
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
   ) => {
     const target = e.currentTarget;
     const navContainer = navRef.current;
@@ -51,10 +76,30 @@ export function Navbar() {
       });
     }
     setHoveredIndex(index);
+
+    // Handle dropdown
+    if (navItems[index].children) {
+      if (dropdownTimeout.current) {
+        clearTimeout(dropdownTimeout.current);
+      }
+      setOpenDropdown(index);
+    }
   };
 
   const handleMouseLeave = () => {
     setHoveredIndex(null);
+  };
+
+  const handleDropdownLeave = () => {
+    dropdownTimeout.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 150);
+  };
+
+  const handleDropdownEnter = () => {
+    if (dropdownTimeout.current) {
+      clearTimeout(dropdownTimeout.current);
+    }
   };
 
   return (
@@ -78,7 +123,7 @@ export function Navbar() {
                 </div>
               </div>
               {/* Text */}
-              <div className="hidden sm:block">
+              <div className="block">
                 <div className="text-xl font-bold tracking-tight text-white">
                   SR JEWELLERS
                 </div>
@@ -109,14 +154,53 @@ export function Navbar() {
             />
 
             {navItems.map((item, index) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="relative px-4 py-2 text-zinc-300 hover:text-white transition-colors duration-200 font-medium text-sm z-10"
-                onMouseEnter={(e) => handleMouseEnter(index, e)}
-              >
-                {item.label}
-              </a>
+              <div key={item.label} className="relative">
+                {item.children ? (
+                  <div
+                    className="relative px-4 py-2 text-zinc-300 hover:text-white transition-colors duration-200 font-medium text-sm z-10 cursor-pointer"
+                    onMouseEnter={(e) => handleMouseEnter(index, e)}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    {item.label}
+
+                    {/* Dropdown Menu */}
+                    <div
+                      className={`absolute top-full right-0 mt-2 w-64 bg-black/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl overflow-hidden transition-all duration-300 ${
+                        openDropdown === index
+                          ? "opacity-100 translate-y-0 pointer-events-auto"
+                          : "opacity-0 -translate-y-2 pointer-events-none"
+                      }`}
+                      onMouseEnter={handleDropdownEnter}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      {item.children.map((child) => (
+                        <a
+                          key={child.label}
+                          href={child.href}
+                          className="block px-4 py-3 text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-200 border-b border-white/5 last:border-b-0"
+                        >
+                          <div className="font-medium text-sm">
+                            {child.label}
+                          </div>
+                          {child.description && (
+                            <div className="text-xs text-zinc-500 mt-0.5">
+                              {child.description}
+                            </div>
+                          )}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="relative px-4 py-2 text-zinc-300 hover:text-white transition-colors duration-200 font-medium text-sm z-10"
+                    onMouseEnter={(e) => handleMouseEnter(index, e)}
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </div>
             ))}
           </div>
 
@@ -133,26 +217,89 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
+        className={`lg:hidden transition-all duration-500 ease-out ${
           isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
         }`}
+        style={{ overflow: isMobileMenuOpen ? "visible" : "hidden" }}
       >
-        <div className="px-4 sm:px-6 pb-6 pt-2 bg-black/95 backdrop-blur-xl border-t border-white/10">
-          <div className="flex flex-col space-y-1">
+        <div className="px-4 sm:px-6 pb-6 pt-4 bg-linear-to-b from-black/95 via-black/98 to-black backdrop-blur-xl border-t border-white/10">
+          <div className="flex flex-col space-y-2">
             {navItems.map((item, index) => (
-              <a
+              <div
                 key={item.label}
-                href={item.href}
-                className="px-4 py-3.5 text-zinc-300 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 font-medium text-base border border-transparent hover:border-white/20 rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className={`transform transition-all duration-300 ${
+                  isMobileMenuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "-translate-x-4 opacity-0"
+                }`}
                 style={{
-                  transitionDelay: `${index * 30}ms`,
+                  transitionDelay: `${index * 50}ms`,
                 }}
               >
-                {item.label}
-              </a>
+                {item.children ? (
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
+                    <button
+                      className="w-full text-left px-5 py-4 text-zinc-200 hover:text-white hover:bg-white/5 transition-all duration-300 font-semibold text-base flex items-center justify-between group"
+                      onClick={() =>
+                        setMobileOpenDropdown(
+                          mobileOpenDropdown === index ? null : index,
+                        )
+                      }
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70 group-hover:bg-amber-400 transition-colors" />
+                        {item.label}
+                      </span>
+                      <span
+                        className={`transition-all duration-300 text-amber-400/70 group-hover:text-amber-400 ${
+                          mobileOpenDropdown === index
+                            ? "rotate-180 scale-110"
+                            : ""
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+                    <div
+                      className={`transition-all duration-300 ease-out ${
+                        mobileOpenDropdown === index
+                          ? "max-h-96 opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="px-3 pb-3 pt-1 space-y-1 bg-black/30">
+                        {item.children.map((child, childIndex) => (
+                          <a
+                            key={child.label}
+                            href={child.href}
+                            className="block px-4 py-3 text-zinc-400 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium text-sm rounded-lg border border-transparent hover:border-white/20 group"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            style={{
+                              transitionDelay: `${childIndex * 30}ms`,
+                            }}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="w-1 h-1 rounded-full bg-amber-400/50 group-hover:bg-amber-400 transition-colors" />
+                              {child.label}
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    href={`${item.href}`}
+                    className="px-5 py-4 text-zinc-200 hover:text-white bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 font-semibold text-base border border-white/10 hover:border-white/20 rounded-xl flex items-center gap-2 group shadow-lg hover:shadow-amber-500/10"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400/70 group-hover:bg-amber-400 group-hover:scale-125 transition-all" />
+                    {item.label}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         </div>

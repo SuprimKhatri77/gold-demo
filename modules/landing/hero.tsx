@@ -9,6 +9,7 @@ import {
   Building2,
   Globe,
 } from "lucide-react";
+import Link from "next/link";
 
 // Pre-generated particle positions
 const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
@@ -167,37 +168,37 @@ export const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
           {/* Left Column - Text Content */}
           <div
-            className="space-y-8 text-center lg:text-left"
+            className="space-y-6 sm:space-y-8 text-center lg:text-left"
             style={{
               transform: `translateY(${scrollY * 0.1}px)`,
             }}
           >
             {/* Badge with Shimmer */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 group relative overflow-hidden">
+            {/* <div className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 group relative overflow-hidden">
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/10 to-transparent" />
-              <Building2 className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-              <span className="text-sm text-zinc-300 font-semibold relative z-10">
+              <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+              <span className="text-xs sm:text-sm text-zinc-300 font-semibold relative z-10">
                 B2B Precious Metals Trading
               </span>
-            </div>
+            </div> */}
 
             {/* Main Heading with 3D Effect */}
-            <div className="space-y-6">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tight">
+            <div className="space-y-6 sm:space-y-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.15] tracking-tight">
                 <span
                   className="block transition-all duration-300"
                   style={{
                     transform: `translateX(${(mousePosition.x - 50) * 0.02}px) translateY(${(mousePosition.y - 50) * 0.02}px)`,
                   }}
                 >
-                  Wholesale
+                  Professional
                 </span>
                 <span
-                  className="mt-3 relative inline-block"
+                  className="block mt-1 transition-all duration-300"
                   style={{
                     transform: `translateX(${(mousePosition.x - 50) * -0.02}px) translateY(${(mousePosition.y - 50) * -0.02}px)`,
                   }}
@@ -206,13 +207,13 @@ export const Hero = () => {
                     <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
                       Precious Metals
                     </span>
-                    <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
+                    <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
                       Precious Metals
                     </span>
                   </span>
                 </span>
               </h1>
-              <p className="text-xl sm:text-2xl text-zinc-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-2xl leading-relaxed font-light">
                 Your trusted partner for{" "}
                 <span className="text-white font-medium">bulk trading</span> of
                 gold, silver, platinum, and palladium. Competitive pricing,
@@ -221,45 +222,51 @@ export const Hero = () => {
             </div>
 
             {/* CTA Buttons with Advanced Effects */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="group relative px-8 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-lg">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-4 sm:px-0">
+              <Link
+                href="/contact"
+                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
+              >
                 {/* Animated gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/30 to-transparent" />
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Request Quote
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
-              </button>
+              </Link>
 
-              <button className="group px-8 py-4 bg-white/5 backdrop-blur-xl text-white rounded-xl font-bold border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-lg">
+              <Link
+                href="/contact"
+                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/5 backdrop-blur-xl text-white rounded-xl font-bold border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
+              >
                 <span className="flex items-center justify-center gap-2">
                   Become a Partner
-                  <Globe className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  <Globe className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-12 transition-transform duration-300" />
                 </span>
-              </button>
+              </Link>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-4">
               <div className="flex items-center gap-2 text-zinc-400">
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Building2 className="w-4 h-4 text-white" />
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 border-2 border-slate-950 flex items-center justify-center">
+                    <Building2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-yellow-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-amber-400 to-yellow-400 border-2 border-slate-950 flex items-center justify-center">
+                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-purple-400 to-indigo-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-white" />
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-purple-400 to-indigo-400 border-2 border-slate-950 flex items-center justify-center">
+                    <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
                 </div>
-                <span className="text-sm font-medium">
+                <span className="text-xs sm:text-sm font-medium">
                   <span className="text-white">500+</span> Business Partners
                 </span>
               </div>
-              <div className="text-zinc-400 text-sm font-medium">
+              <div className="text-zinc-400 text-xs sm:text-sm font-medium">
                 <span className="text-white">$5.8B+</span> Annual Volume
               </div>
             </div>
@@ -267,7 +274,7 @@ export const Hero = () => {
 
           {/* Right Column - Floating Metal Cards */}
           <div
-            className="relative"
+            className="relative mt-8 lg:mt-0"
             style={{
               transform: `translateY(${scrollY * -0.05}px)`,
             }}
@@ -280,83 +287,83 @@ export const Hero = () => {
                 transition: "transform 0.3s ease-out",
               }}
             >
-              <div className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
+              <div className="group relative p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
                 {/* Glow effect */}
                 <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative space-y-6">
+                <div className="relative space-y-5 sm:space-y-6">
                   {/* Header */}
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-1">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                         Today&apos;s Rates
                       </h3>
-                      <p className="text-sm text-zinc-400">
+                      <p className="text-xs sm:text-sm text-zinc-400">
                         Live wholesale pricing
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/10 border border-green-500/20">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse" />
                       <span className="text-xs font-bold text-green-400">
                         LIVE
                       </span>
                     </div>
                   </div>
 
-                  {/* Metals Grid */}
-                  <div className="grid grid-cols-2 gap-4">
+                  {/* Metals Grid - IMPROVED HOVER STATE */}
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     {metals.map((metal, index) => (
                       <div
                         key={metal.name}
-                        className="group/card relative p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden hover:-translate-y-1"
+                        className="group/card relative p-4 sm:p-5 rounded-2xl bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-blue-400/40 transition-all duration-300 cursor-pointer overflow-hidden hover:-translate-y-1 hover:bg-slate-800/60"
                         style={{
                           animationDelay: `${index * 100}ms`,
                         }}
                       >
-                        {/* Glow on hover */}
+                        {/* Subtle glow on hover - REDUCED OPACITY */}
                         <div
-                          className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 blur-xl"
+                          className="absolute inset-0 opacity-0 group-hover/card:opacity-20 transition-opacity duration-500 blur-2xl pointer-events-none"
                           style={{
                             background: metal.glow,
                           }}
                         />
 
-                        {/* Gradient overlay */}
+                        {/* Very subtle gradient overlay - MUCH LIGHTER */}
                         <div
-                          className={`absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 bg-linear-to-br ${metal.color} opacity-5`}
+                          className={`absolute inset-0 opacity-0 group-hover/card:opacity-5 transition-opacity duration-500 bg-linear-to-br ${metal.color} pointer-events-none`}
                         />
 
-                        <div className="relative">
+                        <div className="relative z-10">
                           {/* Symbol Badge */}
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-xs font-bold text-zinc-500 tracking-wider">
                               {metal.symbol}
                             </span>
                             <div
-                              className={`w-8 h-8 rounded-lg bg-linear-to-br ${metal.color} opacity-20 group-hover/card:opacity-40 transition-opacity duration-300 flex items-center justify-center`}
+                              className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-linear-to-br ${metal.color} opacity-15 group-hover/card:opacity-25 transition-opacity duration-300 flex items-center justify-center`}
                             >
-                              <Sparkles className="w-4 h-4 text-white" />
+                              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                             </div>
                           </div>
 
                           {/* Metal Name */}
-                          <h4 className="text-sm font-semibold text-zinc-400 mb-2">
+                          <h4 className="text-xs sm:text-sm font-semibold text-zinc-400 group-hover/card:text-zinc-300 mb-2 transition-colors">
                             {metal.name}
                           </h4>
 
-                          {/* Price */}
-                          <div className="text-2xl font-bold text-white mb-2">
+                          {/* Price - ALWAYS READABLE */}
+                          <div className="text-xl sm:text-2xl font-bold text-white mb-2 drop-shadow-lg">
                             {metal.price}
                           </div>
 
-                          {/* Change */}
+                          {/* Change - ALWAYS READABLE */}
                           <div
-                            className={`flex items-center gap-1 text-sm font-semibold ${
+                            className={`flex items-center gap-1 text-xs sm:text-sm font-semibold ${
                               metal.positive ? "text-green-400" : "text-red-400"
-                            }`}
+                            } drop-shadow-lg`}
                           >
                             <TrendingUp
-                              className={`w-4 h-4 ${metal.positive ? "" : "rotate-180"}`}
+                              className={`w-3 h-3 sm:w-4 sm:h-4 ${metal.positive ? "" : "rotate-180"}`}
                             />
                             <span>{metal.change}</span>
                           </div>
@@ -379,16 +386,16 @@ export const Hero = () => {
             </div>
 
             {/* Decorative Floating Elements */}
-            <div className="absolute -top-6 -right-6 w-32 h-32 border-2 border-blue-500/20 rounded-full blur-sm animate-spin-slow" />
-            <div className="absolute -bottom-6 -left-6 w-40 h-40 border-2 border-cyan-500/10 rounded-full blur-sm animate-spin-slow-reverse" />
+            <div className="absolute -top-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 border-2 border-blue-500/20 rounded-full blur-sm animate-spin-slow" />
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 border-2 border-cyan-500/10 rounded-full blur-sm animate-spin-slow-reverse" />
 
             {/* Floating badges */}
-            <div className="absolute -top-4 -left-12 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge hidden lg:flex items-center gap-2">
-              <Shield className="w-3.5 h-3.5 text-blue-400" />
+            <div className="absolute -top-4 -left-12 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge hidden lg:flex items-center gap-2">
+              <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400" />
               Secure Logistics
             </div>
-            <div className="absolute -bottom-4 -right-8 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge-delayed hidden lg:flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <div className="absolute -bottom-4 -right-8 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge-delayed hidden lg:flex items-center gap-2">
+              <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
               Fast Settlement
             </div>
           </div>

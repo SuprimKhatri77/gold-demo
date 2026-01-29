@@ -48,7 +48,7 @@ const Landing: React.FC = () => {
       <Testimonials />
       <Insights />
       <CTASection />
-      <Contact />
+      {/* <Contact /> */}
 
       <style jsx global>{`
         @keyframes fadeIn {

@@ -65,8 +65,8 @@ const products: readonly Product[] = [
       { label: "Use Case", value: "Vault storage, hedging, reserves" },
     ],
     icon: "gold",
-    color: "from-amber-500 to-amber-600",
-    gradient: "from-amber-500/20 via-yellow-500/20 to-amber-600/20",
+    color: "from-yellow-500 to-amber-600",
+    gradient: "from-yellow-500/20 via-amber-500/20 to-amber-600/20",
     imageUrl:
       "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1200&h=800&fit=crop&q=80",
   },
@@ -83,8 +83,8 @@ const products: readonly Product[] = [
       { label: "Availability", value: "Volume pricing available" },
     ],
     icon: "silver",
-    color: "from-slate-400 to-slate-600",
-    gradient: "from-slate-400/20 via-slate-300/20 to-slate-500/20",
+    color: "from-slate-400 to-zinc-500",
+    gradient: "from-slate-400/20 via-slate-300/20 to-zinc-500/20",
     imageUrl:
       "https://images.unsplash.com/photo-1589787168408-651ad9e83d63?w=1200&h=800&fit=crop&q=80",
   },
@@ -101,8 +101,8 @@ const products: readonly Product[] = [
       { label: "Channels", value: "Verified sourcing" },
     ],
     icon: "platinum",
-    color: "from-gray-400 to-gray-600",
-    gradient: "from-gray-500/20 via-gray-400/20 to-gray-600/20",
+    color: "from-cyan-400 to-blue-500",
+    gradient: "from-cyan-400/20 via-blue-400/20 to-blue-500/20",
     imageUrl:
       "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=1200&h=800&fit=crop&q=80",
   },
@@ -119,8 +119,8 @@ const products: readonly Product[] = [
       { label: "Sourcing", value: "Secured on-demand" },
     ],
     icon: "palladium",
-    color: "from-zinc-500 to-zinc-700",
-    gradient: "from-zinc-600/20 via-gray-500/20 to-zinc-700/20",
+    color: "from-purple-400 to-indigo-500",
+    gradient: "from-purple-400/20 via-indigo-400/20 to-indigo-500/20",
     imageUrl:
       "https://images.unsplash.com/photo-1609440488192-74d30b661c3a?w=1200&h=800&fit=crop&q=80",
   },
@@ -244,19 +244,29 @@ export default function OurProducts() {
   };
 
   return (
-    <section id="products" className="relative bg-black overflow-hidden">
+    <section id="products" className="relative bg-slate-950 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
       {/* Animated background elements */}
       <motion.div
         style={{ y: backgroundY }}
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-60"
       >
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </motion.div>
-
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[64px_64px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         {/* Header */}
@@ -269,13 +279,13 @@ export default function OurProducts() {
         >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6"
           >
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Sparkles className="text-white" size={16} />
+              <Sparkles className="text-cyan-400" size={16} />
             </motion.div>
             <span className="text-white text-sm font-semibold tracking-wide">
               Premium Collection
@@ -287,7 +297,7 @@ export default function OurProducts() {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
           >
             Premium Precious{" "}
-            <span className="bg-linear-to-r from-white via-zinc-200 to-white bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Metals
             </span>
           </motion.h2>
@@ -328,7 +338,7 @@ export default function OurProducts() {
                   stiffness: 300,
                   damping: 25,
                 }}
-                className="relative bg-linear-to-br from-zinc-900/90 to-black/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col md:flex-row"
+                className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col md:flex-row"
               >
                 {/* Animated border glow */}
                 <motion.div
@@ -336,7 +346,7 @@ export default function OurProducts() {
                   animate={{
                     opacity: hoveredProduct === product.id ? 1 : 0,
                   }}
-                  className="absolute inset-0 rounded-2xl border-2 border-white/30 pointer-events-none"
+                  className="absolute inset-0 rounded-2xl border-2 border-cyan-400/40 pointer-events-none"
                 />
 
                 {/* Left side - Image */}
@@ -358,7 +368,7 @@ export default function OurProducts() {
 
                   {/* Gradient overlay */}
                   <div
-                    className={`absolute inset-0 bg-linear-to-br ${product.color} opacity-40 mix-blend-multiply`}
+                    className={`absolute inset-0 bg-linear-to-br ${product.gradient} mix-blend-multiply`}
                   />
 
                   {/* Metal type badge */}
@@ -434,15 +444,15 @@ export default function OurProducts() {
                           duration: 0.4,
                         }}
                         whileHover={{ x: 4 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all group/spec"
+                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/40 hover:bg-white/10 transition-all group/spec"
                       >
                         <div className="shrink-0">
                           <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                            <CheckCircle className="text-white" size={16} />
+                            <CheckCircle className="text-cyan-400" size={16} />
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-white text-sm group-hover/spec:text-zinc-200 transition-colors">
+                          <p className="font-semibold text-white text-sm group-hover/spec:text-cyan-200 transition-colors">
                             {spec.label}
                           </p>
                           <p className="text-zinc-500 text-xs truncate">
@@ -464,7 +474,7 @@ export default function OurProducts() {
                           key={formatIndex}
                           whileHover={{ scale: 1.05, y: -2 }}
                           whileTap={{ scale: 0.95 }}
-                          className="bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 text-zinc-300 px-3 py-1.5 rounded-lg text-xs font-medium hover:border-white/40 hover:text-white hover:shadow-lg transition-all duration-300 cursor-pointer"
+                          className="bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 px-3 py-1.5 rounded-lg text-xs font-medium hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-lg transition-all duration-300 cursor-pointer"
                         >
                           {format}
                         </motion.span>
@@ -482,8 +492,8 @@ export default function OurProducts() {
                   }}
                   className="absolute bottom-4 right-4"
                 >
-                  <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-xl">
-                    <ArrowRight className="text-black" size={20} />
+                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-xl shadow-blue-500/20">
+                    <ArrowRight className="text-white" size={20} />
                   </div>
                 </motion.div>
               </motion.div>
@@ -508,11 +518,11 @@ export default function OurProducts() {
               transition={{ duration: 5, repeat: Infinity }}
               className="inline-block mb-4"
             >
-              <Award className="text-white mx-auto" size={40} />
+              <Award className="text-cyan-400 mx-auto" size={40} />
             </motion.div>
             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Why{" "}
-              <span className="bg-linear-to-r from-white via-zinc-200 to-white bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 SR Jewellers
               </span>
             </h3>
@@ -533,25 +543,25 @@ export default function OurProducts() {
                 whileHover={{ y: -6, scale: 1.02 }}
                 className="group/feature"
               >
-                <div className="relative bg-linear-to-br from-white/[0.07] to-white/2 backdrop-blur-xl border border-white/10 hover:border-amber-500/30 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-7 h-full transition-all duration-300 overflow-hidden">
+                <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-7 h-full transition-all duration-300 overflow-hidden">
                   {/* Gradient overlay on hover */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileHover={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent pointer-events-none"
+                    className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent pointer-events-none"
                   />
 
                   <div className="relative">
                     <motion.div
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
-                      className="bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 inline-flex items-center justify-center mb-4 sm:mb-5 text-white group-hover/feature:border-white/40 transition-all duration-300 shadow-lg"
+                      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 inline-flex items-center justify-center mb-4 sm:mb-5 text-cyan-400 group-hover/feature:border-cyan-400/40 group-hover/feature:bg-blue-500/10 transition-all duration-300 shadow-lg"
                     >
                       {renderFeatureIcon(feature.icon)}
                     </motion.div>
 
-                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover/feature:text-zinc-200 transition-colors">
+                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover/feature:text-cyan-200 transition-colors">
                       {feature.title}
                     </h4>
                     <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
@@ -563,7 +573,7 @@ export default function OurProducts() {
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
-                    className="absolute top-0 right-0 w-20 h-20 bg-linear-to-br from-white/10 to-transparent rounded-bl-full"
+                    className="absolute top-0 right-0 w-20 h-20 bg-linear-to-br from-blue-500/10 to-transparent rounded-bl-full"
                   />
                 </div>
               </motion.div>
@@ -579,7 +589,7 @@ export default function OurProducts() {
           variants={containerVariants}
           className="relative"
         >
-          <div className="relative bg-linear-to-br from-white/[0.07] to-white/2 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-8 sm:p-10 lg:p-12 overflow-hidden">
+          <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-8 sm:p-10 lg:p-12 overflow-hidden">
             {/* Animated background */}
             <motion.div
               animate={{
@@ -591,7 +601,7 @@ export default function OurProducts() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-white/10 rounded-full blur-3xl"
+              className="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-blue-500/10 rounded-full blur-3xl"
             />
 
             <div className="relative text-center">
@@ -600,7 +610,7 @@ export default function OurProducts() {
                 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6"
               >
                 Ready to Secure Your Next{" "}
-                <span className="bg-linear-to-r from-white via-zinc-200 to-white bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                   Bullion Trade?
                 </span>
               </motion.h3>
@@ -618,7 +628,7 @@ export default function OurProducts() {
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative bg-white text-black px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold inline-flex items-center gap-3 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="group relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold inline-flex items-center gap-3 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
               >
                 <span className="relative z-10 text-sm sm:text-base">
                   Contact Us Today
@@ -631,12 +641,12 @@ export default function OurProducts() {
                   <ArrowRight size={20} />
                 </motion.div>
 
-                {/* Animated linear overlay */}
+                {/* Animated gradient overlay */}
                 <motion.div
                   initial={{ x: "-100%" }}
                   whileHover={{ x: "100%" }}
                   transition={{ duration: 0.5 }}
-                  className="absolute inset-0 bg-linear-to-r from-transparent via-zinc-200/30 to-transparent"
+                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
                 />
               </motion.button>
             </div>

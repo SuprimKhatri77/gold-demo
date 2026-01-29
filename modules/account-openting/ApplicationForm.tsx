@@ -3,7 +3,7 @@
 import React, { ChangeEvent, FormEvent, useState, FC, JSX } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { Upload, CheckCircle, AlertCircle, X } from 'lucide-react';
+import { Upload, CheckCircle, AlertCircle, X, FileText } from 'lucide-react';
 
 // Type definitions
 type FileFieldKey = 'file1' | 'file2' | 'file3' | 'file4' | 'file5' | 'file6';
@@ -11,14 +11,15 @@ type FileFieldKey = 'file1' | 'file2' | 'file3' | 'file4' | 'file5' | 'file6';
 interface FormData {
   readonly name: string;
   readonly email: string;
-  readonly emirates: string;
-  readonly nationality: string;
+  readonly company: string;
+  readonly position: string;
+  readonly phone: string;
+  readonly country: string;
   readonly comments: string;
   readonly files: Readonly<Record<FileFieldKey, File | null>>;
 }
 
 interface ApplicationFormProps {
-  readonly onClose?: () => void;
   readonly className?: string;
 }
 
@@ -68,7 +69,7 @@ const modalVariants: Variants = {
       type: "spring",
       duration: 0.5,
       bounce: 0.3,
-      staggerChildren: 0.05, // Smooth entrance for form items
+      staggerChildren: 0.05,
       delayChildren: 0.1
     }
   },
@@ -97,24 +98,25 @@ const getAnimationVariants = (): AnimationVariants => ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: 'linear' },
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
     },
   } as Variants,
   input: {
-    focus: { scale: 1.02, transition: { duration: 0.2 } },
+    focus: { scale: 1.01, transition: { duration: 0.2 } },
     blur: { scale: 1 },
   } as Variants,
 });
 
 export const ApplicationForm: FC<ApplicationFormProps> = ({
-  onClose,
   className = '',
 }): JSX.Element => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    emirates: '',
-    nationality: '',
+    company: '',
+    position: '',
+    phone: '',
+    country: '',
     comments: '',
     files: initialFiles,
   });
@@ -158,8 +160,10 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
       const payload = {
         name: formData.name,
         email: formData.email,
-        emirates: formData.emirates,
-        nationality: formData.nationality,
+        company: formData.company,
+        position: formData.position,
+        phone: formData.phone,
+        country: formData.country,
         comments: formData.comments,
         files: Object.entries(formData.files).map(([key, file]) => ({
           key,
@@ -167,55 +171,46 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
         })),
       };
 
-      console.log('[v0] Submitting form:', payload);
+      console.log('[ApplicationForm] Submitting corporate application:', payload);
 
       // Simulate API delay
       await new Promise((res) => setTimeout(res, 1500));
 
       setSubmitStatus({
         type: 'success',
-        message: 'Application submitted successfully! We will contact you soon.',
+        message: 'Application submitted successfully! Our team will review your submission and contact you within 2-3 business days.',
       });
 
-      // Reset form after 2 seconds
+      // Reset form after 3 seconds
       setTimeout(() => {
         setFormData({
           name: '',
           email: '',
-          emirates: '',
-          nationality: '',
+          company: '',
+          position: '',
+          phone: '',
+          country: '',
           comments: '',
           files: initialFiles,
         });
         setSubmitStatus({ type: 'idle', message: '' });
-        onClose?.();
-      }, 2000);
+      }, 3000);
     } catch (error) {
-      console.error('[v0] Submission failed:', error);
+      console.error('[ApplicationForm] Submission failed:', error);
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to submit application. Please try again.',
+        message: 'Failed to submit application. Please try again or contact our support team.',
       });
     }
   };
 
   return (
     <motion.div
-      className={`fixed overflow-scroll bg-black/50 backdrop-blur-sm inset-0 z-50 flex items-start justify-center p-4 ${className}`}
+      className={`bg-transparent flex items-start justify-center sm:p-2 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={onClose}
     >
-      {/* Backdrop */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        onClick={onClose}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      />
-
       {/* Form Container */}
       <motion.form
         onClick={(e) => e.stopPropagation()}
@@ -224,26 +219,16 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="relative w-full max-w-3xl rounded-3xl border border-amber-200 bg-linear-to-br from-white via-amber-50 to-white p-6 shadow-2xl md:p-10"
+        className="w-full max-w-4xl rounded-sm border border-white/10 bg-linear-to-br from-slate-900/95 via-blue-950/95 to-slate-900/95 backdrop-blur-xl p-6 shadow-2xl shadow-blue-500/20 md:p-10"
       >
-        {/* Close Button */}
-        <motion.button
-          type="button"
-          onClick={onClose}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="absolute right-4 top-4 rounded-full p-2 text-gray-500 hover:bg-amber-100 hover:text-amber-700 transition-colors md:right-6 md:top-6"
-        >
-          <X size={20} />
-        </motion.button>
 
         {/* Header */}
         <motion.div variants={variants.item} className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight bg-linear-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-            Application Details
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Corporate Account Application
           </h2>
-          <p className="text-gray-600 text-sm md:text-base mt-2">
-            Fill in your information to get started with SR Bullion
+          <p className="text-zinc-400 text-sm md:text-base mt-2">
+            Complete your business information to begin trading precious metals
           </p>
         </motion.div>
 
@@ -253,7 +238,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
           className="grid gap-4 md:gap-6 md:grid-cols-2 mb-6 md:mb-8"
         >
           <FormInput
-            label="Corporate / Personal Name"
+            label="Full Name"
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -261,7 +246,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
           />
 
           <FormInput
-            label="Email Address"
+            label="Business Email"
             name="email"
             type="email"
             value={formData.email}
@@ -270,27 +255,52 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
           />
 
           <FormInput
-            label="Emirates"
-            name="emirates"
-            value={formData.emirates}
+            label="Company Name"
+            name="company"
+            value={formData.company}
             onChange={handleChange}
+            required
           />
 
           <FormInput
-            label="Nationality"
-            name="nationality"
-            value={formData.nationality}
+            label="Position / Title"
+            name="position"
+            value={formData.position}
             onChange={handleChange}
+            required
+          />
+
+          <FormInput
+            label="Phone Number"
+            name="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+
+          <FormInput
+            label="Country of Operation"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
           />
         </motion.div>
 
         {/* File Uploads */}
         <div className="mb-6 md:mb-8">
-          <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-4">
-            Required Documents
-          </h3>
+          <div className="flex items-center gap-2 mb-4">
+            <FileText className="w-5 h-5 text-cyan-400" />
+            <h3 className="text-sm md:text-base font-semibold text-white">
+              Required Corporate Documents
+            </h3>
+          </div>
+          <p className="text-xs md:text-sm text-zinc-400 mb-4">
+            Upload incorporation documents, tax certificates, and authorized signatory identification
+          </p>
 
-          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {(Object.keys(formData.files) as FileFieldKey[]).map((key, index) => (
                 <motion.div
@@ -319,16 +329,17 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
 
         {/* Comments */}
         <motion.div variants={variants.item} className="mb-6 md:mb-8">
-          <label className="mb-2 md:mb-3 block text-sm md:text-base font-semibold text-gray-900">
-            Additional Comments
+          <label className="mb-2 md:mb-3 block text-sm md:text-base font-semibold text-white">
+            Additional Information
+            <span className="text-zinc-500 font-normal ml-2">(Optional)</span>
           </label>
           <textarea
             name="comments"
             value={formData.comments}
             onChange={handleChange}
             rows={4}
-            placeholder="Share any additional information or questions..."
-            className="w-full px-4 py-3 rounded-xl border border-amber-200 bg-white/50 text-gray-900 placeholder-gray-500 text-sm md:text-base outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 resize-none"
+            placeholder="Trading volume expectations, preferred metals, delivery requirements, or any questions for our team..."
+            className="w-full px-4 py-3 border border-white/10 bg-white/5 backdrop-blur-xl text-white placeholder-zinc-500 text-sm md:text-base outline-none transition-all focus:border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/20 resize-none hover:border-white/20"
           />
         </motion.div>
 
@@ -338,11 +349,11 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
             variants={variants.item}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`mb-6 p-4 rounded-xl flex items-gap-3 gap-3 text-sm md:text-base ${submitStatus.type === 'success'
-              ? 'bg-green-50 border border-green-200 text-green-700'
+            className={`mb-6 p-4 rounded-xl flex items-center gap-3 text-sm md:text-base border backdrop-blur-xl ${submitStatus.type === 'success'
+              ? 'bg-emerald-500/10 border-emerald-400/30 text-emerald-300'
               : submitStatus.type === 'error'
-                ? 'bg-red-50 border border-red-200 text-red-700'
-                : 'bg-blue-50 border border-blue-200 text-blue-700'
+                ? 'bg-red-500/10 border-red-400/30 text-red-300'
+                : 'bg-blue-500/10 border-blue-400/30 text-blue-300'
               }`}
           >
             {submitStatus.type === 'success' && (
@@ -360,23 +371,12 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
           variants={variants.item}
           className="flex gap-3 justify-end sm:justify-start"
         >
-          {onClose && (
-            <motion.button
-              type="button"
-              onClick={onClose}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 md:px-8 py-3 rounded-xl border border-gray-300 text-gray-700 font-semibold text-sm md:text-base transition-colors hover:bg-gray-50"
-            >
-              Cancel
-            </motion.button>
-          )}
           <motion.button
             type="submit"
             disabled={submitStatus.type === 'loading'}
-            whileHover={submitStatus.type !== 'loading' ? { scale: 1.02 } : {}}
+            whileHover={submitStatus.type !== 'loading' ? { scale: 1.02, y: -1 } : {}}
             whileTap={submitStatus.type !== 'loading' ? { scale: 0.98 } : {}}
-            className="flex items-center gap-2 px-6 md:px-8 py-3 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 text-white font-semibold text-sm md:text-base transition-all hover:from-amber-600 hover:to-amber-700 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-amber-500/30"
+            className="flex items-center gap-2 px-6 md:px-8 py-3 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold text-sm md:text-base transition-color duration-150 hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-60 disabled:cursor-not-allowed shadow-md shadow-blue-500/20"
           >
             {submitStatus.type === 'loading' ? (
               <>
@@ -386,7 +386,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
                 >
                   <Upload size={18} />
                 </motion.div>
-                Submitting...
+                Processing Application...
               </>
             ) : (
               <>
@@ -415,9 +415,9 @@ const FormInput: FC<InputProps> = ({
 
   return (
     <motion.div variants={variants.item}>
-      <label className="mb-2 block text-sm md:text-base font-semibold text-gray-900">
+      <label className="mb-2 block text-sm md:text-base font-semibold text-white">
         {label}
-        {required && <span className="text-amber-600 ml-1">*</span>}
+        {required && <span className="text-cyan-400 ml-1">*</span>}
       </label>
       <motion.input
         name={name}
@@ -427,13 +427,13 @@ const FormInput: FC<InputProps> = ({
         onChange={onChange}
         variants={variants.input}
         whileFocus="focus"
-        className={`w-full px-4 py-3 rounded-xl border text-gray-900 placeholder-gray-400 text-sm md:text-base outline-none transition-all ${error
-          ? 'border-red-300 bg-red-50/50 focus:ring-red-500/20'
-          : 'border-amber-200 bg-white/50 focus:border-amber-500 focus:ring-amber-500/20'
+        className={`w-full px-4 py-3 border text-white placeholder-zinc-500 text-sm md:text-base outline-none transition-all backdrop-blur-xl ${error
+          ? 'border-red-400/30 bg-red-500/10 focus:ring-red-400/20'
+          : 'border-white/10 bg-white/5 focus:border-cyan-400/40 focus:ring-cyan-400/20 hover:border-white/20'
           } focus:ring-2`}
         placeholder={`Enter ${label.toLowerCase()}`}
       />
-      {error && <p className="text-red-600 text-xs md:text-sm mt-1">{error}</p>}
+      {error && <p className="text-red-400 text-xs md:text-sm mt-1">{error}</p>}
     </motion.div>
   );
 };
@@ -466,32 +466,40 @@ const FormFileUpload: FC<FileUploadProps> = ({
       variants={variants.item}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
+      onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
-      whileHover={{ scale: 1.02 }}
-      className={`flex flex-col items-center justify-center gap-3 cursor-pointer rounded-xl border-2 border-dashed px-4 py-6 transition-all text-sm md:text-base ${isDragActive
-        ? 'border-amber-500 bg-amber-50'
+      whileHover={{ scale: 1.02, y: -2 }}
+      className={`flex flex-col items-center justify-center gap-3 cursor-pointer rounded-xl border-2 border-dashed px-4 py-6 transition-all duration-300 backdrop-blur-xl text-sm md:text-base ${isDragActive
+        ? 'border-cyan-400/60 bg-cyan-500/10 scale-105'
         : file
-          ? 'border-green-300 bg-green-50'
-          : 'border-amber-200 bg-amber-50/30 hover:border-amber-400 hover:bg-amber-50'
+          ? 'border-emerald-400/40 bg-emerald-500/10'
+          : 'border-white/20 bg-white/5 hover:border-cyan-400/40 hover:bg-white/10'
         }`}
     >
       <motion.div
-        animate={isDragActive ? { scale: 1.1 } : { scale: 1 }}
-        className="text-amber-600"
+        animate={
+          isDragActive
+            ? { scale: 1.2, rotate: 10 }
+            : file
+              ? { scale: 1.1 }
+              : { scale: 1 }
+        }
+        transition={{ duration: 0.2 }}
+        className={`${isDragActive ? 'text-cyan-400' : file ? 'text-emerald-400' : 'text-zinc-400'}`}
       >
-        <Upload size={24} />
+        {file ? <CheckCircle size={24} /> : <Upload size={24} />}
       </motion.div>
       <div className="text-center">
-        <p className="font-semibold text-gray-900">{label}</p>
-        <p className="text-xs md:text-sm text-gray-600 mt-1">
-          {file ? file.name : 'Click to upload or drag and drop'}
+        <p className="font-semibold text-white">{label}</p>
+        <p className="text-xs md:text-sm text-zinc-400 mt-1">
+          {file ? file.name : 'Click or drag to upload'}
         </p>
       </div>
       <input
         type="file"
         className="hidden"
         onChange={onChange}
-        accept="*"
+        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
       />
     </motion.label>
   );

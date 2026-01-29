@@ -15,7 +15,6 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 import Image from "next/image";
-import { router } from "better-auth/api";
 import { useRouter } from "next/navigation";
 
 // Type definitions
@@ -262,10 +261,23 @@ export default function CareerPage() {
   };
 
   return (
-    <section id="career" className="relative overflow-hidden bg-black">
-      {/* Subtle background linears */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+    <section id="career" className="relative overflow-hidden bg-slate-950">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
@@ -281,12 +293,12 @@ export default function CareerPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative lg:h-full min-h-74 sm:min-h-100 rounded-3xl hover:shadow-orange-800 md:w-140 md:mx-auto md:h-105 overflow-hidden shadow-2xl transition-shadow duration-200"
+            className="relative lg:h-full min-h-74 sm:min-h-100 rounded-sm hover:shadow-blue-800 md:w-140 md:mx-auto md:h-105 overflow-hidden shadow-2xl transition-shadow duration-200"
           >
-            <div className="md:pb-2 pb-1 absolute inset-0 bg-linear-to-br from-amber-600 via-amber-500 to-amber-700 flex items-center justify-center">
+            <div className="md:pb-2 pb-1 absolute inset-0 bg-linear-to-br from-blue-600 via-cyan-500 to-blue-700 flex items-center justify-center">
               <div className="text-center text-white px-4 md:px-0">
                 <Image
-                  className="mx-auto mt-6 mb-2 rounded-xl shadow-2xl border-2"
+                  className="mx-auto mt-6 mb-2 rounded-sm shadow-2xl border-2"
                   src={"/sr-team.jpg"}
                   height={700}
                   width={500}
@@ -304,8 +316,8 @@ export default function CareerPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
-              <Zap className="text-amber-500" size={16} />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6">
+              <Zap className="text-cyan-400" size={16} />
               <span className="text-zinc-400 text-sm font-medium">
                 Build Your Future
               </span>
@@ -325,9 +337,9 @@ export default function CareerPage() {
             <motion.button
               onClick={() => (window.location.href = "#current-openings")}
               type="button"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
+              className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
             >
               Explore Opportunities
               <ArrowRight size={20} />
@@ -367,14 +379,14 @@ export default function CareerPage() {
                 whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full transition-all duration-300">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4">
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl p-6 h-full transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 inline-flex items-center justify-center mb-4">
+                    <span className="text-white group-hover:text-cyan-400 transition-colors">
                       {getIconComponent(benefit.icon)}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-amber-500 transition-colors">
+                  <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-cyan-400 transition-colors">
                     {benefit.title}
                   </h3>
 
@@ -415,7 +427,7 @@ export default function CareerPage() {
               <motion.div
                 key={job.id}
                 variants={cardVariants}
-                className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300"
+                className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 {/* Job Header */}
                 <motion.button
@@ -430,15 +442,15 @@ export default function CareerPage() {
 
                     <div className="flex flex-wrap gap-4 md:gap-6">
                       <div className="flex items-center gap-2 text-zinc-400">
-                        <MapPin size={16} className="text-amber-500" />
+                        <MapPin size={16} className="text-cyan-400" />
                         <span className="text-sm">{job.location}</span>
                       </div>
                       <div className="flex items-center gap-2 text-zinc-400">
-                        <Clock size={16} className="text-amber-500" />
+                        <Clock size={16} className="text-cyan-400" />
                         <span className="text-sm">{job.experience}</span>
                       </div>
                       <div className="flex items-center gap-2 text-zinc-400">
-                        <Briefcase size={16} className="text-amber-500" />
+                        <Briefcase size={16} className="text-cyan-400" />
                         <span className="text-sm">{job.type}</span>
                       </div>
                     </div>
@@ -447,7 +459,7 @@ export default function CareerPage() {
                   <motion.div
                     animate={{ rotate: expandedJobId === job.id ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-amber-500 shrink-0"
+                    className="text-cyan-400 shrink-0"
                   >
                     <ChevronDown size={24} />
                   </motion.div>
@@ -484,7 +496,7 @@ export default function CareerPage() {
                             key={index}
                             className="flex gap-3 text-zinc-400 text-sm"
                           >
-                            <span className="text-amber-500 font-bold mt-0.5">
+                            <span className="text-cyan-400 font-bold mt-0.5">
                               •
                             </span>
                             <span>{responsibility}</span>
@@ -503,7 +515,7 @@ export default function CareerPage() {
                             key={index}
                             className="flex gap-3 text-zinc-400 text-sm"
                           >
-                            <span className="text-amber-500 font-bold mt-0.5">
+                            <span className="text-cyan-400 font-bold mt-0.5">
                               •
                             </span>
                             <span>{requirement}</span>
@@ -522,7 +534,7 @@ export default function CareerPage() {
                             key={index}
                             className="flex gap-3 text-zinc-400 text-sm"
                           >
-                            <span className="text-amber-500 font-bold mt-0.5">
+                            <span className="text-cyan-400 font-bold mt-0.5">
                               •
                             </span>
                             <span>{offer}</span>
@@ -535,7 +547,7 @@ export default function CareerPage() {
                       type="button"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-3 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-all duration-300 font-semibold flex items-center justify-center gap-2"
+                      className="w-full bg-linear-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-semibold flex items-center justify-center gap-2"
                     >
                       Apply Now
                       <ArrowRight size={18} />
@@ -579,7 +591,7 @@ export default function CareerPage() {
                 whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-linear-to-br from-amber-500/10 to-amber-600/5 backdrop-blur-md border border-amber-500/20 rounded-xl p-8 h-full transition-all duration-300 hover:border-amber-500/40">
+                <div className="bg-linear-to-br from-blue-500/10 to-cyan-600/5 backdrop-blur-xl border border-blue-500/20 rounded-xl p-8 h-full transition-all duration-300 hover:border-cyan-400/40">
                   <div className="mb-6 inline-flex">
                     <motion.div
                       animate={{ rotate: 360 }}
@@ -588,7 +600,7 @@ export default function CareerPage() {
                         repeat: Infinity,
                         ease: "linear",
                       }}
-                      className="p-4 bg-linear-to-br from-amber-500 to-amber-600 rounded-xl text-white shadow-lg shadow-amber-500/20"
+                      className="p-4 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl text-white shadow-lg shadow-blue-500/20"
                     >
                       {getIconComponent(value.icon)}
                     </motion.div>
@@ -633,10 +645,10 @@ export default function CareerPage() {
           <motion.button
             onClick={() => router.push("/account-opening")}
             variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             type="button"
-            className="group bg-white text-black px-8 py-4 rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
+            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
           >
             Apply Now
             <motion.div

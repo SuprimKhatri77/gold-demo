@@ -95,7 +95,7 @@ export const Hero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950"
     >
       {/* Liquid Morphing Background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -111,7 +111,7 @@ export const Hero = () => {
 
         {/* Morphing Gradient Blobs */}
         <div
-          className="absolute w-[800px] h-[800px] rounded-full blur-3xl transition-all duration-1000 ease-out"
+          className="absolute w-200 h-200 rounded-full blur-3xl transition-all duration-1000 ease-out"
           style={{
             background: `radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(34,211,238,0.1) 50%, transparent 70%)`,
             left: `${mousePosition.x * 0.5}%`,
@@ -120,7 +120,7 @@ export const Hero = () => {
           }}
         />
         <div
-          className="absolute w-[600px] h-[600px] rounded-full blur-3xl transition-all duration-1000 ease-out"
+          className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-1000 ease-out"
           style={{
             background: `radial-gradient(circle, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.05) 50%, transparent 70%)`,
             right: `${mousePosition.x * 0.3}%`,
@@ -129,7 +129,7 @@ export const Hero = () => {
           }}
         />
         <div
-          className="absolute w-[700px] h-[700px] rounded-full blur-3xl"
+          className="absolute w-175 h-175 rounded-full blur-3xl"
           style={{
             background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)`,
             left: "50%",
@@ -176,7 +176,7 @@ export const Hero = () => {
           >
             {/* Badge with Shimmer */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 group relative overflow-hidden">
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/10 to-transparent" />
               <Sparkles className="w-4 h-4 text-amber-500 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
               <span className="text-sm text-zinc-300 font-semibold relative z-10">
                 Premium Metals Marketplace
@@ -195,16 +195,16 @@ export const Hero = () => {
                   Invest in
                 </span>
                 <span
-                  className="block mt-3 relative inline-block"
+                  className="mt-3 relative inline-block"
                   style={{
                     transform: `translateX(${(mousePosition.x - 50) * -0.02}px) translateY(${(mousePosition.y - 50) * -0.02}px)`,
                   }}
                 >
                   <span className="relative">
-                    <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
+                    <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
                       Precious Metals
                     </span>
-                    <span className="relative bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
+                    <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
                       Precious Metals
                     </span>
                   </span>
@@ -219,11 +219,11 @@ export const Hero = () => {
 
             {/* CTA Buttons with Advanced Effects */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-lg">
+              <button className="group relative px-8 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-lg">
                 {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/30 to-transparent" />
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Start Trading Now
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
@@ -242,9 +242,9 @@ export const Hero = () => {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4">
               <div className="flex items-center gap-2 text-zinc-400">
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 border-2 border-slate-950" />
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-yellow-400 border-2 border-slate-950" />
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 border-2 border-slate-950" />
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 border-2 border-slate-950" />
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-yellow-400 border-2 border-slate-950" />
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-purple-400 to-indigo-400 border-2 border-slate-950" />
                 </div>
                 <span className="text-sm font-medium">
                   <span className="text-white">150K+</span> Active Traders
@@ -273,7 +273,7 @@ export const Hero = () => {
             >
               <div className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
                 {/* Glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative space-y-6">
                   {/* Header */}
@@ -314,7 +314,7 @@ export const Hero = () => {
 
                         {/* Gradient overlay */}
                         <div
-                          className={`absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${metal.color} opacity-5`}
+                          className={`absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 bg-linear-to-br ${metal.color} opacity-5`}
                         />
 
                         <div className="relative">
@@ -324,7 +324,7 @@ export const Hero = () => {
                               {metal.symbol}
                             </span>
                             <div
-                              className={`w-8 h-8 rounded-lg bg-gradient-to-br ${metal.color} opacity-20 group-hover/card:opacity-40 transition-opacity duration-300 flex items-center justify-center`}
+                              className={`w-8 h-8 rounded-lg bg-linear-to-br ${metal.color} opacity-20 group-hover/card:opacity-40 transition-opacity duration-300 flex items-center justify-center`}
                             >
                               <Sparkles className="w-4 h-4 text-white" />
                             </div>
@@ -357,7 +357,7 @@ export const Hero = () => {
                   </div>
 
                   {/* Quick Action Button */}
-                  <button className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                  <button className="w-full py-4 px-6 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                     <span>View All Markets</span>
                     <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform duration-300" />
                   </button>

@@ -287,7 +287,7 @@ export function Collection() {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`group relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                className={`group relative px-6 py-3 rounded-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
                   isActive
                     ? `bg-linear-to-r from-${category.color}-600 to-${category.color === "amber" ? "yellow" : category.color}-600 text-white shadow-lg shadow-${category.color}-500/30`
                     : "bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 hover:border-blue-400/40 hover:bg-white/10"
@@ -317,14 +317,14 @@ export function Collection() {
           {filteredMetals.map((metal, index) => (
             <div
               key={metal.id}
-              className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20"
+              className="group bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20"
               style={{
                 animationDelay: `${index * 50}ms`,
               }}
             >
               {/* Badge */}
               {metal.badge && (
-                <div className="absolute top-4 right-4 z-20 bg-linear-to-r from-blue-600 to-cyan-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg">
+                <div className="absolute top-4 right-4 z-20 bg-linear-to-r from-blue-600 to-cyan-600 text-white px-3 py-1.5 rounded-xs text-xs font-bold shadow-lg">
                   {metal.badge}
                 </div>
               )}
@@ -346,7 +346,7 @@ export function Collection() {
                 />
 
                 {/* Metal Symbol Badge */}
-                <div className="absolute top-4 left-4 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl flex items-center justify-center">
+                <div className="absolute top-4 left-4 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border border-white/20 rounded-sm flex items-center justify-center">
                   <span className="text-lg font-bold text-white">
                     {metal.symbol}
                   </span>
@@ -364,7 +364,7 @@ export function Collection() {
 
                 {/* Specs Grid */}
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                  <div className="bg-white/5 p-3 border border-white/10">
                     <div className="text-xs text-zinc-500 font-medium mb-1 flex items-center gap-1">
                       <Scale className="w-3 h-3" />
                       Min Order
@@ -373,7 +373,7 @@ export function Collection() {
                       {metal.minOrder}
                     </div>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                  <div className="bg-white/5 p-3 border border-white/10">
                     <div className="text-xs text-zinc-500 font-medium mb-1 flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3" />
                       Purity
@@ -395,7 +395,7 @@ export function Collection() {
                     {metal.forms.map((form) => (
                       <span
                         key={form}
-                        className="text-xs bg-white/5 text-zinc-300 px-2.5 py-1 rounded-lg border border-white/10"
+                        className="text-xs bg-white/5 text-zinc-300 px-2.5 py-1 border border-white/10"
                       >
                         {form}
                       </span>
@@ -411,7 +411,7 @@ export function Collection() {
                       {metal.pricing}
                     </div>
                   </div>
-                  <button className="group/btn bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                  <button className="group/btn bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 font-semibold text-sm transition-all duration-300 flex items-center gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                     <FileText className="w-4 h-4" />
                     Quote
                   </button>
@@ -422,7 +422,7 @@ export function Collection() {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 lg:p-12">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 lg:p-12">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-3xl font-bold text-white mb-4">

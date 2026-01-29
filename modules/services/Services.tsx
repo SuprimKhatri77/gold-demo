@@ -352,12 +352,12 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
               animate={hoveredId === service.id ? "hover" : "rest"}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-8 transition-all duration-300 h-full flex flex-col">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 p-8 transition-all duration-300 h-full flex flex-col">
                 {/* Icon and Title */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-sm bg-white/10 backdrop-blur-xl border border-white/20 p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 mb-4"
                       animate={
                         hoveredId === service.id
                           ? { rotate: 5, scale: 1.05 }
@@ -479,7 +479,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl p-6 h-full transition-all duration-300">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 p-6 h-full transition-all duration-300">
                   <div className="flex items-start gap-4">
                     <motion.div
                       whileHover={{ scale: 1.15 }}
@@ -539,7 +539,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
+            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 transition-color duration-150 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
           >
             Contact Our Team
             <motion.div

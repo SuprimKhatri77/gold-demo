@@ -35,7 +35,7 @@ const getMetalHoverColor = (tags: string[]) => {
 };
 
 export const SuggestedNews: React.FC<SuggestedNewsProps> = ({ news }) => (
-  <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sticky top-6 hover:border-blue-400/40 transition-all duration-300">
+  <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 sticky top-6 hover:border-blue-400/40 transition-all duration-300">
     <div className="flex items-center gap-2 mb-6">
       <TrendingUp size={18} className="text-cyan-400 animate-pulse" />
       <h3 className="text-lg font-bold text-white">Recent Market Reports</h3>
@@ -50,9 +50,9 @@ export const SuggestedNews: React.FC<SuggestedNewsProps> = ({ news }) => (
           <Link
             key={item.id}
             href={`/news/${slug}`}
-            className={`flex gap-4 group hover:bg-white/5 p-3 rounded-xl transition-all duration-300 border border-transparent ${hoverColor}`}
+            className={`flex gap-4 group hover:bg-white/5 p-3 transition-all duration-300 border border-transparent ${hoverColor}`}
           >
-            <div className="w-20 h-20 relative rounded-xl overflow-hidden shrink-0 bg-slate-950/50 border border-white/10 group-hover:border-white/20 transition-all duration-300">
+            <div className="w-20 h-20 relative rounded-sm overflow-hidden shrink-0 bg-slate-950/50 border border-white/10 group-hover:border-white/20 transition-all duration-300">
               <Image
                 fill
                 src={item.images[0]}
@@ -81,7 +81,7 @@ export const SuggestedNews: React.FC<SuggestedNewsProps> = ({ news }) => (
     <div className="mt-6 pt-4 border-t border-white/10">
       <Link
         href="/news"
-        className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 group/btn shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-105"
+        className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-sm font-semibold transition-all duration-300 group/btn shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-105"
       >
         View All Reports
         <TrendingUp className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />

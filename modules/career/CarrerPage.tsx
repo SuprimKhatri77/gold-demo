@@ -339,7 +339,7 @@ export default function CareerPage() {
               type="button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
+              className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
             >
               Explore Opportunities
               <ArrowRight size={20} />
@@ -379,8 +379,8 @@ export default function CareerPage() {
                 whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl p-6 h-full transition-all duration-300">
-                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 inline-flex items-center justify-center mb-4">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 p-6 h-full transition-all duration-300">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-sm p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 inline-flex items-center justify-center mb-4">
                     <span className="text-white group-hover:text-cyan-400 transition-colors">
                       {getIconComponent(benefit.icon)}
                     </span>
@@ -427,7 +427,7 @@ export default function CareerPage() {
               <motion.div
                 key={job.id}
                 variants={cardVariants}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl overflow-hidden transition-all duration-300"
+                className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 overflow-hidden transition-all duration-300"
               >
                 {/* Job Header */}
                 <motion.button
@@ -547,7 +547,7 @@ export default function CareerPage() {
                       type="button"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full bg-linear-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-semibold flex items-center justify-center gap-2"
+                      className="w-full bg-linear-to-r from-blue-600 to-cyan-600 text-white py-3 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 font-semibold flex items-center justify-center gap-2"
                     >
                       Apply Now
                       <ArrowRight size={18} />
@@ -591,7 +591,7 @@ export default function CareerPage() {
                 whileHover={{ y: -4 }}
                 className="group"
               >
-                <div className="bg-linear-to-br from-blue-500/10 to-cyan-600/5 backdrop-blur-xl border border-blue-500/20 rounded-xl p-8 h-full transition-all duration-300 hover:border-cyan-400/40">
+                <div className="bg-linear-to-br from-blue-500/10 to-cyan-600/5 backdrop-blur-xl border border-blue-500/20 p-8 h-full transition-all duration-300 hover:border-cyan-400/40">
                   <div className="mb-6 inline-flex">
                     <motion.div
                       animate={{ rotate: 360 }}
@@ -600,7 +600,7 @@ export default function CareerPage() {
                         repeat: Infinity,
                         ease: "linear",
                       }}
-                      className="p-4 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl text-white shadow-lg shadow-blue-500/20"
+                      className="p-4 bg-linear-to-br from-blue-600 to-cyan-600 rounded-sm text-white shadow-lg shadow-blue-500/20"
                     >
                       {getIconComponent(value.icon)}
                     </motion.div>
@@ -648,7 +648,7 @@ export default function CareerPage() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             type="button"
-            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
+            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
           >
             Apply Now
             <motion.div

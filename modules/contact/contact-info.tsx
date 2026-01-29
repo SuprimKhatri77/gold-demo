@@ -76,10 +76,10 @@ export const ContactInformation: React.FC = () => {
           {contactItems.map((item, index) => (
             <div
               key={index}
-              className="group bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 md:p-8 hover:bg-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10"
+              className="group bg-white/5 backdrop-blur-xl border border-white/10 p-6 md:p-8 hover:bg-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10"
             >
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-white bg-linear-to-br from-blue-600 to-cyan-600 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
+                <div className="shrink-0 w-14 h-14 rounded-sm flex items-center justify-center text-white bg-linear-to-br from-blue-600 to-cyan-600 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20">
                   {item.icon}
                 </div>
                 <div className="flex-1 min-w-0">

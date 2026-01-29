@@ -49,8 +49,8 @@ export const ContactHero: React.FC = () => {
 
         {/* Quick Contact Cards */}
         <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-          <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-blue-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
-            <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <div className="group bg-white/5 backdrop-blur-xl border border-white/10  p-6 hover:border-blue-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-sm flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Mail className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">
@@ -59,8 +59,8 @@ export const ContactHero: React.FC = () => {
             <p className="text-white font-bold">{companyDetails.email}</p>
           </div>
 
-          <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-cyan-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
-            <div className="w-12 h-12 bg-linear-to-br from-cyan-600 to-blue-600 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <div className="group bg-white/5 backdrop-blur-xl border border-white/10 p-6 hover:border-cyan-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-linear-to-br from-cyan-600 to-blue-600 rounded-sm flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Phone className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">
@@ -69,8 +69,8 @@ export const ContactHero: React.FC = () => {
             <p className="text-white font-bold">{companyDetails.phoneNumber}</p>
           </div>
 
-          <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-purple-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
-            <div className="w-12 h-12 bg-linear-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <div className="group bg-white/5 backdrop-blur-xl border border-white/10 p-6 hover:border-purple-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-linear-to-br from-purple-600 to-indigo-600 rounded-sm flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
               <Building2 className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">

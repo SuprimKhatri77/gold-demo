@@ -341,10 +341,10 @@ Looking forward to your response.
               return (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1 group"
+                  className="bg-white/5 backdrop-blur-xl p-6 border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1 group"
                 >
                   <div
-                    className={`w-12 h-12 bg-linear-to-br from-${feature.color}-600 to-${feature.color === "amber" ? "yellow" : feature.color}-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-12 h-12 bg-linear-to-br from-${feature.color}-600 to-${feature.color === "amber" ? "yellow" : feature.color}-600 rounded-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
                   >
                     <Icon className="w-6 h-6 text-white" />
                   </div>
@@ -374,10 +374,10 @@ Looking forward to your response.
               </h2>
 
               {/* Tabs */}
-              <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-2 mb-6 border border-white/10">
+              <div className="relative bg-white/5 backdrop-blur-xl  p-2 mb-6 border border-white/10">
                 <div className="grid grid-cols-2 gap-2 relative">
                   <motion.div
-                    className="absolute inset-y-0 bg-linear-to-r from-blue-600 to-cyan-600 rounded-xl shadow-lg shadow-blue-500/30"
+                    className="absolute inset-y-0 bg-linear-to-r from-blue-600 to-cyan-600  shadow-lg shadow-blue-500/30"
                     initial={false}
                     animate={{
                       x: activeTab === "buy" ? 0 : "100%",
@@ -389,7 +389,7 @@ Looking forward to your response.
                   <button
                     type="button"
                     onClick={() => setActiveTab("buy")}
-                    className={`relative z-10 py-3.5 rounded-xl font-bold transition-colors duration-200 ${
+                    className={`relative z-10 py-3.5 font-bold transition-colors duration-200 ${
                       activeTab === "buy"
                         ? "text-white"
                         : "text-zinc-400 hover:text-white"
@@ -401,7 +401,7 @@ Looking forward to your response.
                   <button
                     type="button"
                     onClick={() => setActiveTab("sell")}
-                    className={`relative z-10 py-3.5 rounded-xl font-bold transition-colors duration-200 ${
+                    className={`relative z-10 py-3.5 font-bold transition-colors duration-200 ${
                       activeTab === "sell"
                         ? "text-white"
                         : "text-zinc-400 hover:text-white"
@@ -413,7 +413,7 @@ Looking forward to your response.
               </div>
 
               {/* Form */}
-              <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/10 hover:border-blue-400/30 transition-all duration-500">
+              <div className="bg-white/5 backdrop-blur-xl p-6 md:p-8 border border-white/10 hover:border-blue-400/30 transition-all duration-500">
                 <AnimatePresence mode="wait">
                   <motion.form
                     key={activeTab}
@@ -443,7 +443,7 @@ Looking forward to your response.
                           errors.company
                             ? "border-red-500"
                             : "border-white/10 hover:border-blue-400/40"
-                        } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                        } rounded-xs px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
                         placeholder="Your Company Ltd."
                         disabled={submissionState === "loading"}
                       />
@@ -477,7 +477,7 @@ Looking forward to your response.
                             errors.email
                               ? "border-red-500"
                               : "border-white/10 hover:border-blue-400/40"
-                          } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                          } rounded-xs px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
                           placeholder="contact@company.com"
                           disabled={submissionState === "loading"}
                         />
@@ -509,7 +509,7 @@ Looking forward to your response.
                             errors.phone
                               ? "border-red-500"
                               : "border-white/10 hover:border-blue-400/40"
-                          } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                          } rounded-xs px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
                           placeholder="+1 (555) 123-4567"
                           disabled={submissionState === "loading"}
                         />
@@ -537,7 +537,7 @@ Looking forward to your response.
                             onClick={() =>
                               handleInputChange("product", product.name)
                             }
-                            className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                            className={`p-4 border-2 transition-all duration-300 ${
                               formData.product === product.name
                                 ? `border-${product.color.split("-")[1]}-500 bg-${product.color.split("-")[1]}-500/10`
                                 : "border-white/10 bg-white/5 hover:border-blue-400/40"
@@ -595,7 +595,7 @@ Looking forward to your response.
                               errors.weight
                                 ? "border-red-500"
                                 : "border-white/10 hover:border-blue-400/40"
-                            } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                            } rounded-xs px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
                             placeholder="100"
                             disabled={submissionState === "loading"}
                           />
@@ -606,7 +606,7 @@ Looking forward to your response.
                           onChange={(e) =>
                             handleInputChange("weightUnit", e.target.value)
                           }
-                          className="bg-white/5 border border-white/10 hover:border-blue-400/40 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200 cursor-pointer min-w-32"
+                          className="bg-white/5 border border-white/10 hover:border-blue-400/40 rounded-xs px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200 cursor-pointer min-w-32"
                           disabled={submissionState === "loading"}
                         >
                           {weightUnits.map((unit) => (
@@ -649,7 +649,7 @@ Looking forward to your response.
                           errors.purity
                             ? "border-red-500"
                             : "border-white/10 hover:border-blue-400/40"
-                        } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                        } rounded-xs px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
                         placeholder="e.g., 99.99%, .9999, 24K"
                         disabled={submissionState === "loading"}
                       />
@@ -668,7 +668,7 @@ Looking forward to your response.
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-linear-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 rounded-xl p-4"
+                        className="bg-linear-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 p-4"
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-zinc-400">
@@ -696,7 +696,7 @@ Looking forward to your response.
                         submissionState === "loading" ||
                         submissionState === "success"
                       }
-                      className={`group w-full py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                      className={`group w-full py-4 font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                         submissionState === "success"
                           ? "bg-green-600 text-white"
                           : submissionState === "error"
@@ -751,7 +751,7 @@ Looking forward to your response.
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10"
+              className="bg-white/5 backdrop-blur-xl p-8 border border-white/10"
             >
               <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
                 <Globe className="w-6 h-6 text-cyan-400" />
@@ -761,7 +761,7 @@ Looking forward to your response.
                 {steps.map((step, index) => (
                   <div key={index} className="flex gap-4 group">
                     <div className="shrink-0">
-                      <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-12 h-12 rounded-sm bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
                         {step.number}
                       </div>
                     </div>
@@ -783,10 +783,10 @@ Looking forward to your response.
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-linear-to-br from-blue-600/20 to-cyan-600/20 rounded-2xl p-6 border border-blue-400/30"
+              className="bg-linear-to-br from-blue-600/20 to-cyan-600/20 p-6 border border-blue-400/30"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-sm flex items-center justify-center shrink-0">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -803,13 +803,13 @@ Looking forward to your response.
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10 text-center">
+              <div className="bg-white/5 backdrop-blur-xl p-4 border border-white/10 text-center">
                 <div className="text-2xl font-bold text-cyan-400 mb-1">
                   2-4h
                 </div>
                 <div className="text-xs text-zinc-400">Quote Response</div>
               </div>
-              <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10 text-center">
+              <div className="bg-white/5 backdrop-blur-xl p-4 border border-white/10 text-center">
                 <div className="text-2xl font-bold text-blue-400 mb-1">
                   500+
                 </div>
@@ -839,7 +839,7 @@ Looking forward to your response.
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white/5 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden hover:border-blue-400/40 transition-all duration-300"
+                className="bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden hover:border-blue-400/40 transition-all duration-300"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}

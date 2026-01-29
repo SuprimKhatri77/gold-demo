@@ -298,7 +298,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
         >
           <motion.div
             variants={variants.item}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6"
           >
             <BookOpen className="text-cyan-400" size={16} />
             <span className="text-zinc-400 text-sm font-medium">
@@ -361,7 +361,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
               onClick={() => handleCategoryClick(category.id)}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-sm font-semibold transition-all duration-300 ${selectedCategory === category.id
+              className={`px-6 py-3 rounded-sm font-semibold transition-color duration-150 ${selectedCategory === category.id
                   ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30"
                   : "bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 hover:border-cyan-400/40 hover:bg-white/10"
                 }`}
@@ -401,7 +401,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
                     </span>
                   </div>
                   <motion.span
-                    className="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 px-4 py-2 rounded-xl"
+                    className="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 px-4 py-2 rounded-xs"
                     variants={variants.badge}
                     initial="rest"
                     whileHover="hover"
@@ -510,7 +510,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             className="relative z-10"
           >
             <motion.div variants={variants.item} className="flex justify-center mb-4">
-              <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4">
+              <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-4">
                 <BarChart3 className="text-cyan-400" size={32} />
               </div>
             </motion.div>

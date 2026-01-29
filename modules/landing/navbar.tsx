@@ -132,16 +132,14 @@ export function Navbar() {
     <>
       <div className="sticky top-0 z-50">
         <div
-          className={`transition-all duration-500 ${
-            isScrolled ? "px-4 sm:px-6 lg:px-8 pt-4" : ""
-          }`}
+          className={`transition-all duration-500 ${isScrolled ? "px-4 sm:px-6 lg:px-8 pt-4" : ""
+            }`}
         >
           <nav
-            className={`transition-all duration-500 ${
-              isScrolled
-                ? "max-w-7xl mx-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-blue-500/20 rounded-2xl"
+            className={`transition-all duration-500 ${isScrolled
+                ? "max-w-7xl mx-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-blue-500/20 rounded-xs"
                 : "bg-white/5 backdrop-blur-xl border-b border-white/10"
-            }`}
+              }`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-20">
@@ -172,16 +170,15 @@ export function Navbar() {
                 {/* Desktop Navigation */}
                 <div
                   ref={navRef}
-                  className="hidden lg:flex items-center gap-1 relative px-2 py-1.5 rounded-xl"
+                  className="hidden lg:flex items-center gap-1 relative px-2 py-1.5 rounded-xs"
                   onMouseLeave={handleMouseLeave}
                 >
                   {/* Animated hover background */}
                   <div
-                    className={`absolute h-9 bg-linear-to-r from-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-blue-400/40 rounded-lg transition-all duration-300 ease-out shadow-lg shadow-blue-500/20 ${
-                      hoveredIndex !== null
+                    className={`absolute h-9 bg-linear-to-r from-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-blue-400/40 transition-all duration-300 ease-out shadow-lg shadow-blue-500/20 ${hoveredIndex !== null
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
-                    }`}
+                      }`}
                     style={{
                       left: `${hoverPosition.left}px`,
                       width: `${hoverPosition.width}px`,
@@ -203,25 +200,24 @@ export function Navbar() {
 
                           {/* Dropdown Menu */}
                           <div
-                            className={`absolute top-full right-0 mt-3 w-72 rounded-xl overflow-hidden transition-all duration-300 ${
-                              openDropdown === index
+                            className={`absolute top-full right-0 mt-3 w-72 overflow-hidden transition-all duration-300 ${openDropdown === index
                                 ? "opacity-100 translate-y-0 pointer-events-auto"
                                 : "opacity-0 -translate-y-2 pointer-events-none"
-                            }`}
+                              }`}
                             onMouseEnter={handleDropdownEnter}
                             onMouseLeave={handleDropdownLeave}
                           >
                             {/* Outer border glow */}
-                            <div className="absolute inset-0 bg-linear-to-b from-blue-500/30 via-cyan-500/20 to-blue-500/30 rounded-xl blur-xl" />
+                            <div className="absolute inset-0 bg-linear-to-b from-blue-500/30 via-cyan-500/20 to-blue-500/30 blur-xl" />
 
                             {/* Main dropdown container with stronger background */}
-                            <div className="relative bg-linear-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-2xl border-2 border-blue-400/50 rounded-xl shadow-2xl shadow-blue-500/40">
+                            <div className="relative bg-linear-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-2xl border-2 border-blue-400/50 shadow-2xl shadow-blue-500/40">
                               <div className="p-2">
                                 {item.children.map((child) => (
                                   <Link
                                     key={child.label}
                                     href={child.href}
-                                    className="block px-4 py-3 text-zinc-200 hover:text-white hover:bg-linear-to-r hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 rounded-lg border border-transparent hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/30 group"
+                                    className="block px-4 py-3 text-zinc-200 hover:text-white hover:bg-linear-to-r hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 border border-transparent hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/30 group"
                                   >
                                     <div className="flex items-start gap-3">
                                       <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60 group-hover:bg-blue-400 group-hover:shadow-lg group-hover:shadow-blue-400/50 mt-1.5 transition-all duration-300" />
@@ -257,7 +253,7 @@ export function Navbar() {
 
                 {/* Mobile Menu Button */}
                 <button
-                  className="lg:hidden relative p-2.5 text-white bg-linear-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md hover:from-blue-500/30 hover:to-cyan-500/30 transition-all duration-300 border border-blue-400/40 rounded-xl shadow-lg shadow-blue-500/20 overflow-hidden group"
+                  className="lg:hidden relative p-2.5 text-white bg-linear-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md hover:from-blue-500/30 hover:to-cyan-500/30 transition-all duration-300 border border-blue-400/40 shadow-lg shadow-blue-500/20 overflow-hidden group"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   aria-label="Toggle menu"
                 >
@@ -274,15 +270,13 @@ export function Navbar() {
 
       {/* COMPLETELY REDESIGNED MOBILE MENU */}
       <div
-        className={`lg:hidden fixed inset-0 z-60 transition-all duration-500 ${
-          isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`lg:hidden fixed inset-0 z-60 transition-all duration-500 ${isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
       >
         {/* Animated Background Overlay */}
         <div
-          className={`absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 transition-opacity duration-500 ${
-            isMobileMenuOpen ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 transition-opacity duration-500 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"
+            }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           {/* Animated gradient orbs */}
@@ -295,9 +289,8 @@ export function Navbar() {
 
         {/* Menu Content - Slide from Right */}
         <div
-          className={`absolute top-0 right-0 h-full w-full sm:w-96 bg-linear-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-2xl border-l-2 border-blue-400/30 shadow-2xl transition-transform duration-500 ease-out ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`absolute top-0 right-0 h-full w-full sm:w-96 bg-linear-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-2xl border-l-2 border-blue-400/30 shadow-2xl transition-transform duration-500 ease-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           {/* Header */}
           <div className="relative border-b border-blue-400/20 bg-linear-to-r from-blue-500/10 to-cyan-500/10">
@@ -314,7 +307,7 @@ export function Navbar() {
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/40 transition-all duration-300 group"
+                className="p-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/40 transition-all duration-300 group"
               >
                 <X className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
               </button>
@@ -330,11 +323,10 @@ export function Navbar() {
               return (
                 <div
                   key={item.label}
-                  className={`transition-all duration-300 ${
-                    isMobileMenuOpen
+                  className={`transition-all duration-300 ${isMobileMenuOpen
                       ? "translate-x-0 opacity-100"
                       : "translate-x-10 opacity-0"
-                  }`}
+                    }`}
                   style={{
                     transitionDelay: `${index * 80}ms`,
                   }}
@@ -348,7 +340,7 @@ export function Navbar() {
                         }
                         className="w-full group"
                       >
-                        <div className="relative overflow-hidden rounded-xl">
+                        <div className="relative overflow-hidden">
                           {/* Glow effect */}
                           <div className="absolute inset-0 bg-linear-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/10 group-hover:to-blue-500/20 transition-all duration-500" />
 
@@ -365,9 +357,8 @@ export function Navbar() {
                               </span>
                             </div>
                             <ChevronRight
-                              className={`w-5 h-5 text-blue-400 transition-transform duration-300 ${
-                                isOpen ? "rotate-90" : ""
-                              }`}
+                              className={`w-5 h-5 text-blue-400 transition-transform duration-300 ${isOpen ? "rotate-90" : ""
+                                }`}
                             />
                           </div>
                         </div>
@@ -375,27 +366,25 @@ export function Navbar() {
 
                       {/* Children Items */}
                       <div
-                        className={`space-y-1.5 pl-4 transition-all duration-300 origin-top ${
-                          isOpen
+                        className={`space-y-1.5 pl-4 transition-all duration-300 origin-top ${isOpen
                             ? "max-h-125 opacity-100 scale-y-100"
                             : "max-h-0 opacity-0 scale-y-95 overflow-hidden"
-                        }`}
+                          }`}
                       >
                         {item.children.map((child, childIndex) => (
                           <Link
                             key={child.label}
                             href={child.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`block group transition-all duration-300 ${
-                              isOpen
+                            className={`block group transition-all duration-300 ${isOpen
                                 ? "translate-x-0 opacity-100"
                                 : "translate-x-4 opacity-0"
-                            }`}
+                              }`}
                             style={{
                               transitionDelay: `${childIndex * 50}ms`,
                             }}
                           >
-                            <div className="relative overflow-hidden rounded-lg">
+                            <div className="relative overflow-hidden">
                               {/* Hover glow */}
                               <div className="absolute inset-0 bg-linear-to-r from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/10 group-hover:to-blue-500/10 transition-all duration-300" />
 
@@ -428,14 +417,14 @@ export function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block group"
                     >
-                      <div className="relative overflow-hidden rounded-xl">
+                      <div className="relative overflow-hidden">
                         {/* Glow effect */}
                         <div className="absolute inset-0 bg-linear-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/10 group-hover:to-blue-500/20 transition-all duration-500" />
 
                         {/* Main link */}
                         <div className="relative flex items-center gap-3 px-5 py-4 bg-linear-to-r from-slate-800/50 to-slate-700/50 group-hover:from-slate-800/80 group-hover:to-slate-700/80 border border-blue-400/20 group-hover:border-blue-400/40 transition-all duration-300">
                           {Icon && (
-                            <div className="p-2 rounded-lg bg-linear-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 group-hover:border-blue-400/50 transition-all duration-300">
+                            <div className="p-2 rounded-sm bg-linear-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 group-hover:border-blue-400/50 transition-all duration-300">
                               <Icon className="w-4 h-4 text-blue-400 group-hover:text-cyan-400 transition-colors" />
                             </div>
                           )}

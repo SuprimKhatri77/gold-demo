@@ -75,10 +75,10 @@ export const TrustSection: React.FC = () => {
           {trustPoints.map((point, index) => (
             <div
               key={index}
-              className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10 text-center"
+              className="group bg-white/5 backdrop-blur-xl border border-white/10 p-8 hover:border-blue-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10 text-center"
             >
               <div
-                className={`w-16 h-16 md:w-20 md:h-20 bg-linear-to-br ${point.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20`}
+                className={`w-16 h-16 md:w-20 md:h-20 bg-linear-to-br ${point.color} rounded-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/20`}
               >
                 <div className="text-white">{point.icon}</div>
               </div>

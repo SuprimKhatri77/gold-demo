@@ -148,7 +148,7 @@ export const ContactForm: React.FC = () => {
       <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
 
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 md:p-10 lg:p-12 hover:border-blue-400/30 transition-all duration-500">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 md:p-10 lg:p-12 hover:border-blue-400/30 transition-all duration-500">
           {/* Header */}
           <div className="text-center mb-8 md:mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">

@@ -74,7 +74,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
 
   return (
     <article
-      className={`bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 ${metalAccent.hoverBorder} transition-all duration-300 overflow-hidden group hover:bg-white/10 hover:-translate-y-1`}
+      className={`bg-white/5 backdrop-blur-xl border border-white/10 ${metalAccent.hoverBorder} transition-all duration-300 overflow-hidden group hover:bg-white/10 hover:-translate-y-1`}
     >
       <div className="flex flex-col lg:flex-row">
         {/* Image Section */}
@@ -95,7 +95,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
             {news.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className={`px-3 py-1 ${metalAccent.tagBg} ${metalAccent.tagText} text-xs font-medium rounded-full border ${metalAccent.tagBorder} backdrop-blur-sm transition-colors duration-300`}
+                className={`px-3 py-1 ${metalAccent.tagBg} ${metalAccent.tagText} text-xs font-medium rounded-xs border ${metalAccent.tagBorder} backdrop-blur-sm transition-colors duration-300`}
               >
                 {tag}
               </span>
@@ -131,7 +131,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
             {/* Button */}
             <Link
               href={`/news/${slug}`}
-              className={`inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-white/5 ${metalAccent.buttonHover} border border-white/10 text-white text-sm sm:text-base font-semibold rounded-xl transition-all duration-300 group/btn order-1 sm:order-2 whitespace-nowrap backdrop-blur-xl shrink-0`}
+              className={`inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-white/5 ${metalAccent.buttonHover} border border-white/10 text-white text-sm sm:text-base font-semibold transition-all duration-300 group/btn order-1 sm:order-2 whitespace-nowrap backdrop-blur-xl shrink-0`}
             >
               Read Full Report
               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />

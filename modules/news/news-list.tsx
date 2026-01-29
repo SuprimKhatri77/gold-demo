@@ -26,14 +26,14 @@ const LoadingSkeleton: React.FC = () => {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden animate-pulse"
+          className="bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden animate-pulse"
         >
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-80 h-48 sm:h-56 md:h-64 bg-white/10"></div>
             <div className="p-6 md:p-8 flex-1 space-y-4">
               <div className="flex gap-2">
-                <div className="h-6 w-20 bg-white/10 rounded-full"></div>
-                <div className="h-6 w-24 bg-white/10 rounded-full"></div>
+                <div className="h-6 w-20 bg-white/10 rounded-xs"></div>
+                <div className="h-6 w-24 bg-white/10 rounded-xs"></div>
               </div>
               <div className="h-8 bg-white/10 rounded w-3/4"></div>
               <div className="space-y-2">
@@ -42,7 +42,7 @@ const LoadingSkeleton: React.FC = () => {
               </div>
               <div className="flex justify-between items-center pt-4">
                 <div className="h-4 w-32 bg-white/10 rounded"></div>
-                <div className="h-10 w-32 bg-white/10 rounded-lg"></div>
+                <div className="h-10 w-32 bg-white/10"></div>
               </div>
             </div>
           </div>

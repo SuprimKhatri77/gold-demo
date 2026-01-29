@@ -135,15 +135,15 @@ const TestimonialCard = ({ testimonial, index = 0 }: Props) => {
         {/* Glow effect on hover */}
         <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/20 via-cyan-500/10 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 h-full hover:border-blue-400/40 transition-all duration-500 overflow-hidden">
+        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 h-full hover:border-blue-400/40 transition-all duration-500 overflow-hidden">
           {/* Animated gradient overlay */}
           <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Quote Icon with rotating glow */}
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-              <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400" />
+            <div className="relative w-14 h-14 rounded-sm bg-linear-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+              <Quote className="w-7 h-7 text-amber-400" />
             </div>
           </div>
 
@@ -193,7 +193,7 @@ const TestimonialCard = ({ testimonial, index = 0 }: Props) => {
 
             {/* Badge */}
             <div className="shrink-0">
-              <div className="px-2.5 py-1.5 sm:px-3 bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 rounded-full">
+              <div className="px-3 py-1.5 bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30">
                 <span className="text-xs font-semibold text-blue-400">
                   {testimonial.badge}
                 </span>

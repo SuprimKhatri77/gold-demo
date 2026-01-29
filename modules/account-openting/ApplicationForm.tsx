@@ -219,7 +219,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full max-w-4xl rounded-sm border border-white/10 bg-linear-to-br from-slate-900/95 via-blue-950/95 to-slate-900/95 backdrop-blur-xl p-6 shadow-2xl shadow-blue-500/20 md:p-10"
+        className="w-full max-w-4xl border border-white/10 bg-linear-to-br from-slate-900/95 via-blue-950/95 to-slate-900/95 backdrop-blur-xl p-6 shadow-2xl shadow-blue-500/20 md:p-10"
       >
 
         {/* Header */}
@@ -349,7 +349,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({
             variants={variants.item}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`mb-6 p-4 rounded-xl flex items-center gap-3 text-sm md:text-base border backdrop-blur-xl ${submitStatus.type === 'success'
+            className={`mb-6 p-4 rounded-sm flex items-center gap-3 text-sm md:text-base border backdrop-blur-xl ${submitStatus.type === 'success'
               ? 'bg-emerald-500/10 border-emerald-400/30 text-emerald-300'
               : submitStatus.type === 'error'
                 ? 'bg-red-500/10 border-red-400/30 text-red-300'
@@ -469,7 +469,7 @@ const FormFileUpload: FC<FileUploadProps> = ({
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
       whileHover={{ scale: 1.02, y: -2 }}
-      className={`flex flex-col items-center justify-center gap-3 cursor-pointer rounded-xl border-2 border-dashed px-4 py-6 transition-all duration-300 backdrop-blur-xl text-sm md:text-base ${isDragActive
+      className={`flex flex-col items-center justify-center gap-3 cursor-pointer rounded-sm border-2 border-dashed px-4 py-6 transition-all duration-300 backdrop-blur-xl text-sm md:text-base ${isDragActive
         ? 'border-cyan-400/60 bg-cyan-500/10 scale-105'
         : file
           ? 'border-emerald-400/40 bg-emerald-500/10'

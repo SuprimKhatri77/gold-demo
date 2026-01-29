@@ -214,7 +214,7 @@ export function Insights() {
                   key={post.id}
                   onMouseEnter={() => setHoveredCard(post.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  className={`lg:col-span-7 group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-1 ${
+                  className={`lg:col-span-7 group relative bg-white/5 backdrop-blur-xl overflow-hidden border border-white/10 hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-1 ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-12"
@@ -244,7 +244,7 @@ export function Insights() {
 
                     {/* Category Badge */}
                     <div
-                      className={`absolute top-6 left-6 z-20 ${colors.badge} backdrop-blur-xl border px-4 py-2 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg`}
+                      className={`absolute top-6 left-6 z-20 ${colors.badge} backdrop-blur-xl border px-4 py-2 font-bold text-sm flex items-center gap-2 shadow-lg`}
                     >
                       <Icon className="w-4 h-4" />
                       {post.category}
@@ -252,7 +252,7 @@ export function Insights() {
 
                     {/* Animated corner accent */}
                     <div
-                      className={`absolute top-0 right-0 w-48 h-48 bg-linear-to-bl ${colors.glow} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      className={`absolute top-0 right-0 w-48 h-48 bg-linear-to-bl ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                     />
                   </div>
 
@@ -288,7 +288,7 @@ export function Insights() {
 
           {/* Side Column - Stats Card */}
           <div
-            className={`lg:col-span-5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-blue-400/40 p-8 transition-all duration-500 hover:-translate-y-1 ${
+            className={`lg:col-span-5 bg-white/5 backdrop-blur-xl rounded-xs border border-white/10 hover:border-blue-400/40 p-8 transition-all duration-500 hover:-translate-y-1 ${
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-12"
@@ -301,8 +301,8 @@ export function Insights() {
 
             <div className="space-y-6">
               {/* Stat Item */}
-              <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+              <div className="group/stat relative p-5 bg-white/5 border border-white/10 hover:border-amber-400/40 transition-all duration-300">
+                <div className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -316,15 +316,15 @@ export function Insights() {
                       <span>+1.2% Today</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-sm bg-linear-to-br from-amber-500/20 to-yellow-500/10 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-amber-400" />
                   </div>
                 </div>
               </div>
 
               {/* Stat Item */}
-              <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+              <div className="group/stat relative p-5 bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
+                <div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -338,15 +338,15 @@ export function Insights() {
                       <span>Last 24 Hours</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-cyan-500/20 to-blue-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-sm bg-linear-to-br from-cyan-500/20 to-blue-500/10 flex items-center justify-center">
                     <BarChart3 className="w-6 h-6 text-cyan-400" />
                   </div>
                 </div>
               </div>
 
               {/* Stat Item */}
-              <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+              <div className="group/stat relative p-5 bg-white/5 border border-white/10 hover:border-blue-400/40 transition-all duration-300">
+                <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -360,7 +360,7 @@ export function Insights() {
                       <span>Growing Daily</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-sm bg-linear-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center">
                     <TrendingUp className="w-6 h-6 text-blue-400" />
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export function Insights() {
                   key={post.id}
                   onMouseEnter={() => setHoveredCard(post.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  className={`group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-1 ${
+                  className={`group relative bg-white/5 backdrop-blur-xl overflow-hidden border border-white/10 hover:border-blue-400/40 transition-all duration-500 hover:-translate-y-1 ${
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-12"
@@ -412,7 +412,7 @@ export function Insights() {
 
                     {/* Category Badge */}
                     <div
-                      className={`absolute top-4 left-4 z-20 ${colors.badge} backdrop-blur-xl border px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-lg`}
+                      className={`absolute top-4 left-4 z-20 ${colors.badge} backdrop-blur-xl border px-3 py-1.5 font-bold text-xs flex items-center gap-1.5 shadow-lg`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                       {post.category}
@@ -426,7 +426,7 @@ export function Insights() {
                         <Clock className="w-3.5 h-3.5" />
                         <span>{post.readTime}</span>
                       </div>
-                      <div className="w-1 h-1 bg-zinc-600 rounded-full" />
+                      <div className="w-1 h-1 bg-zinc-600" />
                       <span>{post.date}</span>
                     </div>
 

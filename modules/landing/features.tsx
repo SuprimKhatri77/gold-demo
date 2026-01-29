@@ -348,13 +348,13 @@ export function Quality() {
         <div className="relative group">
           {/* Animated gradient border */}
           <div
-            className="absolute inset-0 rounded-2xl bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient-x"
+            className="absolute inset-0 bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient-x"
             style={{ padding: "2px" }}
           >
-            <div className="absolute inset-0 rounded-2xl bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
+            <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
           </div>
 
-          <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl lg:rounded-3xl p-8 lg:p-12 border border-white/10 group-hover:border-blue-400/40 transition-all duration-500">
+          <div className="relative bg-white/5 backdrop-blur-xl p-8 lg:p-12 border border-white/10 group-hover:border-blue-400/40 transition-all duration-500">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="flex-1 text-center lg:text-left">
                 <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">

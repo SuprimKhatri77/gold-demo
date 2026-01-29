@@ -109,7 +109,7 @@ export default function TeamPremium() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6">
             <Award className="w-4 h-4 text-cyan-400" />
             <span className="text-zinc-400 text-sm font-medium">
               Executive Leadership
@@ -135,7 +135,7 @@ export default function TeamPremium() {
             <div className="lg:col-span-8">
               <div
                 key={activeIndex}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm overflow-hidden hover:border-cyan-400/40 transition-all duration-500 h-full group"
+                className="bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyan-400/40 transition-all duration-500 h-full group"
               >
                 {/* Horizontal Layout for Image + Content */}
                 <div className="grid md:grid-cols-5 h-full">
@@ -149,7 +149,7 @@ export default function TeamPremium() {
                           fill
                           src={activeMember.image}
                           alt={activeMember.name}
-                          className="w-full h-full object-cover rounded-sm"
+                          className="w-full h-full object-cover rounded-xs"
                         />
                         <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 to-transparent rounded-xl" />
                       </div>
@@ -157,7 +157,7 @@ export default function TeamPremium() {
 
                     {/* Role Badge - Positioned at bottom */}
                     <div className="absolute bottom-4 left-4 right-4">
-                      <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-2 rounded-xl group-hover:border-cyan-400/40 transition-all duration-300">
+                      <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-2 rounded-xs group-hover:border-cyan-400/40 transition-all duration-300">
                         <p className="text-white font-semibold text-xs text-center truncate">
                           {activeMember.title}
                         </p>
@@ -206,7 +206,7 @@ export default function TeamPremium() {
                         {activeMember.expertise.map((skill, index) => (
                           <span
                             key={index}
-                            className="px-3 py-1.5 bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 rounded-lg text-xs font-medium hover:bg-linear-to-r hover:from-blue-600/10 hover:to-cyan-600/10 hover:border-cyan-400/40 hover:text-cyan-400 transition-all duration-300"
+                            className="px-3 py-1.5 bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 rounded-xs text-xs font-medium hover:bg-linear-to-r hover:from-blue-600/10 hover:to-cyan-600/10 hover:border-cyan-400/40 hover:text-cyan-400 transition-all duration-300"
                           >
                             {skill}
                           </span>
@@ -216,10 +216,10 @@ export default function TeamPremium() {
 
                     {/* Icons */}
                     <div className="flex gap-3 mt-6">
-                      <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300">
+                      <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-cyan-600 rounded-sm flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300">
                         <Briefcase className="text-white" size={18} />
                       </div>
-                      <div className="w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg flex items-center justify-center hover:border-cyan-400/40 hover:bg-white/10 transition-all duration-300">
+                      <div className="w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex items-center justify-center hover:border-cyan-400/40 hover:bg-white/10 transition-all duration-300">
                         <TrendingUp className="text-white/70 hover:text-cyan-400" size={18} />
                       </div>
                     </div>
@@ -234,7 +234,7 @@ export default function TeamPremium() {
                 onClick={() => setActiveIndex(inactiveIndex)}
                 className="w-full group"
               >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-sm overflow-hidden transition-all duration-300 p-4 lg:p-5 hover:scale-102 hover:-translate-y-1">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 overflow-hidden transition-all duration-300 p-4 lg:p-5 hover:scale-102 hover:-translate-y-1">
                   {/* Vertical layout for inactive card */}
                   <div className="flex flex-col items-center text-center">
                     {/* Avatar */}
@@ -243,7 +243,7 @@ export default function TeamPremium() {
                         fill
                         src={inactiveMember.image}
                         alt={inactiveMember.name}
-                        className="w-full h-full object-cover rounded-sm"
+                        className="w-full h-full object-cover rounded-xs"
                       />
                       <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 to-transparent rounded-xl" />
                     </div>
@@ -263,7 +263,7 @@ export default function TeamPremium() {
                         .map((skill, index) => (
                           <span
                             key={index}
-                            className="text-xs px-2 py-1 bg-white/5 text-zinc-400 rounded-lg border border-white/10 group-hover:border-cyan-400/40 transition-colors duration-300"
+                            className="text-xs px-2 py-1 bg-white/5 text-zinc-400 rounded-xs border border-white/10 group-hover:border-cyan-400/40 transition-colors duration-300"
                           >
                             {skill}
                           </span>
@@ -292,9 +292,9 @@ export default function TeamPremium() {
             return (
               <div
                 key={stat.id}
-                className="group text-center p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+                className="group text-center p-8 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
               >
-                <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-xl bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/10 group-hover:border-cyan-400/40 group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-sm bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/10 group-hover:border-cyan-400/40 group-hover:scale-110 transition-all duration-300">
                   <Icon
                     size={24}
                     className="text-white/70 group-hover:text-cyan-400 transition-colors duration-300"
@@ -312,7 +312,7 @@ export default function TeamPremium() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-linear-to-br from-blue-600/10 via-cyan-600/10 to-blue-600/5 backdrop-blur-xl border border-blue-400/20 rounded-2xl p-12 relative overflow-hidden">
+        <div className="text-center bg-linear-to-br from-blue-600/10 via-cyan-600/10 to-blue-600/5 backdrop-blur-xl border border-blue-400/20 p-12 relative overflow-hidden">
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl" />
@@ -323,7 +323,7 @@ export default function TeamPremium() {
             </p>
             <Link
               href="/contact"
-              className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-semibold inline-flex items-center gap-3 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
+              className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 font-semibold inline-flex items-center gap-3 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:-translate-y-1"
             >
               <span>Connect With Our Team</span>
               <ChevronRight

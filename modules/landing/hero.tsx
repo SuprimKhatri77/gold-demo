@@ -287,9 +287,9 @@ export const Hero = () => {
                 transition: "transform 0.3s ease-out",
               }}
             >
-              <div className="group relative p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
+              <div className="group relative p-6 sm:p-8 bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
                 {/* Glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative space-y-5 sm:space-y-6">
                   {/* Header */}
@@ -315,7 +315,7 @@ export const Hero = () => {
                     {metals.map((metal, index) => (
                       <div
                         key={metal.name}
-                        className="group/card relative p-4 sm:p-5 rounded-2xl bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-blue-400/40 transition-all duration-300 cursor-pointer overflow-hidden hover:-translate-y-1 hover:bg-slate-800/60"
+                        className="group/card relative p-4 sm:p-5 rounded-xs bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-blue-400/40 transition-all duration-300 cursor-pointer overflow-hidden hover:-translate-y-1 hover:bg-slate-800/60"
                         style={{
                           animationDelay: `${index * 100}ms`,
                         }}

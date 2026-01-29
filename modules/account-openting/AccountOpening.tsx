@@ -382,14 +382,14 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                       whileHover={{ y: -4, scale: 1.02 }}
                       className="relative group"
                     >
-                      <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
+                      <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40  p-6 h-full flex flex-col transition-all duration-300">
                         {/* Step Number */}
-                        <div className="absolute -top-3 -left-3 w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
+                        <div className="absolute -top-3 -left-3 w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-sm flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
                           {step.number}
                         </div>
 
                         {/* Icon */}
-                        <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
+                        <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
                           <span className="text-cyan-400">
                             {renderIcon(step.icon)}
                           </span>
@@ -440,7 +440,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               <motion.div
                 key={category.id}
                 variants={itemVariants}
-                className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 rounded-2xl overflow-hidden transition-all duration-300"
+                className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 overflow-hidden transition-all duration-300"
               >
                 <motion.button
                   type="button"
@@ -448,7 +448,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                   className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-all duration-300 text-left"
                 >
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110">
+                    <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-3 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110">
                       <span className="text-cyan-400">
                         {renderIcon(category.icon)}
                       </span>
@@ -535,8 +535,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
-                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:rotate-12 inline-flex items-center justify-center mb-4 w-fit">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:rotate-12 inline-flex items-center justify-center mb-4 w-fit">
                     <span className="text-cyan-400">
                       {renderIcon(doc.icon)}
                     </span>
@@ -596,8 +596,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
-                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
                     <span className="text-cyan-400">
                       {renderIcon(benefit.icon)}
                     </span>
@@ -640,7 +640,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               variants={itemVariants}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="px-10 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 inline-flex items-center justify-center gap-2 group"
+              className="px-10 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 inline-flex items-center justify-center gap-2 group"
             >
               Contact Our Team
               <motion.div

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -159,21 +160,29 @@ body {
   height: 8px; /* Thickness of the horizontal scrollbar */
 }
 
+/* Sky Blue → Dark Blue Scrollbar */
+
 ::-webkit-scrollbar-track {
-  background: #fff7ed; /* Light amber background (amber-50) */
+  background: #4a70a9; /* sky-50 */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  /* Goldish Gradient */
-  background: linear-gradient(to bottom, #f59e0b, #b45309);
+  background: linear-gradient(
+    180deg,
+    #7dd3fc,
+    /* sky-300 */ #2563eb /* blue-600 */
+  );
   border-radius: 10px;
-  border: 2px solid #fff7ed; /* Creates a padding effect around the thumb */
+  border: 2px solid #f0f9ff; /* subtle padding */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  /* Darker gold on hover */
-  background: linear-gradient(to bottom, #d97706, #92400e);
+  background: linear-gradient(
+    180deg,
+    #38bdf8,
+    /* sky-400 */ #1e40af /* blue-800 */
+  );
 }
 
 .scroller {
@@ -181,4 +190,58 @@ body {
   height: 100px;
   overflow-y: scroll;
   scrollbar-width: thin;
+}
+
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }

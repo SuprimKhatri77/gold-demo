@@ -73,7 +73,7 @@ export const NewsHero: React.FC = () => (
           ].map((stat, index) => (
             <div
               key={index}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 md:p-6 hover:bg-white/10 hover:border-blue-400/40 hover:-translate-y-1 transition-all duration-300 group"
+              className="bg-white/5 backdrop-blur-xl border border-white/10 p-4 md:p-6 hover:bg-white/10 hover:border-blue-400/40 hover:-translate-y-1 transition-all duration-300 group"
             >
               <div className="flex items-center gap-3 mb-2">
                 <stat.icon className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />

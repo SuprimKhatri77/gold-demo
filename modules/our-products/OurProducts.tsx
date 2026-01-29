@@ -43,12 +43,12 @@ interface Feature {
   readonly title: string;
   readonly description: string;
   readonly icon:
-    | "certified"
-    | "storage"
-    | "pricing"
-    | "expertise"
-    | "reach"
-    | "solutions";
+  | "certified"
+  | "storage"
+  | "pricing"
+  | "expertise"
+  | "reach"
+  | "solutions";
 }
 
 const products: readonly Product[] = [
@@ -338,7 +338,7 @@ export default function OurProducts() {
                   stiffness: 300,
                   damping: 25,
                 }}
-                className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col md:flex-row"
+                className="relative bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden h-full flex flex-col md:flex-row"
               >
                 {/* Animated border glow */}
                 <motion.div
@@ -346,7 +346,7 @@ export default function OurProducts() {
                   animate={{
                     opacity: hoveredProduct === product.id ? 1 : 0,
                   }}
-                  className="absolute inset-0 rounded-2xl border-2 border-cyan-400/40 pointer-events-none"
+                  className="absolute inset-0 border-2 border-cyan-400/40 pointer-events-none"
                 />
 
                 {/* Left side - Image */}
@@ -376,7 +376,7 @@ export default function OurProducts() {
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 360 }}
                       transition={{ duration: 0.5 }}
-                      className={`w-14 h-14 rounded-xl bg-linear-to-br ${product.color} shadow-2xl flex items-center justify-center text-white border-2 border-white/30`}
+                      className={`w-14 h-14 rounded-sm bg-linear-to-br ${product.color} shadow-2xl flex items-center justify-center text-white border-2 border-white/30`}
                     >
                       {renderProductIcon(product.icon)}
                     </motion.div>
@@ -386,7 +386,7 @@ export default function OurProducts() {
                   <div className="absolute bottom-4 left-4">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
-                      className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20"
+                      className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-xs border border-white/20"
                     >
                       <p className="text-xs text-zinc-400 font-medium mb-0.5">
                         Purity
@@ -419,7 +419,7 @@ export default function OurProducts() {
                       </h3>
                       <motion.div
                         whileHover={{ scale: 1.1 }}
-                        className="bg-white/10 backdrop-blur-sm border border-white/30 px-3 py-1 rounded-lg"
+                        className="bg-white/10 backdrop-blur-sm border border-white/30 px-3 py-1 rounded-xs"
                       >
                         <p className="text-white text-xs font-bold uppercase tracking-wider">
                           {product.formats[0]}
@@ -444,10 +444,10 @@ export default function OurProducts() {
                           duration: 0.4,
                         }}
                         whileHover={{ x: 4 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/40 hover:bg-white/10 transition-all group/spec"
+                        className="flex items-center gap-3 p-3 rounded-xs bg-white/5 border border-white/10 hover:border-blue-400/40 hover:bg-white/10 transition-all group/spec"
                       >
                         <div className="shrink-0">
-                          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-xs bg-white/10 flex items-center justify-center">
                             <CheckCircle className="text-cyan-400" size={16} />
                           </div>
                         </div>
@@ -474,7 +474,7 @@ export default function OurProducts() {
                           key={formatIndex}
                           whileHover={{ scale: 1.05, y: -2 }}
                           whileTap={{ scale: 0.95 }}
-                          className="bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 px-3 py-1.5 rounded-lg text-xs font-medium hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                          className="bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 px-3 py-1.5 rounded-xs text-xs font-medium hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-lg transition-all duration-300 cursor-pointer"
                         >
                           {format}
                         </motion.span>
@@ -482,20 +482,6 @@ export default function OurProducts() {
                     </div>
                   </div>
                 </div>
-
-                {/* Hover indicator - bottom right corner */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: hoveredProduct === product.id ? 1 : 0,
-                    scale: hoveredProduct === product.id ? 1 : 0.8,
-                  }}
-                  className="absolute bottom-4 right-4"
-                >
-                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-xl shadow-blue-500/20">
-                    <ArrowRight className="text-white" size={20} />
-                  </div>
-                </motion.div>
               </motion.div>
             </motion.div>
           ))}
@@ -543,7 +529,7 @@ export default function OurProducts() {
                 whileHover={{ y: -6, scale: 1.02 }}
                 className="group/feature"
               >
-                <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-7 h-full transition-all duration-300 overflow-hidden">
+                <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 p-5 sm:p-6 lg:p-7 h-full transition-all duration-300 overflow-hidden">
                   {/* Gradient overlay on hover */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -556,7 +542,7 @@ export default function OurProducts() {
                     <motion.div
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
-                      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 inline-flex items-center justify-center mb-4 sm:mb-5 text-cyan-400 group-hover/feature:border-cyan-400/40 group-hover/feature:bg-blue-500/10 transition-all duration-300 shadow-lg"
+                      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm p-3 sm:p-4 inline-flex items-center justify-center mb-4 sm:mb-5 text-cyan-400 group-hover/feature:border-cyan-400/40 group-hover/feature:bg-blue-500/10 transition-all duration-300 shadow-lg"
                     >
                       {renderFeatureIcon(feature.icon)}
                     </motion.div>
@@ -628,7 +614,7 @@ export default function OurProducts() {
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold inline-flex items-center gap-3 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
+                className="group relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-6 sm:px-8 py-3 sm:py-4 font-bold inline-flex items-center gap-3 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-color duration-150"
               >
                 <span className="relative z-10 text-sm sm:text-base">
                   Contact Us Today

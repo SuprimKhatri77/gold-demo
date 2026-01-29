@@ -37,7 +37,7 @@ export const MapSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="rounded-2xl overflow-hidden border border-white/10 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:border-blue-400/30 transition-all duration-500">
+        <div className="rounded-xs overflow-hidden border border-white/10 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:border-blue-400/30 transition-all duration-500">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3607.9657973212693!2d55.296242975317845!3d25.27173597766311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDE2JzE4LjMiTiA1NcKwMTcnNTUuNyJF!5e0!3m2!1sen!2snp!4v1769699151866!5m2!1sen!2snp"
             width="100%"

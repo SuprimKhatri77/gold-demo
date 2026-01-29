@@ -109,7 +109,7 @@ export function AboutUsSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-20">
           {/* Left - Story */}
           <div className="space-y-8">
-            <div className="group p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1">
+            <div className="group p-8 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1">
               <h3 className="text-2xl font-bold text-white mb-4">Our Legacy</h3>
               <p className="text-white/80 text-base leading-relaxed mb-4">
                 <span className="font-semibold text-white">SR Jewellers</span>{" "}
@@ -128,7 +128,7 @@ export function AboutUsSection() {
                 {certifications.map((cert, idx) => (
                   <div
                     key={idx}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 flex items-center gap-1.5"
+                    className="px-3 py-1.5 rounded-sm bg-white/5 border border-white/10 flex items-center gap-1.5"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
                     <span className="text-xs text-zinc-400 font-medium">{cert}</span>
@@ -144,9 +144,9 @@ export function AboutUsSection() {
                 return (
                   <div
                     key={idx}
-                    className="group p-5 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1"
+                    className="group p-5 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center mb-3 group-hover:bg-blue-500/10 transition-colors">
+                    <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center mb-3 group-hover:bg-blue-500/10 transition-colors">
                       <Icon className="w-5 h-5 text-white/70 group-hover:text-cyan-400 transition-all duration-300 group-hover:scale-110" />
                     </div>
                     <h4 className="font-semibold text-white text-sm mb-1">
@@ -164,9 +164,9 @@ export function AboutUsSection() {
           {/* Right - Stats */}
           <div className="space-y-6">
             {/* Featured Stat */}
-            <div className="group p-8 rounded-2xl bg-linear-to-br from-blue-500/10 via-cyan-500/5 to-transparent backdrop-blur-xl border border-blue-400/20 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1">
+            <div className="group p-8 bg-linear-to-br from-blue-500/10 via-cyan-500/5 to-transparent backdrop-blur-xl border border-blue-400/20 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center gap-6">
-                <div className="w-16 h-16 rounded-xl bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-16 h-16 rounded-sm bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
                 <div>
@@ -187,9 +187,9 @@ export function AboutUsSection() {
                 return (
                   <div
                     key={idx}
-                    className="group p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1"
+                    className="group p-6 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center mb-3 group-hover:bg-cyan-500/10 transition-colors">
+                    <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center mb-3 group-hover:bg-cyan-500/10 transition-colors">
                       <Icon className="w-5 h-5 text-white/70 group-hover:text-cyan-400 transition-all duration-300 group-hover:rotate-12" />
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
@@ -205,7 +205,7 @@ export function AboutUsSection() {
             </div>
 
             {/* CTA */}
-            <button className="group w-full py-4 px-6 rounded-xl bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02] flex items-center justify-center gap-2">
+            <button className="group w-full py-4 px-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02] flex items-center justify-center gap-2">
               Request Partnership Info
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -219,10 +219,10 @@ export function AboutUsSection() {
             return (
               <div
                 key={idx}
-                className="group p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1"
+                className="group p-6 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-blue-500/10 transition-colors">
+                  <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-blue-500/10 transition-colors">
                     <Icon className="w-5 h-5 text-white/70 group-hover:text-cyan-400 transition-all duration-300 group-hover:scale-110" />
                   </div>
                   <div className="flex-1">

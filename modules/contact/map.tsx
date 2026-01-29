@@ -39,7 +39,7 @@ export const MapSection: React.FC = () => {
 
         <div className="rounded-2xl overflow-hidden border border-white/10 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:border-blue-400/30 transition-all duration-500">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219901290355!2d-74.00369368459395!3d40.71312797933029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1e2db4e5db%3A0x6b8d5c3e1e5c5e5c!2sFinancial%20District%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123"
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3607.9657973212693!2d55.296242975317845!3d25.27173597766311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDE2JzE4LjMiTiA1NcKwMTcnNTUuNyJF!5e0!3m2!1sen!2snp!4v1769699151866!5m2!1sen!2snp"
             width="100%"
             height="450"
             style={{ border: 0 }}
@@ -60,7 +60,7 @@ export const MapSection: React.FC = () => {
           </p>
           <a
             href="tel:+15551234567"
-            className="inline-flex items-center gap-2 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1"
+            className="inline-flex items-center gap-2 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-6 py-3  font-semibold transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1"
           >
             <Phone className="w-5 h-5" />
             Schedule Appointment

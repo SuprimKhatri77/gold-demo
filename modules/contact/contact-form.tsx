@@ -176,7 +176,7 @@ export const ContactForm: React.FC = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3.5 rounded-xl bg-white/5 border ${
+                  className={`w-full px-4 py-3.5  bg-white/5 border ${
                     errors.fullName
                       ? "border-red-500"
                       : "border-white/10 hover:border-blue-400/40"
@@ -205,7 +205,7 @@ export const ContactForm: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3.5 rounded-xl bg-white/5 border ${
+                  className={`w-full px-4 py-3.5  bg-white/5 border ${
                     errors.email
                       ? "border-red-500"
                       : "border-white/10 hover:border-blue-400/40"
@@ -238,7 +238,7 @@ export const ContactForm: React.FC = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/40 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all"
+                  className="w-full px-4 py-3.5  bg-white/5 border border-white/10 hover:border-blue-400/40 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
@@ -256,7 +256,7 @@ export const ContactForm: React.FC = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3.5 rounded-xl bg-white/5 border ${
+                  className={`w-full px-4 py-3.5  bg-white/5 border ${
                     errors.subject
                       ? "border-red-500"
                       : "border-white/10 hover:border-blue-400/40"
@@ -298,7 +298,7 @@ export const ContactForm: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={6}
-                className={`w-full px-4 py-3.5 rounded-xl bg-white/5 border ${
+                className={`w-full px-4 py-3.5  bg-white/5 border ${
                   errors.message
                     ? "border-red-500"
                     : "border-white/10 hover:border-blue-400/40"
@@ -315,7 +315,7 @@ export const ContactForm: React.FC = () => {
 
             {/* Submit Status Messages */}
             {submitStatus === "success" && (
-              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-start backdrop-blur-md">
+              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30  flex items-start backdrop-blur-md">
                 <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-green-300 font-semibold">
@@ -330,7 +330,7 @@ export const ContactForm: React.FC = () => {
             )}
 
             {submitStatus === "error" && (
-              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start backdrop-blur-md">
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30  flex items-start backdrop-blur-md">
                 <AlertCircle className="w-5 h-5 text-red-400 mr-3 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-red-300 font-semibold">
@@ -347,7 +347,7 @@ export const ContactForm: React.FC = () => {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="group w-full bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-4 md:py-5 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 flex items-center justify-center gap-2"
+              className="group w-full bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-4 md:py-5 px-6  transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>

@@ -30,7 +30,7 @@ export const ContactInformation: React.FC = () => {
     {
       icon: <Clock className="w-6 h-6 group-hover:text-cyan-400" />,
       label: "Business Hours",
-      value: "Monday - Friday: 9:00 AM - 6:00 PM EST",
+      value: `${companyDetails.businessHours}`,
     },
   ];
 

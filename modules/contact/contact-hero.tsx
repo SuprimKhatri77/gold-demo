@@ -1,5 +1,6 @@
 "use client";
 
+import { companyDetails } from "@/utils/info/details";
 import { Mail, Phone, Building2 } from "lucide-react";
 
 export const ContactHero: React.FC = () => {
@@ -55,7 +56,7 @@ export const ContactHero: React.FC = () => {
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">
               Email Us
             </h3>
-            <p className="text-white font-bold">info@srgold.com</p>
+            <p className="text-white font-bold">{companyDetails.email}</p>
           </div>
 
           <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-cyan-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
@@ -65,7 +66,7 @@ export const ContactHero: React.FC = () => {
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">
               Call Us
             </h3>
-            <p className="text-white font-bold">+1 (555) 123-4567</p>
+            <p className="text-white font-bold">{companyDetails.phoneNumber}</p>
           </div>
 
           <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-purple-400/40 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
@@ -75,7 +76,9 @@ export const ContactHero: React.FC = () => {
             <h3 className="text-sm font-semibold text-zinc-400 mb-2">
               Business Hours
             </h3>
-            <p className="text-white font-bold">Mon-Fri, 9AM-6PM</p>
+            <p className="text-white font-bold">
+              {companyDetails.businessHours}
+            </p>
           </div>
         </div>
       </div>

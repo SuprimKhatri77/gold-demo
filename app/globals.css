@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+body {
+  background: linear-gradient(to bottom right, #020617, #172554, #020617);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Make sure your content stays above */
+#root,
+#__next {
+  position: relative;
+  z-index: 1;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

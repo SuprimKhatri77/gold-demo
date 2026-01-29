@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Hero } from "./hero";
-import { About } from "./about";
+// import { About } from "./about";
 import { Collection } from "./collection";
 import { Quality } from "./features";
 import { Testimonials } from "./testimonial";
@@ -48,7 +48,7 @@ const Landing: React.FC = () => {
       <Testimonials />
       <Insights />
       <CTASection />
-      <Contact />
+      {/* <Contact /> */}
 
       <style jsx global>{`
         @keyframes fadeIn {

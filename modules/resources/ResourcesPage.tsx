@@ -11,9 +11,10 @@ import {
   Search,
   BookOpen,
   Award,
-  TrendingUp,
   Zap,
   Globe,
+  Shield,
+  BarChart3,
 } from "lucide-react";
 
 // Type definitions
@@ -49,11 +50,11 @@ type SelectedCategory = string | null;
 const resources: readonly ResourceDocument[] = [
   {
     id: 1,
-    title: "DMCC Guidelines",
+    title: "DMCC Trading Guidelines",
     categoryLabel: "Compliance",
     categoryId: "compliance",
     description:
-      "Comprehensive guidelines for Dubai Metals and Commodities Centre compliance and operational standards for precious metals trading.",
+      "Comprehensive Dubai Multi Commodities Centre compliance framework and operational standards for institutional precious metals trading and market participation.",
     fileSize: "2.4 MB",
     dateAdded: "2024-12-15",
     icon: "dmcc",
@@ -61,11 +62,11 @@ const resources: readonly ResourceDocument[] = [
   },
   {
     id: 2,
-    title: "LBMA Responsible Gold Guidance",
+    title: "LBMA Responsible Sourcing Standards",
     categoryLabel: "Standards",
     categoryId: "standards",
     description:
-      "London Bullion Market Association responsible sourcing guidance ensuring ethical and sustainable precious metals practices.",
+      "London Bullion Market Association responsible sourcing framework ensuring ethical supply chain practices and sustainable precious metals procurement for institutional traders.",
     fileSize: "1.8 MB",
     dateAdded: "2024-12-10",
     icon: "lbma",
@@ -73,11 +74,11 @@ const resources: readonly ResourceDocument[] = [
   },
   {
     id: 3,
-    title: "OECD Regulatory Policy Outlook 2025",
+    title: "OECD Due Diligence Framework 2025",
     categoryLabel: "Regulatory",
     categoryId: "regulatory",
     description:
-      "Latest OECD policies and regulatory frameworks for international precious metals trading and financial regulations.",
+      "Organization for Economic Co-operation and Development due diligence guidelines for responsible supply chains in minerals from conflict-affected areas.",
     fileSize: "3.2 MB",
     dateAdded: "2024-12-08",
     icon: "oecd",
@@ -85,11 +86,11 @@ const resources: readonly ResourceDocument[] = [
   },
   {
     id: 4,
-    title: "ISO 4217 Currency Standards",
+    title: "ISO 9001 Quality Management Standards",
     categoryLabel: "Standards",
     categoryId: "standards",
     description:
-      "International Organization for Standardization specifications for precious metals purity and quality assurance.",
+      "International standards for precious metals purity verification, quality assurance protocols, and operational excellence in bullion trading operations.",
     fileSize: "1.5 MB",
     dateAdded: "2024-12-01",
     icon: "document",
@@ -97,11 +98,11 @@ const resources: readonly ResourceDocument[] = [
   },
   {
     id: 5,
-    title: "AML/KYC Procedures Manual",
+    title: "Enterprise AML/KYC Implementation Guide",
     categoryLabel: "Compliance",
     categoryId: "compliance",
     description:
-      "Anti-Money Laundering and Know Your Customer procedures and best practices for bullion industry compliance.",
+      "Comprehensive Anti-Money Laundering and Know Your Customer procedures manual for institutional precious metals trading with best practice frameworks.",
     fileSize: "2.1 MB",
     dateAdded: "2024-11-25",
     icon: "document",
@@ -109,11 +110,11 @@ const resources: readonly ResourceDocument[] = [
   },
   {
     id: 6,
-    title: "Market Insights Report 2024",
+    title: "Global Precious Metals Market Analysis Q4 2024",
     categoryLabel: "Analysis",
     categoryId: "analysis",
     description:
-      "Comprehensive analysis of precious metals market trends, price movements, and future projections.",
+      "Institutional market intelligence report covering price trends, supply dynamics, demand forecasts, and strategic insights for precious metals trading.",
     fileSize: "4.5 MB",
     dateAdded: "2024-11-20",
     icon: "document",
@@ -126,7 +127,7 @@ const categories = [
   { id: "compliance", name: "Compliance" },
   { id: "standards", name: "Standards" },
   { id: "regulatory", name: "Regulatory" },
-  { id: "analysis", name: "Analysis" },
+  { id: "analysis", name: "Market Analysis" },
 ] as const;
 
 const normalize = (value: string): string =>
@@ -148,8 +149,8 @@ const getAnimationVariants = (): AnimationVariants => ({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
       },
     },
   } as Variants,
@@ -159,8 +160,8 @@ const getAnimationVariants = (): AnimationVariants => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   } as Variants,
@@ -171,8 +172,8 @@ const getAnimationVariants = (): AnimationVariants => ({
       x: 0,
       y: 0,
       transition: {
-        duration: 0.7,
-        ease: "easeOut",
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   } as Variants,
@@ -190,7 +191,7 @@ const getAnimationVariants = (): AnimationVariants => ({
   badge: {
     rest: { scale: 1 },
     hover: {
-      scale: 1.1,
+      scale: 1.05,
       transition: {
         duration: 0.3,
       },
@@ -202,8 +203,8 @@ const getAnimationVariants = (): AnimationVariants => ({
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.8,
-        ease: "easeOut",
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   } as Variants,
@@ -254,24 +255,37 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
   const getIconComponent = (icon: string): JSX.Element => {
     switch (icon) {
       case "dmcc":
-        return <Award className="text-white group-hover:text-amber-500" size={24} />;
+        return <Award className="transition-colors duration-300" size={24} />;
       case "lbma":
-        return <Globe className="text-white group-hover:text-amber-500" size={24} />;
+        return <Globe className="transition-colors duration-300" size={24} />;
       case "oecd":
-        return <TrendingUp className="text-white group-hover:text-amber-500" size={24} />;
+        return <Shield className="transition-colors duration-300" size={24} />;
       default:
-        return <FileText className="text-white group-hover:text-amber-500" size={24} />;
+        return <FileText className="transition-colors duration-300" size={24} />;
     }
   };
 
   return (
     <section
       id="resources"
-      className="py-24 bg-black relative overflow-hidden"
+      className={`py-24 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden ${className}`}
     >
-      {/* Subtle background linears */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      {/* Grid Pattern Background */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/2 right-1/3 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -284,11 +298,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
         >
           <motion.div
             variants={variants.item}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 mb-6"
           >
-            <BookOpen className="text-amber-500" size={16} />
+            <BookOpen className="text-cyan-400" size={16} />
             <span className="text-zinc-400 text-sm font-medium">
-              Knowledge Center
+              Professional Knowledge Hub
             </span>
           </motion.div>
 
@@ -296,8 +310,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             variants={variants.item}
             className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
           >
-            <span className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-              Resources & Guidelines
+            Industry Resources &{" "}
+            <span className="bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Documentation
             </span>
           </motion.h2>
 
@@ -305,8 +320,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             variants={variants.item}
             className="text-zinc-400 text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Access comprehensive compliance documents, industry standards, and
-            market insights to enhance your precious metals trading operations.
+            Access comprehensive compliance frameworks, international standards, regulatory guidelines, and market intelligence for institutional precious metals trading.
           </motion.p>
         </motion.div>
 
@@ -314,21 +328,21 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="mb-12"
         >
           <div className="relative max-w-2xl mx-auto">
             <Search
-              className="absolute left-4 top-4 text-amber-500/60"
+              className="absolute left-4 top-4 text-cyan-400/60"
               size={20}
             />
             <input
               type="text"
-              placeholder="Search resources, guidelines, documents..."
+              placeholder="Search compliance documents, standards, market reports..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full pl-12 pr-6 py-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 focus:border-amber-500/50 focus:outline-none transition-all duration-300 text-white placeholder-zinc-500"
+              className="w-full pl-12 pr-6 py-4 bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 focus:border-cyan-400/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-color duration-150 text-white placeholder-zinc-500"
             />
           </div>
         </motion.div>
@@ -345,11 +359,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
               key={category.id}
               variants={variants.item}
               onClick={() => handleCategoryClick(category.id)}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-full font-semibold ${selectedCategory === category.id
-                ? "bg-linear-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/20"
-                : "bg-white/5 backdrop-blur-md border border-white/10 text-zinc-300 hover:border-amber-500/30 hover:bg-white/10"
+              className={`px-6 py-3 rounded-sm font-semibold transition-all duration-300 ${selectedCategory === category.id
+                  ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30"
+                  : "bg-white/5 backdrop-blur-xl border border-white/10 text-zinc-300 hover:border-cyan-400/40 hover:bg-white/10"
                 }`}
               type="button"
             >
@@ -375,19 +389,19 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
               animate="visible"
               key={resource.id}
               variants={variants.card}
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -4, scale: 1.01 }}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col p-8">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 overflow-hidden transition-all duration-300 h-full flex flex-col p-8">
                 {/* Icon and Category */}
                 <div className="flex items-start justify-between mb-6">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30">
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-sm p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110">
+                    <span className="text-cyan-400">
                       {getIconComponent(resource.icon)}
                     </span>
                   </div>
                   <motion.span
-                    className="text-xs font-semibold uppercase tracking-widest text-amber-500 bg-amber-500/10 backdrop-blur-md border border-amber-500/20 px-4 py-2 rounded-full"
+                    className="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 px-4 py-2 rounded-xl"
                     variants={variants.badge}
                     initial="rest"
                     whileHover="hover"
@@ -397,7 +411,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-amber-500 transition-colors">
+                <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-cyan-400 transition-colors duration-300">
                   {resource.title}
                 </h3>
                 <p className="text-zinc-400 text-sm leading-relaxed mb-6 grow">
@@ -406,9 +420,16 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
 
                 {/* Meta Information */}
                 <div className="flex items-center justify-between text-xs text-zinc-500 mb-6 pb-6 border-b border-white/10">
-                  <span className="font-semibold">{resource.fileSize}</span>
+                  <span className="font-semibold flex items-center gap-1">
+                    <FileText size={14} className="text-cyan-400" />
+                    {resource.fileSize}
+                  </span>
                   <span>
-                    {new Date(resource.dateAdded).toLocaleDateString()}
+                    {new Date(resource.dateAdded).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
                   </span>
                 </div>
 
@@ -417,9 +438,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
                   <motion.button
                     type="button"
                     onClick={() => handleDownload(resource)}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 bg-white text-black py-3 rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+                    className="flex-1 bg-linear-to-r from-blue-600 to-cyan-600 text-white py-3 font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
                   >
                     <Download size={18} />
                     Download
@@ -428,9 +449,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
                     href={`/${resource.download}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 text-white py-3 rounded-xl font-semibold hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 text-white py-3 font-semibold hover:bg-white/10 hover:border-cyan-400/40 transition-color duration-150 flex items-center justify-center gap-2"
                   >
                     <Eye size={18} />
                     Preview
@@ -449,13 +470,15 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             transition={{ duration: 0.5 }}
             className="text-center py-16"
           >
-            <FileText className="mx-auto mb-4 text-zinc-600" size={64} />
-            <h3 className="text-2xl font-bold text-white mb-2">
-              No Resources Found
-            </h3>
-            <p className="text-zinc-400">
-              Try adjusting your search or category filters.
-            </p>
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-12 max-w-md mx-auto">
+              <FileText className="mx-auto mb-4 text-zinc-600" size={64} />
+              <h3 className="text-2xl font-bold text-white mb-2">
+                No Resources Found
+              </h3>
+              <p className="text-zinc-400">
+                Try adjusting your search terms or category filters.
+              </p>
+            </div>
           </motion.div>
         )}
 
@@ -463,15 +486,20 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mt-24 rounded-2xl p-12 text-white text-center relative overflow-hiddenbg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:bg-amber-400/20 group-hover:border-amber-400/30"
+          className="mt-24 rounded-2xl p-12 text-white text-center relative overflow-hidden bg-linear-to-br from-blue-600/10 via-cyan-600/10 to-blue-600/5 backdrop-blur-xl border border-blue-400/20"
         >
           {/* Background decoration */}
           <motion.div
-            className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl"
+            animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"
+            animate={{ y: [0, 20, 0], x: [0, -20, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
 
           <motion.div
@@ -479,7 +507,13 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="relative z-10"
           >
+            <motion.div variants={variants.item} className="flex justify-center mb-4">
+              <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4">
+                <BarChart3 className="text-cyan-400" size={32} />
+              </div>
+            </motion.div>
             <motion.h3
               variants={variants.item}
               className="text-3xl md:text-4xl font-bold mb-4"
@@ -488,17 +522,16 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ className = "" }): JSX.E
             </motion.h3>
             <motion.p
               variants={variants.item}
-              className="text-lg text-white/90 max-w-2xl mx-auto mb-8"
+              className="text-lg text-zinc-400 max-w-2xl mx-auto mb-8"
             >
-              Contact our compliance team for industry-specific reports and
-              tailored guidelines for your organization.
+              Our compliance and research teams provide tailored industry reports, custom regulatory frameworks, and specialized documentation for institutional clients.
             </motion.p>
             <motion.button
               type="button"
               variants={variants.item}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white text-black px-10 py-4 rounded-xl font-semibold hover:bg-zinc-100 transition-all duration-300 shadow-lg inline-flex items-center gap-2"
+              className="bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 font-semibold transition-color duration-150 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 inline-flex items-center gap-2"
             >
               Request Documentation
               <Zap size={18} />

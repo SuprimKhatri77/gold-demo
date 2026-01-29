@@ -6,6 +6,7 @@ import { Navbar } from "@/modules/landing/navbar";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { geistMono, geistSans } from "@/utils/font";
+import LenisProvider from "@/modules/provider/LenisProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,12 +24,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-black`}
       >
         <ReactQueryProvider>
-          <Header />
-          <Navbar />
-          {children}
-          {/* <LiveRatePopup /> */}
-          <Footer />
-          <Toaster />
+          <LenisProvider>
+            <Header />
+            <Navbar />
+            {children}
+            {/* <LiveRatePopup /> */}
+            <Footer />
+            <Toaster />
+          </LenisProvider>
         </ReactQueryProvider>
       </body>
     </html>

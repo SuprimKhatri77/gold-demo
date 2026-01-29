@@ -17,7 +17,9 @@ import {
   Lock,
   Zap,
   CheckCheck,
-  UserCircle,
+  Briefcase,
+  TrendingUp,
+  Globe,
 } from "lucide-react";
 import { ApplicationForm } from "./ApplicationForm";
 import { useRouter } from "next/navigation";
@@ -58,44 +60,51 @@ interface AccountBenefit {
 const requirementCategories: readonly RequirementCategory[] = [
   {
     id: 1,
-    title: "Proof of Legal Existence",
-    description: "Company registration and incorporation documents",
+    title: "Corporate Legal Documentation",
+    description: "Essential business registration and incorporation records",
     icon: "building",
     items: [
-      "Valid Trade License (if applicable)",
-      "Certificate of Incorporation",
+      "Valid Trade License or Business Registration Certificate",
+      "Certificate of Incorporation with apostille (if applicable)",
       "Memorandum & Articles of Association",
-      "Tax Registration Certificate (if applicable)",
-      "Shareholders Register",
+      "Tax Registration Certificate (VAT/GST where applicable)",
+      "Certified Shareholders Register and Ownership Structure",
     ],
   },
   {
     id: 2,
-    title: "Address Details",
-    description: "Physical address verification documents",
+    title: "Business Address Verification",
+    description: "Proof of registered and operational business locations",
     icon: "map",
     items: [
-      "Proof of physical address in country of incorporation",
-      "Proof of physical address in UAE (if applicable)",
+      "Proof of registered business address in country of incorporation",
+      "Proof of physical trading address (if different from registered)",
+      "UAE business address verification (for regional operations)",
     ],
   },
   {
     id: 3,
-    title: "Contact Information",
-    description: "Official communication details",
+    title: "Corporate Contact Details",
+    description: "Official business communication channels",
     icon: "users",
-    items: ["Official email address", "Phone number", "Website (if available)"],
+    items: [
+      "Corporate email domain and official contact address",
+      "Primary and secondary business phone numbers",
+      "Company website and digital presence (if available)",
+      "Preferred business hours and timezone",
+    ],
   },
   {
     id: 4,
-    title: "Key Individuals",
-    description: "Details of authorized personnel",
+    title: "Authorized Representatives",
+    description: "Key stakeholders and authorized personnel",
     icon: "shield",
     items: [
-      "Shareholders / Beneficial Owners",
-      "Authorized Signatories",
-      "Persons authorized to act on behalf of company",
-      "Identities and addresses of all individuals",
+      "Ultimate Beneficial Owners (UBO) documentation and verification",
+      "Authorized Signatories with specimen signatures",
+      "Board of Directors list and resolutions",
+      "Power of Attorney documents (if applicable)",
+      "Valid identification and proof of address for all individuals",
     ],
   },
 ];
@@ -104,30 +113,33 @@ const processSteps: readonly ProcessStep[] = [
   {
     id: 1,
     number: 1,
-    title: "Submit Application",
+    title: "Submit Corporate Application",
     description:
-      "Complete the account opening form with all required information",
+      "Complete the comprehensive business account opening form with all required corporate information and documentation",
     icon: "file",
   },
   {
     id: 2,
     number: 2,
-    title: "Document Verification",
-    description: "Our compliance team reviews all submitted documents",
+    title: "Compliance Review",
+    description:
+      "Our dedicated compliance team conducts thorough verification of all submitted corporate documents and business credentials",
     icon: "shield",
   },
   {
     id: 3,
     number: 3,
-    title: "Due Diligence Review",
-    description: "Comprehensive KYC and AML compliance checks",
+    title: "KYC & AML Assessment",
+    description:
+      "Comprehensive Know Your Customer and Anti-Money Laundering compliance checks in accordance with international standards",
     icon: "lock",
   },
   {
     id: 4,
     number: 4,
     title: "Account Activation",
-    description: "Your account is approved and ready for trading",
+    description:
+      "Your corporate trading account is approved, activated, and ready for precious metals transactions",
     icon: "zap",
   },
 ];
@@ -135,65 +147,65 @@ const processSteps: readonly ProcessStep[] = [
 const documentResources: readonly DocumentResource[] = [
   {
     id: 1,
-    title: "Account Opening Form (Corporate)",
-    description: "Complete application form for corporate accounts",
+    title: "Corporate Account Application Form",
+    description: "Comprehensive application form for business trading accounts",
     type: "PDF",
     icon: "file",
-    downloadUrl: "/forms/account-opening-corporate.pdf",
+    downloadUrl: "/forms/Corporate_KYC_Form.pdf",
   },
   {
     id: 2,
-    title: "AML Policy",
-    description: "Anti-Money Laundering compliance policy",
+    title: "AML/CTF Compliance Policy",
+    description: "Anti-Money Laundering and Counter-Terrorism Financing policy framework",
     type: "PDF",
     icon: "shield",
-    downloadUrl: "/policies/aml-policy.pdf",
+    downloadUrl: "/policies/SR-Bullion-FZCO-AML-CFT-Policy-V.03-20.05.25.pdf",
   },
   {
     id: 3,
-    title: "Supply Chain Policy",
-    description: "Ethical sourcing and supply chain standards",
+    title: "Supply Chain Due Diligence Policy",
+    description: "Ethical sourcing standards and responsible supply chain practices",
     type: "PDF",
     icon: "zap",
-    downloadUrl: "/policies/supply-chain-policy.pdf",
+    downloadUrl: "/policies/SR-BULLION-FZCO_SUPPLY-CHAIN-POLICY.pdf",
   },
 ];
 
 const accountBenefits: readonly AccountBenefit[] = [
   {
     id: 1,
-    title: "Competitive Pricing",
-    description: "Access to competitive market rates for all precious metals",
-    icon: "zap",
+    title: "Institutional Pricing",
+    description: "Access competitive wholesale rates and volume-based pricing tiers for precious metals",
+    icon: "trending",
   },
   {
     id: 2,
-    title: "Global Reach",
-    description: "Trade across multiple markets with our global network",
-    icon: "map",
+    title: "Global Trading Network",
+    description: "Seamless access to international markets with multi-currency settlement options",
+    icon: "globe",
   },
   {
     id: 3,
-    title: "Expert Support",
-    description: "Dedicated account managers and 24/7 customer support",
+    title: "Dedicated Account Manager",
+    description: "Personalized support from experienced precious metals trading specialists",
     icon: "users",
   },
   {
     id: 4,
-    title: "Secure Trading",
-    description: "Industry-leading security and compliance standards",
+    title: "Enterprise Security",
+    description: "Bank-grade security infrastructure with multi-layer authentication and encryption",
     icon: "lock",
   },
   {
     id: 5,
-    title: "Fast Settlement",
-    description: "Quick and efficient settlement processes",
+    title: "Rapid Settlement",
+    description: "T+2 settlement with flexible delivery and storage options across secure vaults",
     icon: "zap",
   },
   {
     id: 6,
-    title: "Transparency",
-    description: "Complete transparency in all pricing and operations",
+    title: "Full Transparency",
+    description: "Real-time pricing, comprehensive reporting, and complete transaction visibility",
     icon: "shield",
   },
 ];
@@ -206,11 +218,11 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   className = "",
 }: AccountOpeningProps): JSX.Element => {
   const router = useRouter();
-  const [isApplicationFormOpen, setApplicationFormOpen] = useState(false);
+  // const [isApplicationFormOpen, setApplicationFormOpen] = useState(false);
 
-  const handleOpenApplicationForm = () => {
-    setApplicationFormOpen(!isApplicationFormOpen);
-  };
+  // const handleOpenApplicationForm = () => {
+  //   setApplicationFormOpen(!isApplicationFormOpen);
+  // };
   const [expandedCategory, setExpandedCategory] = useState<number | null>(1);
 
   const containerVariants: Variants = {
@@ -218,8 +230,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
       },
     },
   };
@@ -230,8 +242,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   };
@@ -242,8 +254,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   };
@@ -254,7 +266,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
 
   const renderIcon = (iconName: string): JSX.Element => {
     const iconProps = {
-      className: "w-6 h-6 group-hover:text-amber-500",
+      className: "w-6 h-6 transition-all duration-300",
       strokeWidth: 1.5,
     };
     const iconMap: Record<string, JSX.Element> = {
@@ -265,6 +277,8 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
       file: <FileText {...iconProps} />,
       lock: <Lock {...iconProps} />,
       zap: <Zap {...iconProps} />,
+      trending: <TrendingUp {...iconProps} />,
+      globe: <Globe {...iconProps} />,
     };
     return iconMap[iconName] || <FileText {...iconProps} />;
   };
@@ -272,11 +286,24 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
   return (
     <section
       id="account-opening"
-      className={`py-24 bg-black relative overflow-hidden ${className}`}
+      className={`py-24 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden ${className}`}
     >
-      {/* Subtle background linears */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      {/* Grid Pattern Background */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
@@ -287,121 +314,108 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           variants={containerVariants}
           className="mb-20"
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Image */}
-            <motion.div
-              variants={itemVariants}
-              className="relative h-96 rounded-2xl overflow-hidden"
-            >
-              <div className="w-full h-full bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 relative flex items-center justify-center">
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <UserCircle className="w-32 h-32 text-white/30" />
-                </motion.div>
-              </div>
-            </motion.div>
+            <div className="flex flex-col gap-15">
+              {/* Process Steps */}
+              <motion.div variants={itemVariants} className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10">
+                  <CheckCheck className="text-cyan-400" size={16} />
+                  <span className="text-zinc-400 text-sm font-medium">
+                    Streamlined B2B Onboarding
+                  </span>
+                </div>
 
-            {/* Right: Content */}
-            <motion.div variants={itemVariants} className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6">
-                <CheckCheck className="text-amber-500" size={16} />
-                <span className="text-zinc-400 text-sm font-medium">
-                  Simple & Fast Process
-                </span>
-              </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+                  Enterprise Account
+                  <span className="block bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    Opening Process
+                  </span>
+                </h1>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                Open Your Account in 4 Steps
-              </h1>
+                <p className="text-lg text-zinc-400 leading-relaxed">
+                  Join the world&apos;s leading precious metals trading platform. Our institutional-grade onboarding ensures seamless account activation while maintaining the highest regulatory compliance standards.
+                </p>
 
-              <p className="text-lg text-zinc-400 leading-relaxed">
-                Join SR Jewellers and start trading precious metals with
-                confidence. Our streamlined account opening process ensures you
-                get started quickly while maintaining highest compliance
-                standards.
-              </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                  <motion.button
+                    type="button"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-8 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold transition-colors duration-150 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 flex items-center justify-center gap-2 group"
+                  >
+                    <a href="#Application-form">Start Application</a>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </motion.button>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <motion.button
-                  type="button"
-                  onClick={handleOpenApplicationForm}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-white text-black font-semibold rounded-xl transition-shadow duration-300 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2"
-                >
-                  Start Application
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-
-                <motion.button
-                  type="button"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-amber-500/30 transition-color duration-100"
-                >
-                  <a href="#required_document">Required Documents</a>
-                </motion.button>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Process Steps */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-              Account Opening Process
-            </h2>
-            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              Follow our straightforward 4-step process to open your account
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processSteps.map((step: ProcessStep) => (
-              <motion.div
-                key={step.id}
-                variants={cardVariants}
-                whileHover={{ y: -4 }}
-                className="relative group"
-              >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
-                  {/* Step Number */}
-                  <div className="absolute -top-3 -left-3 w-10 h-10 bg-linear-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-amber-500/20">
-                    {step.number}
-                  </div>
-
-                  {/* Icon */}
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
-                      {renderIcon(step.icon)}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-amber-500 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
+                  <motion.button
+                    type="button"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-semibold hover:bg-white/10 hover:border-blue-400/40 transition-color duration-150"
+                  >
+                    <a href="#required_document">Required Documents</a>
+                  </motion.button>
                 </div>
               </motion.div>
-            ))}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={containerVariants}
+                className="mb-20"
+              >
+                <motion.div variants={itemVariants} className="text-center mb-12">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
+                    Onboarding Process
+                  </h2>
+                  <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+                    Four straightforward steps to activate your corporate trading account
+                  </p>
+                </motion.div>
+
+                <div className="grid md:grid-cols-3 lg:grid-cols-2 gap-6">
+                  {processSteps.map((step: ProcessStep) => (
+                    <motion.div
+                      key={step.id}
+                      variants={cardVariants}
+                      whileHover={{ y: -4, scale: 1.02 }}
+                      className="relative group"
+                    >
+                      <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
+                        {/* Step Number */}
+                        <div className="absolute -top-3 -left-3 w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
+                          {step.number}
+                        </div>
+
+                        {/* Icon */}
+                        <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
+                          <span className="text-cyan-400">
+                            {renderIcon(step.icon)}
+                          </span>
+                        </div>
+
+                        {/* Content */}
+                        <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-cyan-400 transition-colors duration-300">
+                          {step.title}
+                        </h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+            {/* Right: Content */}
+            <div id="Application-form">
+              <ApplicationForm />
+            </div>
+
           </div>
         </motion.div>
+
 
         {/* Requirements Section */}
         <motion.div
@@ -414,11 +428,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
         >
           <motion.div variants={itemVariants} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-              Required Documents
+              Required Documentation
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              All documents must be in English or accompanied by certified
-              translation
+              All documents must be in English or accompanied by certified translation. Notarization may be required for certain jurisdictions.
             </p>
           </motion.div>
 
@@ -427,21 +440,21 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               <motion.div
                 key={category.id}
                 variants={itemVariants}
-                className="group bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl overflow-hidden transition-all duration-300"
+                className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 <motion.button
                   type="button"
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors duration-200 text-left"
+                  className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-all duration-300 text-left"
                 >
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 hover:bg-amber-400/20 hover:border-amber-400/30">
-                      <span className="text-white">
+                    <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110">
+                      <span className="text-cyan-400">
                         {renderIcon(category.icon)}
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg text-white">
+                      <h3 className="font-semibold text-lg text-white group-hover:text-cyan-400 transition-colors duration-300">
                         {category.title}
                       </h3>
                       <p className="text-sm text-zinc-400">
@@ -456,7 +469,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <ChevronDown className="w-6 h-6 text-amber-500 shrink-0" />
+                    <ChevronDown className="w-6 h-6 text-cyan-400 shrink-0" />
                   </motion.div>
                 </motion.button>
 
@@ -466,10 +479,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                     height: expandedCategory === category.id ? "auto" : 0,
                     opacity: expandedCategory === category.id ? 1 : 0,
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden border-t border-white/10"
                 >
-                  <div className="p-6 bg-white/5">
+                  <div className="p-6 bg-linear-to-br from-blue-500/5 to-transparent">
                     <ul className="space-y-3">
                       {category.items.map((item: string, index: number) => (
                         <motion.li
@@ -480,10 +493,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                               ? { opacity: 1, x: 0 }
                               : { opacity: 0, x: -10 }
                           }
-                          transition={{ delay: index * 0.05 }}
+                          transition={{ delay: index * 0.05, duration: 0.3 }}
                           className="flex items-start gap-3 text-zinc-300"
                         >
-                          <CheckCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                          <CheckCircle className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                           <span className="text-sm leading-relaxed">
                             {item}
                           </span>
@@ -510,7 +523,7 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               Download Resources
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              Get all the forms and policies you need
+              Access all necessary forms and compliance documentation
             </p>
           </motion.div>
 
@@ -519,17 +532,17 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               <motion.div
                 key={doc.id}
                 variants={cardVariants}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -4, scale: 1.02 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:rotate-12 inline-flex items-center justify-center mb-4 w-fit">
+                    <span className="text-cyan-400">
                       {renderIcon(doc.icon)}
                     </span>
                   </div>
 
-                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
+                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-cyan-400 transition-colors duration-300">
                     {doc.title}
                   </h3>
                   <p className="text-sm text-zinc-400 mb-6 grow">
@@ -537,16 +550,19 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
                   </p>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-xs font-semibold text-amber-500 uppercase">
+                    <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wide">
                       {doc.type}
                     </span>
                     <motion.button
                       type="button"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.1, rotate: -5 }}
                       whileTap={{ scale: 0.95 }}
-                      className="text-amber-500 hover:text-amber-400 transition-colors"
+                      className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
                     >
-                      <Download className="w-5 h-5" />
+                      <a href={doc.downloadUrl} download>
+                        <Download className="w-5 h-5" />
+                      </a>
+
                     </motion.button>
                   </div>
                 </div>
@@ -565,10 +581,10 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
         >
           <motion.div variants={itemVariants} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-              Why Choose SR Jewellers?
+              Enterprise Advantages
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              Experience premium service and market-leading advantages
+              Institutional-grade services designed for professional traders
             </p>
           </motion.div>
 
@@ -577,17 +593,17 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
               <motion.div
                 key={benefit.id}
                 variants={cardVariants}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -4, scale: 1.02 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full flex flex-col transition-all duration-300">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3 transition-all duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 inline-flex items-center justify-center mb-4 w-fit">
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300">
+                  <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 transition-all duration-300 group-hover:border-cyan-400/40 group-hover:scale-110 inline-flex items-center justify-center mb-4 w-fit">
+                    <span className="text-cyan-400">
                       {renderIcon(benefit.icon)}
                     </span>
                   </div>
 
-                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-amber-500 transition-colors">
+                  <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-cyan-400 transition-colors duration-300">
                     {benefit.title}
                   </h3>
                   <p className="text-zinc-400 text-sm leading-relaxed">
@@ -609,28 +625,27 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
         >
           <motion.div
             variants={itemVariants}
-            className="bg-linear-to-br from-amber-500/10 to-amber-600/5 backdrop-blur-md border border-amber-500/20 rounded-2xl p-12"
+            className="bg-linear-to-br from-blue-600/10 via-cyan-600/10 to-blue-600/5 backdrop-blur-xl border border-blue-400/20 rounded-2xl p-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              Ready to Get Started?
+              Ready to Begin Trading?
             </h2>
             <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of satisfied clients trading precious metals with
-              SR Bullion
+              Join industry-leading institutions trading precious metals on our secure, transparent platform
             </p>
 
             <motion.button
               type="button"
               onClick={() => router.push("/contact")}
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="px-10 py-4 bg-white text-black font-semibold rounded-xl  transition-shadow duration-100 shadow-lg shadow-amber-500/20 inline-flex items-center justify-center gap-2"
+              className="px-10 py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 inline-flex items-center justify-center gap-2 group"
             >
               Contact Our Team
               <motion.div
                 animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
                 <ArrowRight className="w-5 h-5" />
               </motion.div>
@@ -638,13 +653,6 @@ export const AccountOpening: FC<AccountOpeningProps> = ({
           </motion.div>
         </motion.div>
       </div>
-      {isApplicationFormOpen && (
-        // <div className=''>
-        <ApplicationForm
-          onClose={() => setApplicationFormOpen(!isApplicationFormOpen)}
-        />
-        // </div>
-      )}
     </section>
   );
 };

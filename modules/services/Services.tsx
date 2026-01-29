@@ -66,7 +66,7 @@ const services: readonly Service[] = [
       "High-volume trading capacity",
     ],
     icon: "trading",
-    accent: "from-amber-500 to-amber-600",
+    accent: "from-blue-500 to-cyan-600",
   },
   {
     id: 2,
@@ -79,7 +79,7 @@ const services: readonly Service[] = [
       "Suited for vaulting, hedging, and reserve strategies",
     ],
     icon: "supply",
-    accent: "from-amber-500 to-amber-600",
+    accent: "from-blue-500 to-cyan-600",
   },
   {
     id: 3,
@@ -92,7 +92,7 @@ const services: readonly Service[] = [
       "Real-time market responsiveness",
     ],
     icon: "procurement",
-    accent: "from-amber-500 to-amber-600",
+    accent: "from-blue-500 to-cyan-600",
   },
   {
     id: 4,
@@ -105,7 +105,7 @@ const services: readonly Service[] = [
       "Documentation and transfer support",
     ],
     icon: "logistics",
-    accent: "from-amber-500 to-amber-600",
+    accent: "from-blue-500 to-cyan-600",
   },
 ];
 
@@ -230,7 +230,7 @@ const getAnimationVariants = (): AnimationVariants => ({
 const getIconComponent = (iconType: Service["icon"]): React.ReactNode => {
   const iconProps = {
     className:
-      "text-white transition-colors duration-300 group-hover:text-amber-500",
+      "text-white transition-colors duration-300 group-hover:text-cyan-400",
     size: 24,
   };
   switch (iconType) {
@@ -265,11 +265,24 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
   return (
     <section
       id="services"
-      className={`py-24 bg-black relative overflow-hidden ${className}`}
+      className={`py-24 bg-slate-950 relative overflow-hidden ${className}`}
     >
-      {/* Subtle background linears */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -282,7 +295,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         >
           <motion.div
             variants={variants.item}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 mb-6"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -292,7 +305,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                 ease: "linear",
               }}
             >
-              <Settings className="text-amber-500" size={16} />
+              <Settings className="text-cyan-400" size={16} />
             </motion.div>
             <span className="text-zinc-400 text-sm font-medium">
               Our Services
@@ -304,7 +317,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
           >
             Institutional-Grade
-            <span className="block mt-2 bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
+            <span className="block mt-2 bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Bullion Solutions
             </span>
           </motion.h2>
@@ -339,12 +352,12 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
               animate={hoveredId === service.id ? "hover" : "rest"}
               className="group"
             >
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-2xl p-8 transition-clor duration-300 h-full flex flex-col">
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-2xl p-8 transition-all duration-300 h-full flex flex-col">
                 {/* Icon and Title */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 p-3 transition-color duration-300 group-hover:bg-amber-400/20 group-hover:border-amber-400/30 mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 p-3 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:border-cyan-400/40 mb-4"
                       animate={
                         hoveredId === service.id
                           ? { rotate: 5, scale: 1.05 }
@@ -354,7 +367,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                     >
                       {getIconComponent(service.icon)}
                     </motion.div>
-                    <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-amber-500 transition-colors duration-100">
+                    <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-cyan-400 transition-colors duration-300">
                       {service.title}
                     </h3>
                   </div>
@@ -395,7 +408,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                             delay: index * 0.1,
                           }}
                         >
-                          <div className="w-2 h-2 rounded-full bg-amber-500 mt-1.5" />
+                          <div className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5" />
                         </motion.div>
                         <p className="text-sm text-zinc-400">{detail}</p>
                       </motion.div>
@@ -413,7 +426,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                   }
                   transition={{ duration: 0.3 }}
                 >
-                  <span className="text-sm font-semibold text-amber-500">
+                  <span className="text-sm font-semibold text-cyan-400">
                     Learn More
                   </span>
                   <motion.div
@@ -426,7 +439,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                         : { duration: 0.2 }
                     }
                   >
-                    <ArrowRight size={18} className="text-amber-500" />
+                    <ArrowRight size={18} className="text-cyan-400" />
                   </motion.div>
                 </motion.div>
               </div>
@@ -444,7 +457,10 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
         >
           <motion.div variants={variants.item} className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Why SR Jewellers
+              Why{" "}
+              <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                SR Jewellers
+              </span>
             </h3>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
               A legacy of trust, delivering excellence in precious metals.
@@ -463,7 +479,7 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
                 className="group"
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 hover:border-amber-500/30 rounded-xl p-6 h-full transition-colors duration-300">
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 rounded-xl p-6 h-full transition-all duration-300">
                   <div className="flex items-start gap-4">
                     <motion.div
                       whileHover={{ scale: 1.15 }}
@@ -472,11 +488,11 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
                         stiffness: 300,
                         damping: 18,
                       }}
-                      className="w-3 h-3 rounded-full bg-linear-to-r from-amber-500 to-amber-600 mt-1.5 shrink-0"
+                      className="w-3 h-3 rounded-full bg-linear-to-r from-blue-500 to-cyan-600 mt-1.5 shrink-0"
                     />
 
                     <div>
-                      <h4 className="font-semibold text-white mb-2 group-hover:text-amber-500 transition-colors">
+                      <h4 className="font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                         {benefit.title}
                       </h4>
                       <p className="text-sm text-zinc-400 leading-relaxed">
@@ -502,7 +518,10 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             variants={variants.item}
             className="text-3xl md:text-4xl font-bold text-white mb-6"
           >
-            Ready to Secure Your Next Bullion Trade?
+            Ready to Secure Your Next{" "}
+            <span className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Bullion Trade?
+            </span>
           </motion.h3>
 
           <motion.p
@@ -518,9 +537,9 @@ export const ServiceSection: FC<ServiceSectionProps> = ({
             onClick={() => router.push("/contact")}
             type="button"
             variants={variants.item}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="group bg-white text-black px-10 py-4 rounded-xl hover:from-amber-600 hover:to-amber-700 transition-shadow duration-300 shadow-lg shadow-amber-500/20 font-semibold inline-flex items-center gap-3"
+            className="group bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 font-semibold inline-flex items-center gap-3"
           >
             Contact Our Team
             <motion.div

@@ -179,9 +179,9 @@ export function Navbar() {
                           className={`w-3.5 h-3.5 transition-transform duration-300 ${openDropdown === index ? "rotate-180" : ""}`}
                         />
 
-                        {/* Dropdown Menu */}
+                        {/* Dropdown Menu - ENHANCED VISIBILITY */}
                         <div
-                          className={`absolute top-full right-0 mt-3 w-72 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300 ${
+                          className={`absolute top-full right-0 mt-3 w-72 rounded-xl overflow-hidden transition-all duration-300 ${
                             openDropdown === index
                               ? "opacity-100 translate-y-0 pointer-events-auto"
                               : "opacity-0 -translate-y-2 pointer-events-none"
@@ -189,28 +189,34 @@ export function Navbar() {
                           onMouseEnter={handleDropdownEnter}
                           onMouseLeave={handleDropdownLeave}
                         >
-                          <div className="p-2">
-                            {item.children.map((child) => (
-                              <a
-                                key={child.label}
-                                href={child.href}
-                                className="block px-4 py-3 text-zinc-300 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-lg border border-transparent hover:border-blue-400/40 group"
-                              >
-                                <div className="flex items-start gap-3">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400/50 group-hover:bg-blue-400 mt-1.5 transition-all duration-300" />
-                                  <div>
-                                    <div className="font-medium text-sm">
-                                      {child.label}
-                                    </div>
-                                    {child.description && (
-                                      <div className="text-xs text-zinc-400 mt-0.5">
-                                        {child.description}
+                          {/* Outer border glow */}
+                          <div className="absolute inset-0 bg-linear-to-b from-blue-500/30 via-cyan-500/20 to-blue-500/30 rounded-xl blur-xl" />
+
+                          {/* Main dropdown container with stronger background */}
+                          <div className="relative bg-linear-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-2xl border-2 border-blue-400/50 rounded-xl shadow-2xl shadow-blue-500/40">
+                            <div className="p-2">
+                              {item.children.map((child) => (
+                                <a
+                                  key={child.label}
+                                  href={child.href}
+                                  className="block px-4 py-3 text-zinc-200 hover:text-white hover:bg-linear-to-r hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 rounded-lg border border-transparent hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/30 group"
+                                >
+                                  <div className="flex items-start gap-3">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60 group-hover:bg-blue-400 group-hover:shadow-lg group-hover:shadow-blue-400/50 mt-1.5 transition-all duration-300" />
+                                    <div>
+                                      <div className="font-medium text-sm">
+                                        {child.label}
                                       </div>
-                                    )}
+                                      {child.description && (
+                                        <div className="text-xs text-zinc-400 group-hover:text-zinc-300 mt-0.5 transition-colors">
+                                          {child.description}
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              </a>
-                            ))}
+                                </a>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -240,12 +246,9 @@ export function Navbar() {
 
           {/* Mobile Menu */}
           <div
-            className={`lg:hidden transition-all duration-500 ease-out ${
-              isMobileMenuOpen
-                ? "max-h-screen opacity-100"
-                : "max-h-0 opacity-0 pointer-events-none"
+            className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+              isMobileMenuOpen ? "max-h-150 opacity-100" : "max-h-0 opacity-0"
             }`}
-            style={{ overflow: isMobileMenuOpen ? "visible" : "hidden" }}
           >
             <div className="px-4 sm:px-6 pb-6 pt-4 bg-linear-to-b from-white/5 via-white/10 to-white/5 backdrop-blur-xl border-t border-white/10">
               <div className="flex flex-col space-y-2">
@@ -281,30 +284,33 @@ export function Navbar() {
                             }`}
                           />
                         </button>
+                        {/* Nested Dropdown */}
                         <div
-                          className={`transition-all duration-300 ease-out ${
+                          className={`transition-all duration-300 ease-in-out overflow-hidden ${
                             mobileOpenDropdown === index
                               ? "max-h-96 opacity-100"
                               : "max-h-0 opacity-0"
                           }`}
                         >
-                          <div className="px-3 pb-3 pt-1 space-y-1 bg-white/5">
+                          <div className="px-3 pb-3 pt-1 space-y-1 bg-white/10">
                             {item.children.map((child, childIndex) => (
                               <a
                                 key={child.label}
                                 href={child.href}
-                                className="block px-4 py-3 text-zinc-400 hover:text-white hover:bg-white/10 transition-all duration-300 font-medium text-sm rounded-lg border border-transparent hover:border-blue-400/40 group"
+                                className="block px-4 py-3 text-zinc-200 hover:text-white hover:bg-white/20 transition-all duration-300 font-medium text-sm rounded-lg border border-white/30 hover:border-blue-400/60 group bg-white/5"
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 style={{
                                   transitionDelay: `${childIndex * 30}ms`,
                                 }}
                               >
                                 <div className="flex items-start gap-2">
-                                  <span className="w-1 h-1 rounded-full bg-blue-400/50 group-hover:bg-blue-400 mt-1.5 transition-colors" />
+                                  <span className="w-1 h-1 rounded-full bg-blue-400/70 group-hover:bg-blue-400 mt-1.5 transition-colors" />
                                   <div>
-                                    <div>{child.label}</div>
+                                    <div className="text-zinc-100">
+                                      {child.label}
+                                    </div>
                                     {child.description && (
-                                      <div className="text-xs text-zinc-400 mt-0.5">
+                                      <div className="text-xs text-zinc-300 mt-0.5">
                                         {child.description}
                                       </div>
                                     )}

@@ -147,7 +147,7 @@ export function CTASection() {
             {/* Primary Button */}
             <Link href="/our-products" className="group relative">
               <div className="absolute -inset-1 bg-linear-to-r from-blue-600 via-cyan-600 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-500 animate-gradient-x" />
-              <div className="relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-5 rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">
+              <div className="relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-5  font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/30 to-transparent" />
                 <span className="relative flex items-center justify-center gap-3">
@@ -160,7 +160,7 @@ export function CTASection() {
             {/* Secondary Button */}
             <Link
               href="/contact"
-              className="group relative bg-white/5 backdrop-blur-xl text-white px-10 py-5 rounded-xl font-bold text-lg border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group relative bg-white/5 backdrop-blur-xl text-white px-10 py-5  font-bold text-lg border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-linear-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

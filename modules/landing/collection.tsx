@@ -10,7 +10,7 @@ import {
   Globe,
   Scale,
   Award,
-  FileText,
+  // FileText,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -404,7 +404,7 @@ export function Collection() {
                 </div>
 
                 {/* Pricing */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                {/* <div className="flex items-center justify-between pt-4 border-t border-white/10">
                   <div>
                     <div className="text-xs text-zinc-500 mb-1">Pricing</div>
                     <div className="text-sm font-bold text-cyan-400">
@@ -415,7 +415,7 @@ export function Collection() {
                     <FileText className="w-4 h-4" />
                     Quote
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}
@@ -452,14 +452,14 @@ export function Collection() {
             <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
               <button
                 onClick={() => router.push("/contact")}
-                className="group bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-8 py-4 rounded-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1"
+                className="group bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-8 py-4  transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1"
               >
                 Request Custom Quote
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </button>
               <button
                 onClick={() => router.push("/our-products")}
-                className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 hover:bg-white/10 text-white px-8 py-4 rounded-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3"
+                className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 hover:bg-white/10 text-white px-8 py-4  transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3"
               >
                 View All Products
                 <Package className="w-5 h-5 group-hover:rotate-12 transition-transform" />

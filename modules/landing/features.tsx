@@ -367,7 +367,7 @@ export function Quality() {
               </div>
               <Link
                 href="/contact"
-                className="group/btn relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-semibold text-lg flex items-center gap-3 whitespace-nowrap shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden"
+                className="group/btn relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 transition-all duration-300 font-semibold text-lg flex items-center gap-3 whitespace-nowrap shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />

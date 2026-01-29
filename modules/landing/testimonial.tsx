@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Star, MapPin, Quote, TrendingUp, Award, Sparkles } from "lucide-react";
+import {
+  Star,
+  MapPin,
+  Quote,
+  TrendingUp,
+  Award,
+  Sparkles,
+  ChevronDown,
+} from "lucide-react";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -93,9 +101,10 @@ const testimonials = [
 type Testimonials = (typeof testimonials)[0];
 type Props = {
   testimonial: Testimonials;
+  index?: number;
 };
 
-const TestimonialCard = ({ testimonial }: Props) => {
+const TestimonialCard = ({ testimonial, index = 0 }: Props) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -112,7 +121,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
   };
 
   return (
-    <div className="shrink-0 w-[90vw] sm:w-112.5 md:w-125 mx-4">
+    <div className="shrink-0 w-[85vw] sm:w-112.5 md:w-125 mx-4 snap-center">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -126,15 +135,15 @@ const TestimonialCard = ({ testimonial }: Props) => {
         {/* Glow effect on hover */}
         <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/20 via-cyan-500/10 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full hover:border-blue-400/40 transition-all duration-500 overflow-hidden">
+        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 h-full hover:border-blue-400/40 transition-all duration-500 overflow-hidden">
           {/* Animated gradient overlay */}
           <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Quote Icon with rotating glow */}
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative w-14 h-14 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-              <Quote className="w-7 h-7 text-amber-400" />
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+              <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400" />
             </div>
           </div>
 
@@ -143,14 +152,14 @@ const TestimonialCard = ({ testimonial }: Props) => {
             {[...Array(testimonial.rating)].map((_, i) => (
               <Star
                 key={i}
-                className="w-5 h-5 text-amber-400 fill-amber-400 group-hover:scale-110 transition-transform duration-300"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400 group-hover:scale-110 transition-transform duration-300"
                 style={{ transitionDelay: `${i * 50}ms` }}
               />
             ))}
           </div>
 
           {/* Content */}
-          <p className="relative text-zinc-300 text-base leading-relaxed mb-6 group-hover:text-white transition-colors duration-300">
+          <p className="relative text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 group-hover:text-white transition-colors duration-300">
             {testimonial.content}
           </p>
 
@@ -161,7 +170,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
           <div className="relative flex items-start justify-between gap-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h4 className="text-white font-bold text-lg">
+                <h4 className="text-white font-bold text-base sm:text-lg">
                   {testimonial.name}
                 </h4>
                 {testimonial.verified && (
@@ -173,18 +182,18 @@ const TestimonialCard = ({ testimonial }: Props) => {
                   </div>
                 )}
               </div>
-              <p className="text-amber-400 text-sm font-semibold mb-2">
+              <p className="text-amber-400 text-xs sm:text-sm font-semibold mb-2">
                 {testimonial.role}
               </p>
-              <div className="flex items-center gap-1.5 text-zinc-400 text-sm">
-                <MapPin className="w-4 h-4" />
+              <div className="flex items-center gap-1.5 text-zinc-400 text-xs sm:text-sm">
+                <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>{testimonial.location}</span>
               </div>
             </div>
 
             {/* Badge */}
             <div className="shrink-0">
-              <div className="px-3 py-1.5 bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 rounded-full">
+              <div className="px-2.5 py-1.5 sm:px-3 bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 rounded-full">
                 <span className="text-xs font-semibold text-blue-400">
                   {testimonial.badge}
                 </span>
@@ -203,9 +212,27 @@ const TestimonialCard = ({ testimonial }: Props) => {
 export function Testimonials() {
   const { ref, isVisible } = useScrollAnimation();
   const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Mobile scroll snap detection
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollPosition = container.scrollTop;
+      const cardHeight = container.scrollHeight / testimonials.length;
+      const index = Math.round(scrollPosition / cardHeight);
+      setActiveIndex(index);
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <section className="py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden">
+    <section className="py-16 sm:py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden">
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 opacity-30">
         <div
@@ -224,7 +251,7 @@ export function Testimonials() {
         style={{ animationDelay: "1s" }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16 lg:mb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-12 sm:mb-16 lg:mb-20">
         <div
           ref={ref}
           className={`text-center transition-all duration-1000 ${
@@ -232,40 +259,44 @@ export function Testimonials() {
           }`}
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 mb-6 group">
+          <div className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 mb-6 group">
             <Star className="w-4 h-4 text-amber-500 group-hover:rotate-12 transition-transform duration-300" />
-            <span className="text-sm font-semibold text-zinc-400 group-hover:text-white transition-colors">
+            <span className="text-xs sm:text-sm font-semibold text-zinc-400 group-hover:text-white transition-colors">
               Client Success Stories
             </span>
           </div>
 
           {/* Heading */}
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-4">
             <span className="block text-white">Trusted by Collectors</span>
             <span className="block bg-linear-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
               Worldwide
             </span>
           </h2>
 
-          <p className="text-zinc-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-4">
+          <p className="text-zinc-400 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-4 px-4">
             Join thousands of satisfied clients who trust us with their precious
             metals investments
           </p>
 
           {/* Stats */}
-          <div className="flex items-center justify-center gap-8 mt-8">
+          <div className="flex items-center justify-center gap-6 sm:gap-8 mt-6 sm:mt-8">
             <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-green-400" />
+              <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
               <div className="text-left">
-                <div className="text-2xl font-bold text-white">98%</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">
+                  98%
+                </div>
                 <div className="text-xs text-zinc-500">Satisfaction Rate</div>
               </div>
             </div>
             <div className="h-8 w-px bg-white/10" />
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               <div className="text-left">
-                <div className="text-2xl font-bold text-white">15K+</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">
+                  15K+
+                </div>
                 <div className="text-xs text-zinc-500">Happy Clients</div>
               </div>
             </div>
@@ -273,63 +304,128 @@ export function Testimonials() {
         </div>
       </div>
 
-      {/* Infinite Scroll Testimonials - Top Row (Left to Right) */}
-      <div className="relative mb-6">
-        {/* Gradient Fade Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+      {/* Mobile: Vertical Scrolling Stack */}
+      <div className="lg:hidden relative">
+        <div className="relative max-w-lg mx-auto px-4">
+          {/* Top gradient fade */}
+          <div className="absolute left-0 right-0 top-0 h-24 bg-linear-to-b from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
 
-        <div
-          className="flex overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div
-            className={`flex ${isPaused ? "animation-paused" : "animate-scroll-left"}`}
-          >
-            {[...testimonials, ...testimonials, ...testimonials].map(
-              (testimonial, index) => (
-                <TestimonialCard
-                  key={`top-${index}`}
-                  testimonial={testimonial}
-                />
-              ),
-            )}
+          {/* Bottom gradient fade */}
+          <div className="absolute left-0 right-0 bottom-0 h-24 bg-linear-to-t from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+
+          {/* Scroll indicator */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 z-20 animate-bounce">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2">
+              <ChevronDown className="w-4 h-4 text-white/60" />
+            </div>
           </div>
+
+          <div
+            ref={scrollContainerRef}
+            className="flex flex-col gap-6 h-150 overflow-y-auto snap-y snap-mandatory scrollbar-hide py-8"
+          >
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={`mobile-${index}`}
+                testimonial={testimonial}
+                index={index}
+              />
+            ))}
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  const container = scrollContainerRef.current;
+                  if (container) {
+                    const cardHeight =
+                      container.scrollHeight / testimonials.length;
+                    container.scrollTo({
+                      top: cardHeight * index,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
+                className={`transition-all duration-300 rounded-full ${
+                  activeIndex === index
+                    ? "w-8 h-2 bg-blue-400"
+                    : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Swipe instruction */}
+        <div className="text-center mt-6">
+          <p className="text-xs sm:text-sm text-zinc-500">
+            Swipe to explore more stories
+          </p>
         </div>
       </div>
 
-      {/* Infinite Scroll Testimonials - Bottom Row (Right to Left) */}
-      <div className="relative">
-        {/* Gradient Fade Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+      {/* Desktop: Infinite Scroll (Hidden on mobile) */}
+      <div className="hidden lg:block">
+        {/* Top Row (Left to Right) */}
+        <div className="relative mb-6">
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
 
-        <div
-          className="flex overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
           <div
-            className={`flex ${isPaused ? "animation-paused" : "animate-scroll-right"}`}
+            className="flex overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            {[...testimonials, ...testimonials, ...testimonials].map(
-              (testimonial, index) => (
-                <TestimonialCard
-                  key={`bottom-${index}`}
-                  testimonial={testimonial}
-                />
-              ),
-            )}
+            <div
+              className={`flex ${isPaused ? "animation-paused" : "animate-scroll-left"}`}
+            >
+              {[...testimonials, ...testimonials, ...testimonials].map(
+                (testimonial, index) => (
+                  <TestimonialCard
+                    key={`top-${index}`}
+                    testimonial={testimonial}
+                  />
+                ),
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Hover instruction */}
-      <div className="text-center mt-12">
-        <p className="text-sm text-zinc-500">
-          Hover over cards to pause and interact
-        </p>
+        {/* Bottom Row (Right to Left) */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+
+          <div
+            className="flex overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <div
+              className={`flex ${isPaused ? "animation-paused" : "animate-scroll-right"}`}
+            >
+              {[...testimonials, ...testimonials, ...testimonials].map(
+                (testimonial, index) => (
+                  <TestimonialCard
+                    key={`bottom-${index}`}
+                    testimonial={testimonial}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Hover instruction */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-zinc-500">
+            Hover over cards to pause and interact
+          </p>
+        </div>
       </div>
 
       <style jsx>{`
@@ -365,6 +461,15 @@ export function Testimonials() {
 
         .perspective-1000 {
           perspective: 1000px;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </section>

@@ -225,7 +225,7 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-4 sm:px-0">
               <Link
                 href="/contact"
-                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
+                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white  font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
               >
                 {/* Animated gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -239,7 +239,7 @@ export const Hero = () => {
 
               <Link
                 href="/contact"
-                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/5 backdrop-blur-xl text-white rounded-xl font-bold border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
+                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/5 backdrop-blur-xl text-white  font-bold border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
               >
                 <span className="flex items-center justify-center gap-2">
                   Become a Partner

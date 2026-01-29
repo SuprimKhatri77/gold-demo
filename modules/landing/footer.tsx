@@ -263,13 +263,13 @@ export const Footer: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 focus:border-blue-400/40 focus:outline-none text-white placeholder-zinc-500 transition-all"
+                  className="w-full px-4 py-3  bg-white/5 backdrop-blur-xl border border-white/10 focus:border-blue-400/40 focus:outline-none text-white placeholder-zinc-500 transition-all"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="group w-full py-3 px-6 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 relative overflow-hidden"
+                className="group w-full py-3 px-6 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white  font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 relative overflow-hidden"
               >
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />

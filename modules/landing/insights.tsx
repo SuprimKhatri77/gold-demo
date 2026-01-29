@@ -8,6 +8,7 @@ import {
   Newspaper,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -451,12 +452,15 @@ export function Insights() {
 
         {/* CTA Button */}
         <div className="text-center">
-          <button className="group relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-bold text-lg flex items-center gap-3 mx-auto shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden">
+          <Link
+            href="/news"
+            className="group relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 mx-auto shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden"
+          >
             {/* Shimmer effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
             <span className="relative">View All Insights</span>
             <ArrowRight className="relative w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

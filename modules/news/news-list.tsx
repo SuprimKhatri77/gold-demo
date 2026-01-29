@@ -1,4 +1,5 @@
 import { NewsCard } from "./news-card";
+import { FileSearch } from "lucide-react";
 
 interface NewsItem {
   id: string;
@@ -25,7 +26,7 @@ const LoadingSkeleton: React.FC = () => {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden animate-pulse"
+          className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden animate-pulse"
         >
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-80 h-48 sm:h-56 md:h-64 bg-white/10"></div>
@@ -55,27 +56,15 @@ const LoadingSkeleton: React.FC = () => {
 const EmptyState: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center py-16 md:py-24 px-4">
-      <div className="w-20 h-20 md:w-24 md:h-24 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 border border-white/10">
-        <svg
-          className="w-10 h-10 md:w-12 md:h-12 text-zinc-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-          />
-        </svg>
+      <div className="w-20 h-20 md:w-24 md:h-24 bg-white/5 backdrop-blur-xl rounded-full flex items-center justify-center mb-6 border border-white/10 group hover:border-blue-400/40 transition-all duration-300">
+        <FileSearch className="w-10 h-10 md:w-12 md:h-12 text-zinc-400 group-hover:text-cyan-400 transition-colors duration-300" />
       </div>
       <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-        No News Available
+        No Market Reports Found
       </h3>
       <p className="text-zinc-400 text-sm md:text-base text-center max-w-md">
-        There are currently no news articles to display. Check back later for
-        updates.
+        No articles match your current search criteria. Try adjusting your
+        filters or check back later for new market intelligence updates.
       </p>
     </div>
   );

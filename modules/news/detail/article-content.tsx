@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import React from "react";
 
@@ -9,6 +8,7 @@ interface NextImageProps {
   className?: string;
   priority?: boolean;
 }
+
 interface ArticleContentProps {
   content: string;
   images: string[];
@@ -28,6 +28,7 @@ const NextImage: React.FC<NextImageProps> = ({
     loading={priority ? "eager" : "lazy"}
   />
 );
+
 export const ArticleContent: React.FC<ArticleContentProps> = ({
   content,
   images,
@@ -49,7 +50,7 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
                 {trimmed}
               </h2>
             ) : (
-              <p className="text-base md:text-lg text-zinc-300 leading-relaxed">
+              <p className="text-base md:text-lg text-zinc-300 leading-relaxed p-6 bg-white/5 backdrop-blur-xl rounded-xl border border-white/10 hover:border-blue-400/20 transition-all duration-300">
                 {trimmed}
               </p>
             )}
@@ -57,13 +58,13 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
             {/* First Image */}
             {index === insertImageAt && images.length > 1 && (
               <div className="my-8 md:my-12">
-                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md">
+                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/40 backdrop-blur-xl transition-all duration-300 group">
                   <NextImage
                     src={images[1]}
-                    alt="Article illustration"
-                    className="w-full h-full object-cover"
+                    alt="Market analysis illustration"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 via-blue-950/30 to-transparent"></div>
                 </div>
               </div>
             )}
@@ -71,13 +72,13 @@ export const ArticleContent: React.FC<ArticleContentProps> = ({
             {/* Second Image */}
             {index === insertSecondImageAt && images.length > 2 && (
               <div className="my-8 md:my-12">
-                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-lg md:rounded-2xl overflow-hidden border border-white/10 backdrop-blur-md">
+                <div className="relative w-full h-64 md:h-96 lg:h-125 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/40 backdrop-blur-xl transition-all duration-300 group">
                   <NextImage
                     src={images[2]}
-                    alt="Article illustration"
-                    className="w-full h-full object-cover"
+                    alt="Industry insights illustration"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 via-blue-950/30 to-transparent"></div>
                 </div>
               </div>
             )}

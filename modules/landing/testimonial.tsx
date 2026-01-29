@@ -112,7 +112,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
   };
 
   return (
-    <div className="shrink-0 w-[90vw] sm:w-[450px] md:w-[500px] mx-4">
+    <div className="shrink-0 w-[90vw] sm:w-112.5 md:w-125 mx-4">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -124,16 +124,16 @@ const TestimonialCard = ({ testimonial }: Props) => {
         }}
       >
         {/* Glow effect on hover */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+        <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/20 via-cyan-500/10 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
         <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full hover:border-blue-400/40 transition-all duration-500 overflow-hidden">
           {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Quote Icon with rotating glow */}
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+            <div className="relative w-14 h-14 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
               <Quote className="w-7 h-7 text-amber-400" />
             </div>
           </div>
@@ -155,7 +155,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
           </p>
 
           {/* Divider */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6" />
+          <div className="relative h-px bg-linear-to-r from-transparent via-white/20 to-transparent mb-6" />
 
           {/* User Info */}
           <div className="relative flex items-start justify-between gap-4">
@@ -184,7 +184,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
 
             {/* Badge */}
             <div className="shrink-0">
-              <div className="px-3 py-1.5 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 rounded-full">
+              <div className="px-3 py-1.5 bg-linear-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 rounded-full">
                 <span className="text-xs font-semibold text-blue-400">
                   {testimonial.badge}
                 </span>
@@ -193,7 +193,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
           </div>
 
           {/* Decorative corner accent */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-amber-500/10 via-transparent to-transparent rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-bl from-amber-500/10 via-transparent to-transparent rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
       </div>
     </div>
@@ -205,7 +205,7 @@ export function Testimonials() {
   const [isPaused, setIsPaused] = useState(false);
 
   return (
-    <section className="py-24 lg:py-32 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden">
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 opacity-30">
         <div
@@ -242,7 +242,7 @@ export function Testimonials() {
           {/* Heading */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="block text-white">Trusted by Collectors</span>
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="block bg-linear-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
               Worldwide
             </span>
           </h2>
@@ -276,8 +276,8 @@ export function Testimonials() {
       {/* Infinite Scroll Testimonials - Top Row (Left to Right) */}
       <div className="relative mb-6">
         {/* Gradient Fade Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
 
         <div
           className="flex overflow-hidden"
@@ -302,8 +302,8 @@ export function Testimonials() {
       {/* Infinite Scroll Testimonials - Bottom Row (Right to Left) */}
       <div className="relative">
         {/* Gradient Fade Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-slate-950 via-blue-950/80 to-transparent z-10 pointer-events-none" />
 
         <div
           className="flex overflow-hidden"

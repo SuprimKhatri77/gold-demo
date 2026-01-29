@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
+    <footer className="relative overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950">
       {/* Animated Wave Divider */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
         <svg
@@ -163,7 +163,7 @@ export const Footer: React.FC = () => {
           {/* Quick Links */}
           <div>
             <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-cyan-400 rounded-full" />
+              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -189,7 +189,7 @@ export const Footer: React.FC = () => {
           {/* Contact Section */}
           <div>
             <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-cyan-400 rounded-full" />
+              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
               Contact
             </h4>
             <ul className="space-y-4">
@@ -249,7 +249,7 @@ export const Footer: React.FC = () => {
           {/* Newsletter */}
           <div>
             <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-cyan-400 rounded-full" />
+              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
               Newsletter
             </h4>
             <p className="text-zinc-400 mb-6 leading-relaxed">
@@ -269,10 +269,10 @@ export const Footer: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className="group w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 relative overflow-hidden"
+                className="group w-full py-3 px-6 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 relative overflow-hidden"
               >
                 {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 <span className="relative">
                   {isSubscribed ? "Subscribed!" : "Subscribe"}
                 </span>
@@ -294,7 +294,7 @@ export const Footer: React.FC = () => {
 
         {/* Decorative Divider */}
         <div className="relative h-px mb-8">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-blue-400/50 to-transparent" />
         </div>
 
         {/* Bottom Bar */}

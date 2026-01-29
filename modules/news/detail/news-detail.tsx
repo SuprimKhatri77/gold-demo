@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import { NotFoundState } from "./article-not-found";
@@ -59,7 +58,6 @@ export const NextImage: React.FC<NextImageProps> = ({
 );
 
 // Components
-
 export interface ArticleHeaderProps {
   article: NewsItem;
   author: Author;
@@ -95,8 +93,26 @@ export const NewsDetailPage: React.FC = () => {
   const author = article ? mockAuthors[article.authorId] : null;
 
   return (
-    <div className="min-h-screen bg-black">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div className="min-h-screen bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+            backgroundSize: "50px 50px",
+          }}
+        ></div>
+      </div>
+
+      {/* Floating Gradient Orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div
+        className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "1s" }}
+      ></div>
+
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           <article className="lg:col-span-2">
             {isLoading ? (
@@ -107,14 +123,14 @@ export const NewsDetailPage: React.FC = () => {
             ) : article && author ? (
               <>
                 <ArticleHeader article={article} author={author} />
-                <div className="relative w-full h-64 md:h-96 lg:h-112.5 rounded-2xl overflow-hidden mb-8 md:mb-12 border border-white/10">
+                <div className="relative w-full h-64 md:h-96 lg:h-112.5 rounded-2xl overflow-hidden mb-8 md:mb-12 border border-white/10 group hover:border-blue-400/40 transition-all duration-300">
                   <Image
                     fill
                     src={article.images[0]}
                     alt={article.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-blue-950/40 to-transparent"></div>
                 </div>
                 <ArticleContent
                   content={article.content}
@@ -124,6 +140,7 @@ export const NewsDetailPage: React.FC = () => {
               </>
             ) : null}
           </article>
+
           <div className="lg:col-span-1">
             {!isLoading && article && (
               <Sidebar

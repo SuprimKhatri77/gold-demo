@@ -146,7 +146,7 @@ export function Insights() {
   return (
     <section
       id="insights"
-      className="py-24 lg:py-32 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
+      className="py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
     >
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 opacity-30">
@@ -166,7 +166,7 @@ export function Insights() {
         style={{ animationDelay: "1s" }}
       />
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl animate-pulse"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-purple-500/5 rounded-full blur-3xl animate-pulse"
         style={{ animationDelay: "2s" }}
       />
 
@@ -188,7 +188,7 @@ export function Insights() {
           {/* Heading */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="block text-white">Latest Gold Market</span>
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="block bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Insights
             </span>
           </h2>
@@ -207,7 +207,6 @@ export function Insights() {
             .map((post, index) => {
               const colors = getColorClasses(post.color);
               const Icon = getCategoryIcon(post.category);
-              const isHovered = hoveredCard === post.id;
 
               return (
                 <article
@@ -232,7 +231,7 @@ export function Insights() {
                   {/* Image with Parallax */}
                   <div className="relative h-64 lg:h-80 overflow-hidden">
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
+                      className={`absolute inset-0 bg-linear-to-br ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
                     />
                     <Image
                       fill
@@ -240,7 +239,7 @@ export function Insights() {
                       alt={post.title}
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/50 to-transparent z-10" />
 
                     {/* Category Badge */}
                     <div
@@ -252,7 +251,7 @@ export function Insights() {
 
                     {/* Animated corner accent */}
                     <div
-                      className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl ${colors.glow} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      className={`absolute top-0 right-0 w-48 h-48 bg-linear-to-bl ${colors.glow} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                     />
                   </div>
 
@@ -267,7 +266,7 @@ export function Insights() {
                       <span>{post.date}</span>
                     </div>
 
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300 leading-tight">
+                    <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300 leading-tight">
                       {post.title}
                     </h3>
 
@@ -302,7 +301,7 @@ export function Insights() {
             <div className="space-y-6">
               {/* Stat Item */}
               <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-linear-to-br from-amber-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -316,7 +315,7 @@ export function Insights() {
                       <span>+1.2% Today</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-500/20 to-yellow-500/10 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-amber-400" />
                   </div>
                 </div>
@@ -324,7 +323,7 @@ export function Insights() {
 
               {/* Stat Item */}
               <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -338,7 +337,7 @@ export function Insights() {
                       <span>Last 24 Hours</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-cyan-500/20 to-blue-500/10 flex items-center justify-center">
                     <BarChart3 className="w-6 h-6 text-cyan-400" />
                   </div>
                 </div>
@@ -346,7 +345,7 @@ export function Insights() {
 
               {/* Stat Item */}
               <div className="group/stat relative p-5 bg-white/5 rounded-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity duration-300 rounded-xl" />
                 <div className="relative flex items-start justify-between">
                   <div className="flex-1">
                     <div className="text-sm text-zinc-500 mb-1">
@@ -360,7 +359,7 @@ export function Insights() {
                       <span>Growing Daily</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500/20 to-cyan-500/10 flex items-center justify-center">
                     <TrendingUp className="w-6 h-6 text-blue-400" />
                   </div>
                 </div>
@@ -376,7 +375,6 @@ export function Insights() {
             .map((post, index) => {
               const colors = getColorClasses(post.color);
               const Icon = getCategoryIcon(post.category);
-              const isHovered = hoveredCard === post.id;
 
               return (
                 <article
@@ -401,7 +399,7 @@ export function Insights() {
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
+                      className={`absolute inset-0 bg-linear-to-br ${colors.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
                     />
                     <Image
                       fill
@@ -409,7 +407,7 @@ export function Insights() {
                       alt={post.title}
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/50 to-transparent z-10" />
 
                     {/* Category Badge */}
                     <div
@@ -431,7 +429,7 @@ export function Insights() {
                       <span>{post.date}</span>
                     </div>
 
-                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300 leading-tight line-clamp-2">
+                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300 leading-tight line-clamp-2">
                       {post.title}
                     </h3>
 
@@ -453,9 +451,9 @@ export function Insights() {
 
         {/* CTA Button */}
         <div className="text-center">
-          <button className="group relative bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-bold text-lg flex items-center gap-3 mx-auto shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden">
+          <button className="group relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-bold text-lg flex items-center gap-3 mx-auto shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden">
             {/* Shimmer effect */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
             <span className="relative">View All Insights</span>
             <ArrowRight className="relative w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
           </button>

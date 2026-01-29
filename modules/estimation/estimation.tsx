@@ -1,17 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  TrendingUp,
+  Shield,
+  Clock,
+  ChevronDown,
+  ArrowRight,
+  Sparkles,
+  Calculator,
+  FileText,
+  Building2,
+  Globe,
+  Award,
+  Zap,
+  AlertTriangle,
+} from "lucide-react";
 
 type TabType = "buy" | "sell";
 
-type Product = "Gold Bar" | "Silver Bar" | "Platinum Bar" | "Palladium Bar";
+type Product = "Gold" | "Silver" | "Platinum" | "Palladium";
 
 type WeightUnit = "g" | "oz" | "kg";
 
 interface FormData {
   email: string;
   phone: string;
+  company: string;
   product: Product | "";
   weight: string;
   weightUnit: WeightUnit;
@@ -21,6 +37,7 @@ interface FormData {
 interface FormErrors {
   email?: string;
   phone?: string;
+  company?: string;
   product?: string;
   weight?: string;
   purity?: string;
@@ -28,113 +45,93 @@ interface FormErrors {
 
 type SubmissionState = "idle" | "loading" | "success" | "error";
 
-const products: Product[] = [
-  "Gold Bar",
-  "Silver Bar",
-  "Platinum Bar",
-  "Palladium Bar",
+const products: { name: Product; color: string; spotPrice: number }[] = [
+  { name: "Gold", color: "from-amber-500 to-yellow-500", spotPrice: 2047 },
+  { name: "Silver", color: "from-slate-300 to-zinc-400", spotPrice: 23.84 },
+  { name: "Platinum", color: "from-cyan-400 to-blue-500", spotPrice: 912 },
+  {
+    name: "Palladium",
+    color: "from-purple-400 to-indigo-500",
+    spotPrice: 1023,
+  },
 ];
+
 const weightUnits: { value: WeightUnit; label: string }[] = [
-  { value: "g", label: "Gram (g)" },
-  { value: "oz", label: "Ounce (oz)" },
-  { value: "kg", label: "Kilogram (kg)" },
+  { value: "g", label: "Gram" },
+  { value: "oz", label: "Troy Oz" },
+  { value: "kg", label: "Kilogram" },
 ];
 
 const features = [
   {
-    title: "Expert Valuation",
-    description:
-      "Our certified specialists provide accurate market-based estimations",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
-      </svg>
-    ),
+    title: "Live Market Pricing",
+    description: "Real-time spot prices with transparent premium calculations",
+    icon: TrendingUp,
+    color: "blue",
   },
   {
-    title: "Fast Response",
-    description: "Receive your detailed estimation within 24 hours",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M13 10V3L4 14h7v7l9-11h-7z"
-        />
-      </svg>
-    ),
+    title: "Bulk Discounts",
+    description: "Volume-based pricing for large wholesale orders",
+    icon: Calculator,
+    color: "cyan",
   },
   {
-    title: "Transparent Process",
-    description: "Clear breakdown of pricing factors and current market rates",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
-      </svg>
-    ),
+    title: "Fast Turnaround",
+    description: "Detailed quotes delivered within 2-4 business hours",
+    icon: Zap,
+    color: "amber",
+  },
+  {
+    title: "Certified Quality",
+    description: "LBMA certified materials with full documentation",
+    icon: Award,
+    color: "purple",
   },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Submit Details",
-    description: "Fill out the estimation form with your product information",
+    title: "Submit Requirements",
+    description: "Provide your metal specifications and order quantity",
   },
   {
     number: "02",
-    title: "Expert Review",
-    description:
-      "Our team analyzes current market rates and your specifications",
+    title: "Market Analysis",
+    description: "Our team reviews current rates and availability",
   },
   {
     number: "03",
     title: "Receive Quote",
-    description: "Get a detailed estimation via email with no obligations",
+    description: "Get detailed pricing with volume discounts applied",
+  },
+  {
+    number: "04",
+    title: "Confirm & Ship",
+    description: "Approve quote and receive secure delivery",
   },
 ];
 
 const faqs = [
   {
-    question: "How accurate are your estimations?",
+    question: "What's your minimum order quantity?",
     answer:
-      "Our estimations are based on real-time market data and consider purity, weight, and current precious metal spot prices.",
+      "Minimum orders vary by metal: Gold 100g+, Silver 5kg+, Platinum/Palladium 50g+. Contact us for custom requirements.",
   },
   {
-    question: "Is there a fee for estimation?",
+    question: "How are quotes calculated?",
     answer:
-      "No, all estimation requests are completely free with no obligations to proceed.",
+      "Quotes are based on current spot prices plus applicable premiums, which vary based on form, purity, and order volume. Bulk orders receive significant discounts.",
   },
   {
-    question: "What information do I need to provide?",
+    question: "What documentation is provided?",
     answer:
-      "We need the product type, weight, purity level, and your contact details to provide an accurate estimation.",
+      "All shipments include assay certificates, chain of custody documentation, and LBMA certification where applicable.",
+  },
+  {
+    question: "Do you offer credit terms?",
+    answer:
+      "Established business partners can apply for net payment terms after credit review. New customers typically use wire transfer or escrow.",
   },
 ];
 
@@ -143,29 +140,53 @@ export default function Estimation() {
   const [formData, setFormData] = useState<FormData>({
     email: "",
     phone: "",
+    company: "",
     product: "",
     weight: "",
-    weightUnit: "g",
+    weightUnit: "kg",
     purity: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submissionState, setSubmissionState] =
     useState<SubmissionState>("idle");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [estimatedValue, setEstimatedValue] = useState<number>(0);
+
+  // Calculate estimated value in real-time
+  useEffect(() => {
+    if (formData.product && formData.weight) {
+      const selectedProduct = products.find((p) => p.name === formData.product);
+      if (selectedProduct) {
+        let weightInOz = parseFloat(formData.weight);
+
+        // Convert to troy ounces
+        if (formData.weightUnit === "g") {
+          weightInOz = weightInOz / 31.1035;
+        } else if (formData.weightUnit === "kg") {
+          weightInOz = (weightInOz * 1000) / 31.1035;
+        }
+
+        const value = weightInOz * selectedProduct.spotPrice;
+        setEstimatedValue(value);
+      }
+    } else {
+      setEstimatedValue(0);
+    }
+  }, [formData.product, formData.weight, formData.weightUnit]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Business email is required";
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = "Please enter a valid email";
     }
 
     const phoneRegex = /^[\d\s\-\+\(\)]+$/;
     if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
+      newErrors.phone = "Contact number is required";
     } else if (
       !phoneRegex.test(formData.phone) ||
       formData.phone.replace(/\D/g, "").length < 10
@@ -173,18 +194,22 @@ export default function Estimation() {
       newErrors.phone = "Please enter a valid phone number";
     }
 
+    if (!formData.company.trim()) {
+      newErrors.company = "Company name is required";
+    }
+
     if (!formData.product) {
-      newErrors.product = "Please select a product";
+      newErrors.product = "Please select a metal";
     }
 
     if (!formData.weight) {
-      newErrors.weight = "Weight is required";
+      newErrors.weight = "Quantity is required";
     } else if (isNaN(Number(formData.weight)) || Number(formData.weight) <= 0) {
-      newErrors.weight = "Please enter a valid weight";
+      newErrors.weight = "Please enter a valid quantity";
     }
 
     if (!formData.purity) {
-      newErrors.purity = "Purity is required";
+      newErrors.purity = "Purity specification is required";
     }
 
     setErrors(newErrors);
@@ -198,30 +223,35 @@ export default function Estimation() {
 
     setSubmissionState("loading");
 
-    const subject =
-      activeTab === "buy"
-        ? "Buying Estimation Request"
-        : "Selling Estimation Request";
+    const subject = `${activeTab === "buy" ? "Bulk Purchase" : "Wholesale Selling"} Quote Request - ${formData.product}`;
 
     const body = `
-Estimation Request
+Wholesale Quote Request
 
-Type: ${activeTab === "buy" ? "Buying" : "Selling"}
+Type: ${activeTab === "buy" ? "Purchase Order" : "Selling Inquiry"}
 
-Contact Information:
-- Email: ${formData.email}
+Company Information:
+- Company: ${formData.company}
+- Contact Email: ${formData.email}
 - Phone: ${formData.phone}
 
-Product Details:
-- Product: ${formData.product}
-- Weight: ${formData.weight} ${formData.weightUnit}
+Order Details:
+- Metal: ${formData.product}
+- Quantity: ${formData.weight} ${formData.weightUnit}
 - Purity: ${formData.purity}
+- Estimated Value: $${estimatedValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
 
-Please respond with an estimation at your earliest convenience.
+Please provide a detailed quote including:
+- Current market pricing
+- Applicable volume discounts
+- Available forms and delivery options
+- Payment terms
+
+Looking forward to your response.
     `.trim();
 
     try {
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@example.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=info@srgold.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
       window.open(gmailUrl, "_blank");
 
@@ -231,9 +261,10 @@ Please respond with an estimation at your earliest convenience.
         setFormData({
           email: "",
           phone: "",
+          company: "",
           product: "",
           weight: "",
-          weightUnit: "g",
+          weightUnit: "kg",
           purity: "",
         });
         setSubmissionState("idle");
@@ -253,28 +284,48 @@ Please respond with an estimation at your earliest convenience.
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 text-white">
+      {/* Grid Pattern Background */}
+      <div className="fixed inset-0 opacity-20 pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+            backgroundSize: "50px 50px",
+          }}
+        />
+      </div>
+
+      {/* Floating orbs */}
+      <div className="fixed top-1/4 -left-48 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+      <div className="fixed bottom-1/4 -right-48 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-b from-zinc-900/50 to-black pointer-events-none" />
-
         <div className="relative max-w-7xl mx-auto px-4 pt-32 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
+            className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Professional Precious Metal
-              <span className="block mt-2 bg-linear-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
-                Estimations
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 group mb-8">
+              <Calculator className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-300" />
+              <span className="text-sm text-zinc-300 font-semibold">
+                Wholesale Price Calculator
+              </span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="block text-white">Get Instant Wholesale</span>
+              <span className="block bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mt-2">
+                Precious Metals Quotes
               </span>
             </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed">
-              Get accurate, market-based valuations for your precious metals
-              from our certified specialists. Whether you&apos;re buying or
-              selling, we provide transparent pricing you can trust.
+            <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed">
+              Real-time market pricing for bulk orders. Competitive rates,
+              transparent premiums, and volume discounts for B2B partners.
             </p>
           </motion.div>
 
@@ -283,41 +334,50 @@ Please respond with an estimation at your earliest convenience.
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid md:grid-cols-3 gap-6 mt-16"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16"
           >
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-zinc-950/50 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300"
-              >
-                <div className="text-zinc-400 mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-zinc-400">{feature.description}</p>
-              </div>
-            ))}
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-1 group"
+                >
+                  <div
+                    className={`w-12 h-12 bg-linear-to-br from-${feature.color}-600 to-${feature.color === "amber" ? "yellow" : feature.color}-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm">{feature.description}</p>
+                </div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Form */}
-          <div className="lg:sticky lg:top-24">
+      <div className="max-w-7xl mx-auto px-4 py-20 relative z-10">
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
+          {/* Left Column - Form (3 columns) */}
+          <div className="lg:col-span-3">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-6">
-                Request Your Estimation
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                Request Your Quote
               </h2>
 
               {/* Tabs */}
-              <div className="relative bg-zinc-950/50 backdrop-blur-md rounded-2xl p-2 mb-6 border border-white/10">
+              <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-2 mb-6 border border-white/10">
                 <div className="grid grid-cols-2 gap-2 relative">
                   <motion.div
-                    className="absolute inset-y-0 bg-white/10 rounded-lg border border-white/20"
+                    className="absolute inset-y-0 bg-linear-to-r from-blue-600 to-cyan-600 rounded-xl shadow-lg shadow-blue-500/30"
                     initial={false}
                     animate={{
                       x: activeTab === "buy" ? 0 : "100%",
@@ -329,33 +389,31 @@ Please respond with an estimation at your earliest convenience.
                   <button
                     type="button"
                     onClick={() => setActiveTab("buy")}
-                    className={`relative z-10 py-3 rounded-lg font-semibold transition-colors duration-200 ${
+                    className={`relative z-10 py-3.5 rounded-xl font-bold transition-colors duration-200 ${
                       activeTab === "buy"
                         ? "text-white"
                         : "text-zinc-400 hover:text-white"
                     }`}
-                    aria-pressed={activeTab === "buy"}
                   >
-                    Buy
+                    Buy Wholesale
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setActiveTab("sell")}
-                    className={`relative z-10 py-3 rounded-lg font-semibold transition-colors duration-200 ${
+                    className={`relative z-10 py-3.5 rounded-xl font-bold transition-colors duration-200 ${
                       activeTab === "sell"
                         ? "text-white"
                         : "text-zinc-400 hover:text-white"
                     }`}
-                    aria-pressed={activeTab === "sell"}
                   >
-                    Sell
+                    Sell Wholesale
                   </button>
                 </div>
               </div>
 
               {/* Form */}
-              <div className="bg-zinc-950/50 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/10 hover:border-blue-400/30 transition-all duration-500">
                 <AnimatePresence mode="wait">
                   <motion.form
                     key={activeTab}
@@ -366,106 +424,163 @@ Please respond with an estimation at your earliest convenience.
                     onSubmit={handleSubmit}
                     className="space-y-5"
                   >
+                    {/* Company Name */}
                     <div>
                       <label
-                        htmlFor="email"
-                        className="block text-sm font-medium mb-2"
+                        htmlFor="company"
+                        className="block text-sm font-semibold text-zinc-300 mb-2"
                       >
-                        Email Address
+                        Company Name *
                       </label>
                       <input
-                        type="email"
-                        id="email"
-                        value={formData.email}
+                        type="text"
+                        id="company"
+                        value={formData.company}
                         onChange={(e) =>
-                          handleInputChange("email", e.target.value)
+                          handleInputChange("company", e.target.value)
                         }
-                        className={`w-full bg-zinc-900/50 border ${
-                          errors.email ? "border-red-500/50" : "border-white/10"
-                        } rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200`}
-                        placeholder="your@email.com"
+                        className={`w-full bg-white/5 border ${
+                          errors.company
+                            ? "border-red-500"
+                            : "border-white/10 hover:border-blue-400/40"
+                        } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                        placeholder="Your Company Ltd."
                         disabled={submissionState === "loading"}
                       />
-                      {errors.email && (
-                        <p className="mt-1 text-sm text-red-400">
-                          {errors.email}
+                      {errors.company && (
+                        <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                          <span>
+                            <AlertTriangle />
+                          </span>{" "}
+                          {errors.company}
                         </p>
                       )}
                     </div>
 
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium mb-2"
-                      >
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          handleInputChange("phone", e.target.value)
-                        }
-                        className={`w-full bg-zinc-900/50 border ${
-                          errors.phone ? "border-red-500/50" : "border-white/10"
-                        } rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200`}
-                        placeholder="+1 (555) 123-4567"
-                        disabled={submissionState === "loading"}
-                      />
-                      {errors.phone && (
-                        <p className="mt-1 text-sm text-red-400">
-                          {errors.phone}
-                        </p>
-                      )}
+                    {/* Email & Phone Row */}
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-semibold text-zinc-300 mb-2"
+                        >
+                          Business Email *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          value={formData.email}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
+                          className={`w-full bg-white/5 border ${
+                            errors.email
+                              ? "border-red-500"
+                              : "border-white/10 hover:border-blue-400/40"
+                          } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                          placeholder="contact@company.com"
+                          disabled={submissionState === "loading"}
+                        />
+                        {errors.email && (
+                          <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                            <span>
+                              <AlertTriangle />
+                            </span>{" "}
+                            {errors.email}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block text-sm font-semibold text-zinc-300 mb-2"
+                        >
+                          Phone Number *
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          value={formData.phone}
+                          onChange={(e) =>
+                            handleInputChange("phone", e.target.value)
+                          }
+                          className={`w-full bg-white/5 border ${
+                            errors.phone
+                              ? "border-red-500"
+                              : "border-white/10 hover:border-blue-400/40"
+                          } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                          placeholder="+1 (555) 123-4567"
+                          disabled={submissionState === "loading"}
+                        />
+                        {errors.phone && (
+                          <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                            <span>
+                              <AlertTriangle />
+                            </span>{" "}
+                            {errors.phone}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
+                    {/* Product Selection */}
                     <div>
-                      <label
-                        htmlFor="product"
-                        className="block text-sm font-medium mb-2"
-                      >
-                        Product Type
+                      <label className="block text-sm font-semibold text-zinc-300 mb-3">
+                        Select Metal *
                       </label>
-                      <select
-                        id="product"
-                        value={formData.product}
-                        onChange={(e) =>
-                          handleInputChange("product", e.target.value)
-                        }
-                        className={`w-full bg-zinc-900/50 border ${
-                          errors.product
-                            ? "border-red-500/50"
-                            : "border-white/10"
-                        } rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200 cursor-pointer`}
-                        disabled={submissionState === "loading"}
-                      >
-                        <option value="" className="bg-zinc-900">
-                          Select a product
-                        </option>
+                      <div className="grid grid-cols-2 gap-3">
                         {products.map((product) => (
-                          <option
-                            key={product}
-                            value={product}
-                            className="bg-zinc-900"
+                          <button
+                            key={product.name}
+                            type="button"
+                            onClick={() =>
+                              handleInputChange("product", product.name)
+                            }
+                            className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                              formData.product === product.name
+                                ? `border-${product.color.split("-")[1]}-500 bg-${product.color.split("-")[1]}-500/10`
+                                : "border-white/10 bg-white/5 hover:border-blue-400/40"
+                            }`}
                           >
-                            {product}
-                          </option>
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-white">
+                                {product.name}
+                              </span>
+                              <Sparkles
+                                className={`w-4 h-4 ${formData.product === product.name ? `text-${product.color.split("-")[1]}-400` : "text-zinc-500"}`}
+                              />
+                            </div>
+                            <div className="text-left mt-2">
+                              <span className="text-xs text-zinc-500">
+                                Spot Price
+                              </span>
+                              <div
+                                className={`text-lg font-bold bg-linear-to-r ${product.color} bg-clip-text text-transparent`}
+                              >
+                                ${product.spotPrice}/oz
+                              </div>
+                            </div>
+                          </button>
                         ))}
-                      </select>
+                      </div>
                       {errors.product && (
-                        <p className="mt-1 text-sm text-red-400">
+                        <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                          <span>
+                            <AlertTriangle />
+                          </span>{" "}
                           {errors.product}
                         </p>
                       )}
                     </div>
 
+                    {/* Weight Input */}
                     <div>
                       <label
                         htmlFor="weight"
-                        className="block text-sm font-medium mb-2"
+                        className="block text-sm font-semibold text-zinc-300 mb-2"
                       >
-                        Weight
+                        Quantity *
                       </label>
                       <div className="flex gap-3">
                         <div className="flex-1">
@@ -476,19 +591,14 @@ Please respond with an estimation at your earliest convenience.
                             onChange={(e) =>
                               handleInputChange("weight", e.target.value)
                             }
-                            className={`w-full bg-zinc-900/50 border ${
+                            className={`w-full bg-white/5 border ${
                               errors.weight
-                                ? "border-red-500/50"
-                                : "border-white/10"
-                            } rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200`}
-                            placeholder="0.00"
+                                ? "border-red-500"
+                                : "border-white/10 hover:border-blue-400/40"
+                            } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                            placeholder="100"
                             disabled={submissionState === "loading"}
                           />
-                          {errors.weight && (
-                            <p className="mt-1 text-sm text-red-400">
-                              {errors.weight}
-                            </p>
-                          )}
                         </div>
 
                         <select
@@ -496,29 +606,37 @@ Please respond with an estimation at your earliest convenience.
                           onChange={(e) =>
                             handleInputChange("weightUnit", e.target.value)
                           }
-                          className="bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200 cursor-pointer min-w-30"
+                          className="bg-white/5 border border-white/10 hover:border-blue-400/40 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200 cursor-pointer min-w-32"
                           disabled={submissionState === "loading"}
-                          aria-label="Weight unit"
                         >
                           {weightUnits.map((unit) => (
                             <option
                               key={unit.value}
                               value={unit.value}
-                              className="bg-zinc-900"
+                              className="bg-slate-950"
                             >
                               {unit.label}
                             </option>
                           ))}
                         </select>
                       </div>
+                      {errors.weight && (
+                        <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                          <span>
+                            <AlertTriangle />
+                          </span>{" "}
+                          {errors.weight}
+                        </p>
+                      )}
                     </div>
 
+                    {/* Purity */}
                     <div>
                       <label
                         htmlFor="purity"
-                        className="block text-sm font-medium mb-2"
+                        className="block text-sm font-semibold text-zinc-300 mb-2"
                       >
-                        Purity
+                        Purity Requirement *
                       </label>
                       <input
                         type="text"
@@ -527,20 +645,50 @@ Please respond with an estimation at your earliest convenience.
                         onChange={(e) =>
                           handleInputChange("purity", e.target.value)
                         }
-                        className={`w-full bg-zinc-900/50 border ${
+                        className={`w-full bg-white/5 border ${
                           errors.purity
-                            ? "border-red-500/50"
-                            : "border-white/10"
-                        } rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500/50 transition-all duration-200`}
-                        placeholder="e.g., 99.99%, 24K, 999"
+                            ? "border-red-500"
+                            : "border-white/10 hover:border-blue-400/40"
+                        } rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 transition-all duration-200`}
+                        placeholder="e.g., 99.99%, .9999, 24K"
                         disabled={submissionState === "loading"}
                       />
                       {errors.purity && (
-                        <p className="mt-1 text-sm text-red-400">
+                        <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+                          <span>
+                            <AlertTriangle />
+                          </span>{" "}
                           {errors.purity}
                         </p>
                       )}
                     </div>
+
+                    {/* Estimated Value Display */}
+                    {estimatedValue > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-linear-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 rounded-xl p-4"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-zinc-400">
+                            Estimated Market Value
+                          </span>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-white">
+                              $
+                              {estimatedValue.toLocaleString("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </div>
+                            <div className="text-xs text-zinc-500">
+                              Based on spot price
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
 
                     <button
                       type="submit"
@@ -548,22 +696,36 @@ Please respond with an estimation at your earliest convenience.
                         submissionState === "loading" ||
                         submissionState === "success"
                       }
-                      className={`w-full py-4 rounded-lg font-semibold transition-all duration-300 ${
+                      className={`group w-full py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                         submissionState === "success"
                           ? "bg-green-600 text-white"
                           : submissionState === "error"
                             ? "bg-red-600 text-white"
                             : submissionState === "loading"
-                              ? "bg-zinc-800 text-zinc-400 cursor-not-allowed"
-                              : "bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-amber-500/50"
+                              ? "bg-zinc-700 text-zinc-400 cursor-not-allowed"
+                              : "bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
                       }`}
                     >
-                      {submissionState === "loading" && "Processing..."}
-                      {submissionState === "success" && "✓ Request Sent"}
+                      {submissionState === "loading" && (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Processing...
+                        </>
+                      )}
+                      {submissionState === "success" &&
+                        "✓ Request Sent Successfully"}
                       {submissionState === "error" &&
                         "Error - Please Try Again"}
-                      {submissionState === "idle" &&
-                        `Request ${activeTab === "buy" ? "Buying" : "Selling"} Estimation`}
+                      {submissionState === "idle" && (
+                        <>
+                          <FileText className="w-5 h-5" />
+                          Request {activeTab === "buy"
+                            ? "Purchase"
+                            : "Selling"}{" "}
+                          Quote
+                          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </>
+                      )}
                     </button>
 
                     {submissionState === "success" && (
@@ -582,88 +744,35 @@ Please respond with an estimation at your earliest convenience.
             </motion.div>
           </div>
 
-          {/* Right Column - Process & FAQs */}
-          <div className="space-y-12">
+          {/* Right Column - Info (2 columns) */}
+          <div className="lg:col-span-2 space-y-8">
             {/* How It Works */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10"
             >
-              <h2 className="text-3xl font-bold mb-8">How It Works</h2>
-              <div className="space-y-6">
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+                <Globe className="w-6 h-6 text-cyan-400" />
+                How It Works
+              </h3>
+              <div className="space-y-4">
                 {steps.map((step, index) => (
-                  <div key={index} className="flex gap-6 group">
+                  <div key={index} className="flex gap-4 group">
                     <div className="shrink-0">
-                      <div className="w-16 h-16 rounded-xl bg-linear-to-br from-zinc-900 to-zinc-950 border border-white/10 flex items-center justify-center font-bold text-amber-500 group-hover:border-amber-500/50 transition-all duration-300">
+                      <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-600 to-cyan-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
                         {step.number}
                       </div>
                     </div>
-                    <div className="flex-1 pt-2">
-                      <h3 className="text-xl font-semibold mb-2">
+                    <div className="flex-1 pt-1">
+                      <h4 className="font-bold text-white mb-1">
                         {step.title}
-                      </h3>
-                      <p className="text-zinc-400">{step.description}</p>
+                      </h4>
+                      <p className="text-sm text-zinc-400">
+                        {step.description}
+                      </p>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* FAQs */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <h2 className="text-3xl font-bold mb-8">
-                Frequently Asked Questions
-              </h2>
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <div
-                    key={index}
-                    className="bg-zinc-950/50 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300"
-                  >
-                    <button
-                      onClick={() =>
-                        setOpenFaq(openFaq === index ? null : index)
-                      }
-                      className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
-                    >
-                      <span className="font-semibold text-lg">
-                        {faq.question}
-                      </span>
-                      <svg
-                        className={`w-5 h-5 shrink-0 transition-transform duration-300 ${
-                          openFaq === index ? "rotate-180" : ""
-                        }`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
-                    <AnimatePresence>
-                      {openFaq === index && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="px-6 pb-5 text-zinc-400 border-t border-white/10 pt-4">
-                            {faq.answer}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
                 ))}
               </div>
@@ -673,94 +782,124 @@ Please respond with an estimation at your earliest convenience.
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-linear-to-br from-zinc-900 to-zinc-950 rounded-2xl p-8 border border-white/10 text-center"
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="bg-linear-to-br from-blue-600/20 to-cyan-600/20 rounded-2xl p-6 border border-blue-400/30"
             >
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-zinc-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shrink-0">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-2">
+                    Trusted B2B Partner
+                  </h4>
+                  <p className="text-sm text-zinc-400 leading-relaxed">
+                    All quotes are confidential and based on real-time market
+                    data. LBMA certified materials with full documentation.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">
-                Secure & Confidential
-              </h3>
-              <p className="text-zinc-400">
-                All estimation requests are handled with complete
-                confidentiality. Your information is never shared with third
-                parties.
-              </p>
             </motion.div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10 text-center">
+                <div className="text-2xl font-bold text-cyan-400 mb-1">
+                  2-4h
+                </div>
+                <div className="text-xs text-zinc-400">Quote Response</div>
+              </div>
+              <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10 text-center">
+                <div className="text-2xl font-bold text-blue-400 mb-1">
+                  500+
+                </div>
+                <div className="text-xs text-zinc-400">Active Partners</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom CTA */}
-      <div className="max-w-7xl mx-auto px-4 pb-20">
+        {/* FAQs Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-zinc-400 text-lg">
+              Common questions about wholesale precious metals trading
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white/5 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden hover:border-blue-400/40 transition-all duration-300"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition-colors"
+                >
+                  <span className="font-semibold text-lg text-white">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 shrink-0 text-cyan-400 transition-transform duration-300 ${
+                      openFaq === index ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {openFaq === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="px-6 pb-5 text-zinc-400 border-t border-white/10 pt-4">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-linear-to-r from-zinc-900 to-zinc-950 rounded-2xl p-12 border border-white/10 text-center"
+          className="mt-20 bg-white/5 backdrop-blur-xl rounded-2xl p-12 border border-white/10 text-center hover:border-blue-400/30 transition-all duration-500"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Get Your Estimation?
-          </h2>
+          <Building2 className="w-16 h-16 text-cyan-400 mx-auto mb-6" />
+          <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            Ready to Partner With Us?
+          </h3>
           <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust us for accurate
-            precious metal valuations. No obligations, completely free.
+            Join hundreds of businesses worldwide who trust us for reliable
+            precious metals supply at competitive wholesale rates.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-zinc-500">
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>Free Estimation</span>
+          <div className="flex flex-wrap items-center justify-center gap-8 text-sm">
+            <div className="flex items-center gap-2 text-zinc-400">
+              <Shield className="w-5 h-5 text-green-400" />
+              <span>LBMA Certified</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>24hr Response</span>
+            <div className="flex items-center gap-2 text-zinc-400">
+              <Clock className="w-5 h-5 text-blue-400" />
+              <span>Fast Quotes</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>No Obligations</span>
+            <div className="flex items-center gap-2 text-zinc-400">
+              <TrendingUp className="w-5 h-5 text-cyan-400" />
+              <span>Volume Discounts</span>
             </div>
           </div>
         </motion.div>

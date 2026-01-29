@@ -62,7 +62,7 @@ export function CTASection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 lg:py-32 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
+      className="py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
     >
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 opacity-30">
@@ -77,7 +77,7 @@ export function CTASection() {
 
       {/* Dynamic gradient orbs that follow mouse */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-3xl transition-all duration-700"
+        className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-700"
         style={{
           background:
             "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(34,211,238,0.1) 50%, transparent 70%)",
@@ -87,7 +87,7 @@ export function CTASection() {
         }}
       />
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-3xl transition-all duration-1000"
+        className="absolute w-125 h-125 rounded-full blur-3xl transition-all duration-1000"
         style={{
           background:
             "radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 70%)",
@@ -116,7 +116,7 @@ export function CTASection() {
 
               {/* Main icon container */}
               <div className="relative w-20 h-20 bg-white/5 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/10 group-hover:border-blue-400/40 transition-all duration-300 group-hover:scale-110">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-amber-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-500/20 to-amber-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Sparkles className="relative text-amber-400 w-9 h-9 group-hover:rotate-12 transition-transform duration-300" />
               </div>
             </div>
@@ -126,10 +126,10 @@ export function CTASection() {
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
             <span className="block text-white">Start Your Gold</span>
             <span className="block mt-2 relative">
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
+              <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
                 Collection Journey
               </span>
-              <span className="relative bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
+              <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
                 Collection Journey
               </span>
             </span>
@@ -146,10 +146,10 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             {/* Primary Button */}
             <Link href="/our-products" className="group relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-500 animate-gradient-x" />
-              <div className="relative bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-5 rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">
+              <div className="absolute -inset-1 bg-linear-to-r from-blue-600 via-cyan-600 to-blue-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-500 animate-gradient-x" />
+              <div className="relative bg-linear-to-r from-blue-600 to-cyan-600 text-white px-10 py-5 rounded-xl font-bold text-lg overflow-hidden hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">
                 {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/30 to-transparent" />
                 <span className="relative flex items-center justify-center gap-3">
                   Browse Collection
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
@@ -163,7 +163,7 @@ export function CTASection() {
               className="group relative bg-white/5 backdrop-blur-xl text-white px-10 py-5 rounded-xl font-bold text-lg border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
               {/* Gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                 Schedule Consultation
@@ -175,7 +175,7 @@ export function CTASection() {
           <div className="relative">
             {/* Connection lines (subtle) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
+              <div className="w-full max-w-4xl h-px bg-linear-to-r from-transparent via-blue-400/20 to-transparent" />
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
@@ -223,7 +223,7 @@ export function CTASection() {
                   >
                     {/* Glow effect */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${colorScheme.bg} rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      className={`absolute inset-0 bg-linear-to-br ${colorScheme.bg} rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                     />
 
                     {/* Badge */}
@@ -233,7 +233,7 @@ export function CTASection() {
                       <div className="relative">
                         {/* Icon glow ring */}
                         <div
-                          className={`absolute inset-0 bg-gradient-to-br ${colorScheme.bg} rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                          className={`absolute inset-0 bg-linear-to-br ${colorScheme.bg} rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                         />
                         <Icon
                           className={`relative ${colorScheme.icon} w-5 h-5 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}

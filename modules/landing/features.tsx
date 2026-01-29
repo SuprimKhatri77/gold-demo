@@ -112,7 +112,7 @@ export function Quality() {
     <section
       ref={sectionRef}
       id="quality"
-      className="py-24 lg:py-32 bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
+      className="py-24 lg:py-32 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative overflow-hidden"
     >
       {/* Animated Grid Background */}
       <div className="absolute inset-0 opacity-30">
@@ -163,7 +163,7 @@ export function Quality() {
 
       {/* Morphing Gradient Orbs */}
       <div
-        className="absolute w-[600px] h-[600px] rounded-full blur-3xl transition-all duration-1000 ease-out"
+        className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-1000 ease-out"
         style={{
           left: `${mousePosition.x}%`,
           top: `${mousePosition.y}%`,
@@ -173,7 +173,7 @@ export function Quality() {
         }}
       />
       <div
-        className="absolute w-[500px] h-[500px] rounded-full blur-3xl animate-pulse"
+        className="absolute w-125 h-125 rounded-full blur-3xl animate-pulse"
         style={{
           left: `${100 - mousePosition.x}%`,
           top: `${100 - mousePosition.y}%`,
@@ -205,7 +205,7 @@ export function Quality() {
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="block text-white">Unmatched Quality &</span>
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
+            <span className="block bg-linear-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
               Trust Since 1985
             </span>
           </h2>
@@ -314,7 +314,7 @@ export function Quality() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300">
+                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-blue-400 transition-all duration-300">
                       {feature.title}
                     </h3>
 
@@ -348,16 +348,16 @@ export function Quality() {
         <div className="relative group">
           {/* Animated gradient border */}
           <div
-            className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient-x"
+            className="absolute inset-0 rounded-2xl bg-linear-to-r from-blue-500 via-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient-x"
             style={{ padding: "2px" }}
           >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950" />
+            <div className="absolute inset-0 rounded-2xl bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
           </div>
 
           <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl lg:rounded-3xl p-8 lg:p-12 border border-white/10 group-hover:border-blue-400/40 transition-all duration-500">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
                   Ready to Explore Our Collection?
                 </h3>
                 <p className="text-zinc-400 text-lg leading-relaxed">
@@ -367,10 +367,10 @@ export function Quality() {
               </div>
               <Link
                 href="/contact"
-                className="group/btn relative bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-semibold text-lg flex items-center gap-3 whitespace-nowrap shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden"
+                className="group/btn relative bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-10 py-4 rounded-xl transition-all duration-300 font-semibold text-lg flex items-center gap-3 whitespace-nowrap shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-1 overflow-hidden"
               >
                 {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 <span className="relative">Book Consultation</span>
                 <ArrowRight
                   size={20}

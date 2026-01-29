@@ -8,7 +8,7 @@ import { Quality } from "./features";
 import { Testimonials } from "./testimonial";
 import { Insights } from "./insights";
 import { CTASection } from "./cta";
-import { Contact } from "./contact";
+// import { Contact } from "./contact";
 
 export const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);

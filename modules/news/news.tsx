@@ -19,10 +19,10 @@ export interface NewsItem {
 export const mockNews: NewsItem[] = [
   {
     id: "1",
-    title: "Gold Prices Reach New Heights Amid Global Economic Uncertainty",
+    title: "Precious Metals Market Analysis: Q1 2026 Industrial Demand Surge",
     description:
-      "Recent market analysis shows gold prices climbing to unprecedented levels as investors seek safe-haven assets. Economic turbulence and geopolitical tensions continue to drive demand for precious metals, with analysts predicting sustained growth throughout the quarter.",
-    tags: ["Market Analysis", "Price Updates", "Investment"],
+      "Industrial consumption of platinum and palladium reaches record highs as automotive and technology sectors accelerate production. B2B suppliers report increased institutional orders with platinum futures climbing 12% amid supply chain optimization and strategic inventory building.",
+    tags: ["Market Analysis", "Industrial Metals", "B2B Trends"],
     images: [
       "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80",
     ],
@@ -33,10 +33,10 @@ export const mockNews: NewsItem[] = [
   {
     id: "2",
     title:
-      "Understanding the Gold-to-Silver Ratio: Investment Insights for 2026",
+      "Strategic Procurement: Silver's Role in Green Technology Manufacturing",
     description:
-      "The gold-to-silver ratio has reached historically significant levels, presenting unique opportunities for strategic investors. Our experts break down what this means for your portfolio and how to capitalize on precious metal market dynamics in the current economic climate.",
-    tags: ["Investment Strategy", "Market Analysis", "Silver"],
+      "Corporate buyers increase silver procurement for solar panel production and electrical components. Analysis reveals silver's critical position in renewable energy supply chains, with B2B contracts showing 18-month forward commitments from major manufacturers seeking price stability.",
+    tags: ["Supply Chain", "Silver", "Manufacturing"],
     images: [
       "https://images.unsplash.com/photo-1611095790444-1dfa35e37b52?w=800&q=80",
     ],
@@ -46,10 +46,10 @@ export const mockNews: NewsItem[] = [
   },
   {
     id: "3",
-    title: "Central Banks Increase Gold Reserves: What It Means for Investors",
+    title: "Institutional Gold Reserves: Central Bank Purchasing Patterns",
     description:
-      "Major central banks worldwide have accelerated their gold acquisition programs, adding substantial reserves in recent months. This strategic shift signals growing confidence in gold as a monetary anchor and has significant implications for private investors and institutional portfolios.",
-    tags: ["Central Banks", "Global Markets", "Investment"],
+      "Global central banks accelerate gold acquisition programs with record Q4 2025 purchases. Strategic analysis for institutional buyers examines implications for corporate treasury management, reserve diversification strategies, and bulk procurement opportunities in the wholesale metals market.",
+    tags: ["Institutional", "Gold Reserves", "Treasury Management"],
     images: [
       "https://images.unsplash.com/photo-1621981386829-9b458a2cddde?w=800&q=80",
     ],
@@ -59,10 +59,11 @@ export const mockNews: NewsItem[] = [
   },
   {
     id: "4",
-    title: "Sustainable Gold Mining: The Future of Responsible Investment",
+    title:
+      "ESG Compliance in Metals Sourcing: Supply Chain Certification Standards",
     description:
-      "Environmental and social governance considerations are reshaping the gold mining industry. Discover how leading companies are implementing sustainable practices and what this means for ethical investors seeking to align their portfolios with ESG principles.",
-    tags: ["Sustainability", "ESG", "Mining"],
+      "New international standards reshape precious metals procurement for corporate buyers. Leading B2B suppliers implement blockchain-verified sourcing and sustainability certifications, addressing institutional ESG requirements and ethical supply chain mandates for responsible metals trading.",
+    tags: ["ESG Standards", "Supply Chain", "Compliance"],
     images: [
       "https://images.unsplash.com/photo-1541960071727-c531398e7494?w=800&q=80",
     ],
@@ -72,10 +73,10 @@ export const mockNews: NewsItem[] = [
   },
   {
     id: "5",
-    title: "Digital Gold vs Physical Gold: Comparing Investment Vehicles",
+    title: "Palladium Procurement Strategies for Automotive Industry Partners",
     description:
-      "The rise of blockchain technology has introduced new ways to invest in gold, from tokenized assets to digital certificates. We examine the advantages and considerations of digital gold platforms compared to traditional physical gold ownership and storage solutions.",
-    tags: ["Digital Assets", "Technology", "Investment Comparison"],
+      "Automotive manufacturers optimize palladium sourcing amid price volatility. B2B market analysis reveals strategic hedging instruments, long-term supply agreements, and alternative sourcing channels. Expert insights on managing industrial metals procurement in volatile market conditions.",
+    tags: ["Automotive", "Palladium", "Procurement Strategy"],
     images: [
       "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&q=80",
     ],
@@ -85,10 +86,10 @@ export const mockNews: NewsItem[] = [
   },
   {
     id: "6",
-    title: "Quarterly Market Report: Gold Performance Analysis Q4 2025",
+    title: "Wholesale Metals Market Report: B2B Trading Volumes Q4 2025",
     description:
-      "Our comprehensive quarterly review examines gold market performance, key trends, and factors influencing price movements. Detailed analysis includes macroeconomic indicators, currency correlations, and forward-looking projections for informed investment decision-making.",
-    tags: ["Quarterly Report", "Market Analysis", "Performance"],
+      "Comprehensive analysis of institutional trading activity across gold, silver, platinum, and palladium markets. B2B transaction volumes, price discovery mechanisms, and forward-looking projections for corporate procurement teams and wholesale trading partners navigating global metals markets.",
+    tags: ["Market Report", "B2B Trading", "Wholesale"],
     images: [
       "https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80",
     ],
@@ -138,26 +139,43 @@ export const NewsPage: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen ">
-      <NewsHero />
+    <div className="min-h-screen bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 relative">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
+            backgroundSize: "50px 50px",
+          }}
+        ></div>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <NewsList news={filteredNews} isLoading={isLoading} />
-          </div>
+      {/* Floating Gradient Orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-          <div className="lg:col-span-1">
-            <div className="lg:sticky lg:top-6">
-              <NewsSidebar
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                suggestedNews={mockNews}
-              />
+      <div className="relative">
+        <NewsHero />
+
+        <main className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <NewsList news={filteredNews} isLoading={isLoading} />
+            </div>
+
+            <div className="lg:col-span-1">
+              <div className="lg:sticky lg:top-6">
+                <NewsSidebar
+                  searchQuery={searchQuery}
+                  onSearchChange={setSearchQuery}
+                  suggestedNews={mockNews}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

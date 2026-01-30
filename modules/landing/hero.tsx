@@ -115,7 +115,7 @@ export const Hero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950"
+      className="relative min-h-screen  flex items-center justify-center overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950"
     >
       {/* Liquid Morphing Background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -251,7 +251,7 @@ export const Hero = () => {
                       : undefined
                   }
                 >
-                  Professional
+                  B2B Precious
                 </span>
                 <span
                   className="block mt-1"
@@ -266,10 +266,10 @@ export const Hero = () => {
                 >
                   <span className="relative">
                     <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
-                      Precious Metals
+                      Metals
                     </span>
                     <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                      Precious Metals
+                      Metals
                     </span>
                   </span>
                 </span>
@@ -356,9 +356,9 @@ export const Hero = () => {
                   {/* Header */}
                   <div className="flex items-center justify-between shrink-0">
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                      {/* <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                         Today&apos;s Rates
-                      </h3>
+                      </h3> */}
                       <p className="text-xs sm:text-sm text-zinc-400">
                         Live wholesale pricing
                       </p>
@@ -434,14 +434,14 @@ export const Hero = () => {
                   </div>
 
                   {/* Pricing Note */}
-                  <div className="pt-4 border-t border-white/10 shrink-0">
+                  {/* <div className="pt-4 border-t border-white/10 shrink-0">
                     <p className="text-xs text-zinc-500 text-center">
                       Wholesale pricing available for bulk orders •{" "}
                       <span className="text-cyan-400">
                         Volume discounts apply
                       </span>
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

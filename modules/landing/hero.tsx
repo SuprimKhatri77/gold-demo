@@ -26,10 +26,19 @@ export const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const [time, setTime] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Detect mobile devices
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
+      if (heroRef.current && !isMobile) {
         const rect = heroRef.current.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -38,23 +47,31 @@ export const Hero = () => {
     };
 
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (!isMobile) {
+        setScrollY(window.scrollY);
+      }
     };
 
-    // Animated time for wave effects
-    const interval = setInterval(() => {
-      setTime((prev) => prev + 1);
-    }, 50);
+    // Animated time for wave effects - only on desktop
+    let interval: NodeJS.Timeout | null = null;
+    if (!isMobile) {
+      interval = setInterval(() => {
+        setTime((prev) => prev + 1);
+      }, 50);
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("scroll", handleScroll);
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("scroll", handleScroll);
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
-      clearInterval(interval);
+      window.removeEventListener("resize", checkMobile);
+      if (interval) clearInterval(interval);
     };
-  }, []);
+  }, [isMobile]);
 
   const metals = [
     {
@@ -102,69 +119,108 @@ export const Hero = () => {
     >
       {/* Liquid Morphing Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Grid with Perspective */}
-        <div
-          className="absolute inset-0 opacity-20 transition-all duration-700"
-          style={{
-            backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-            transform: `perspective(1000px) rotateX(${scrollY * 0.02}deg) translateY(${scrollY * 0.1}px)`,
-          }}
-        />
-
-        {/* Morphing Gradient Blobs */}
-        <div
-          className="absolute w-200 h-200 rounded-full blur-3xl transition-all duration-1000 ease-out"
-          style={{
-            background: `radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(34,211,238,0.1) 50%, transparent 70%)`,
-            left: `${mousePosition.x * 0.5}%`,
-            top: `${mousePosition.y * 0.3}%`,
-            transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.05) * 0.1})`,
-          }}
-        />
-        <div
-          className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-1000 ease-out"
-          style={{
-            background: `radial-gradient(circle, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.05) 50%, transparent 70%)`,
-            right: `${mousePosition.x * 0.3}%`,
-            bottom: `${mousePosition.y * 0.2}%`,
-            transform: `translate(50%, 50%) scale(${1 + Math.cos(time * 0.05) * 0.1})`,
-          }}
-        />
-        <div
-          className="absolute w-175 h-175 rounded-full blur-3xl"
-          style={{
-            background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)`,
-            left: "50%",
-            top: "50%",
-            transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.03) * 0.15})`,
-          }}
-        />
-
-        {/* Floating Particles */}
-        {PARTICLES.map((particle) => (
+        {/* Animated Grid with Perspective - Disabled on mobile for performance */}
+        {!isMobile && (
           <div
-            key={particle.id}
-            className="absolute rounded-full animate-float-particle"
+            className="absolute inset-0 opacity-20 transition-all duration-700"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              background:
-                particle.id % 4 === 0
-                  ? "rgba(251, 191, 36, 0.4)"
-                  : particle.id % 4 === 1
-                    ? "rgba(59, 130, 246, 0.4)"
-                    : particle.id % 4 === 2
-                      ? "rgba(34, 211, 238, 0.4)"
-                      : "rgba(168, 85, 247, 0.4)",
-              boxShadow: "0 0 20px currentColor",
-              animationDuration: `${particle.duration}s`,
-              animationDelay: `${particle.delay}s`,
+              backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+              transform: `perspective(1000px) rotateX(${scrollY * 0.02}deg) translateY(${scrollY * 0.1}px)`,
             }}
           />
-        ))}
+        )}
+
+        {/* Static grid for mobile */}
+        {isMobile && (
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+        )}
+
+        {/* Morphing Gradient Blobs - Static on mobile */}
+        {!isMobile ? (
+          <>
+            <div
+              className="absolute w-200 h-200 rounded-full blur-3xl transition-all duration-1000 ease-out"
+              style={{
+                background: `radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(34,211,238,0.1) 50%, transparent 70%)`,
+                left: `${mousePosition.x * 0.5}%`,
+                top: `${mousePosition.y * 0.3}%`,
+                transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.05) * 0.1})`,
+              }}
+            />
+            <div
+              className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-1000 ease-out"
+              style={{
+                background: `radial-gradient(circle, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.05) 50%, transparent 70%)`,
+                right: `${mousePosition.x * 0.3}%`,
+                bottom: `${mousePosition.y * 0.2}%`,
+                transform: `translate(50%, 50%) scale(${1 + Math.cos(time * 0.05) * 0.1})`,
+              }}
+            />
+            <div
+              className="absolute w-175 h-175 rounded-full blur-3xl"
+              style={{
+                background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)`,
+                left: "50%",
+                top: "50%",
+                transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.03) * 0.15})`,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <div
+              className="absolute w-200 h-200 rounded-full blur-3xl"
+              style={{
+                background: `radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(34,211,238,0.08) 50%, transparent 70%)`,
+                left: "25%",
+                top: "25%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+            <div
+              className="absolute w-150 h-150 rounded-full blur-3xl"
+              style={{
+                background: `radial-gradient(circle, rgba(251,191,36,0.08) 0%, rgba(245,158,11,0.04) 50%, transparent 70%)`,
+                right: "25%",
+                bottom: "25%",
+                transform: "translate(50%, 50%)",
+              }}
+            />
+          </>
+        )}
+
+        {/* Floating Particles - Desktop only */}
+        {!isMobile &&
+          PARTICLES.map((particle) => (
+            <div
+              key={particle.id}
+              className="absolute rounded-full animate-float-particle"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                background:
+                  particle.id % 4 === 0
+                    ? "rgba(251, 191, 36, 0.4)"
+                    : particle.id % 4 === 1
+                      ? "rgba(59, 130, 246, 0.4)"
+                      : particle.id % 4 === 2
+                        ? "rgba(34, 211, 238, 0.4)"
+                        : "rgba(168, 85, 247, 0.4)",
+                boxShadow: "0 0 20px currentColor",
+                animationDuration: `${particle.duration}s`,
+                animationDelay: `${particle.delay}s`,
+              }}
+            />
+          ))}
       </div>
 
       {/* Main Content */}
@@ -173,35 +229,40 @@ export const Hero = () => {
           {/* Left Column - Text Content */}
           <div
             className="space-y-6 sm:space-y-8 text-center lg:text-left"
-            style={{
-              transform: `translateY(${scrollY * 0.1}px)`,
-            }}
+            style={
+              !isMobile
+                ? {
+                    transform: `translateY(${scrollY * 0.1}px)`,
+                  }
+                : undefined
+            }
           >
-            {/* Badge with Shimmer */}
-            {/* <div className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:border-blue-400/40 transition-all duration-300 group relative overflow-hidden">
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/10 to-transparent" />
-              <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
-              <span className="text-xs sm:text-sm text-zinc-300 font-semibold relative z-10">
-                B2B Precious Metals Trading
-              </span>
-            </div> */}
-
             {/* Main Heading with 3D Effect */}
             <div className="space-y-6 sm:space-y-8">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.15] tracking-tight">
                 <span
-                  className="block transition-all duration-300"
-                  style={{
-                    transform: `translateX(${(mousePosition.x - 50) * 0.02}px) translateY(${(mousePosition.y - 50) * 0.02}px)`,
-                  }}
+                  className="block"
+                  style={
+                    !isMobile
+                      ? {
+                          transform: `translateX(${(mousePosition.x - 50) * 0.02}px) translateY(${(mousePosition.y - 50) * 0.02}px)`,
+                          transition: "transform 0.3s ease-out",
+                        }
+                      : undefined
+                  }
                 >
                   Professional
                 </span>
                 <span
-                  className="block mt-1 transition-all duration-300"
-                  style={{
-                    transform: `translateX(${(mousePosition.x - 50) * -0.02}px) translateY(${(mousePosition.y - 50) * -0.02}px)`,
-                  }}
+                  className="block mt-1"
+                  style={
+                    !isMobile
+                      ? {
+                          transform: `translateX(${(mousePosition.x - 50) * -0.02}px) translateY(${(mousePosition.y - 50) * -0.02}px)`,
+                          transition: "transform 0.3s ease-out",
+                        }
+                      : undefined
+                  }
                 >
                   <span className="relative">
                     <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
@@ -213,7 +274,7 @@ export const Hero = () => {
                   </span>
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-2xl leading-relaxed font-light">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-2xl leading-relaxed font-light mx-auto lg:mx-0">
                 Your trusted partner for{" "}
                 <span className="text-white font-medium">bulk trading</span> of
                 gold, silver, platinum, and palladium. Competitive pricing,
@@ -221,29 +282,21 @@ export const Hero = () => {
               </p>
             </div>
 
-            {/* CTA Buttons with Advanced Effects */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-4 sm:px-0">
+            {/* CTA Button - Full Width */}
+            <div className="flex justify-center lg:justify-start px-4 sm:px-0">
               <Link
                 href="/contact"
-                className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-blue-600 to-cyan-600 text-white  font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
+                className="group relative w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
               >
                 {/* Animated gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/30 to-transparent" />
+                {/* Shimmer effect - disabled on mobile for performance */}
+                {!isMobile && (
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/30 to-transparent" />
+                )}
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Request Quote
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                </span>
-              </Link>
-
-              <Link
-                href="/contact"
-                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/5 backdrop-blur-xl text-white  font-bold border border-white/10 hover:border-blue-400/50 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  Become a Partner
-                  <Globe className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
               </Link>
             </div>
@@ -275,25 +328,33 @@ export const Hero = () => {
           {/* Right Column - Floating Metal Cards */}
           <div
             className="relative mt-8 lg:mt-0"
-            style={{
-              transform: `translateY(${scrollY * -0.05}px)`,
-            }}
+            style={
+              !isMobile
+                ? {
+                    transform: `translateY(${scrollY * -0.05}px)`,
+                  }
+                : undefined
+            }
           >
             {/* Main Card - 3D Perspective */}
             <div
-              className="relative perspective-1000"
-              style={{
-                transform: `rotateY(${(mousePosition.x - 50) * 0.1}deg) rotateX(${(mousePosition.y - 50) * -0.1}deg)`,
-                transition: "transform 0.3s ease-out",
-              }}
+              className={!isMobile ? "relative perspective-1000" : "relative"}
+              style={
+                !isMobile
+                  ? {
+                      transform: `rotateY(${(mousePosition.x - 50) * 0.1}deg) rotateX(${(mousePosition.y - 50) * -0.1}deg)`,
+                      transition: "transform 0.3s ease-out",
+                    }
+                  : undefined
+              }
             >
-              <div className="group relative p-6 sm:p-8 bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20">
+              <div className="group relative p-6 sm:p-8 bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 min-h-100 sm:min-h-112.5">
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative space-y-5 sm:space-y-6">
+                <div className="relative space-y-5 sm:space-y-6 h-full flex flex-col">
                   {/* Header */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between shrink-0">
                     <div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                         Today&apos;s Rates
@@ -310,17 +371,17 @@ export const Hero = () => {
                     </div>
                   </div>
 
-                  {/* Metals Grid - IMPROVED HOVER STATE */}
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {/* Metals Grid - Fixed height */}
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 flex-1">
                     {metals.map((metal, index) => (
                       <div
                         key={metal.name}
-                        className="group/card relative p-4 sm:p-5 rounded-xs bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-blue-400/40 transition-all duration-300 cursor-pointer overflow-hidden hover:-translate-y-1 hover:bg-slate-800/60"
+                        className={`group/card relative p-4 sm:p-5 rounded-xs bg-slate-900/50 backdrop-blur-sm border border-white/10 transition-all duration-300 cursor-pointer overflow-hidden ${!isMobile ? "hover:border-blue-400/40 hover:-translate-y-1 hover:bg-slate-800/60" : ""}`}
                         style={{
                           animationDelay: `${index * 100}ms`,
                         }}
                       >
-                        {/* Subtle glow on hover - REDUCED OPACITY */}
+                        {/* Subtle glow on hover */}
                         <div
                           className="absolute inset-0 opacity-0 group-hover/card:opacity-20 transition-opacity duration-500 blur-2xl pointer-events-none"
                           style={{
@@ -328,7 +389,7 @@ export const Hero = () => {
                           }}
                         />
 
-                        {/* Very subtle gradient overlay - MUCH LIGHTER */}
+                        {/* Very subtle gradient overlay */}
                         <div
                           className={`absolute inset-0 opacity-0 group-hover/card:opacity-5 transition-opacity duration-500 bg-linear-to-br ${metal.color} pointer-events-none`}
                         />
@@ -351,12 +412,12 @@ export const Hero = () => {
                             {metal.name}
                           </h4>
 
-                          {/* Price - ALWAYS READABLE */}
+                          {/* Price */}
                           <div className="text-xl sm:text-2xl font-bold text-white mb-2 drop-shadow-lg">
                             {metal.price}
                           </div>
 
-                          {/* Change - ALWAYS READABLE */}
+                          {/* Change */}
                           <div
                             className={`flex items-center gap-1 text-xs sm:text-sm font-semibold ${
                               metal.positive ? "text-green-400" : "text-red-400"
@@ -373,7 +434,7 @@ export const Hero = () => {
                   </div>
 
                   {/* Pricing Note */}
-                  <div className="pt-4 border-t border-white/10">
+                  <div className="pt-4 border-t border-white/10 shrink-0">
                     <p className="text-xs text-zinc-500 text-center">
                       Wholesale pricing available for bulk orders •{" "}
                       <span className="text-cyan-400">
@@ -385,19 +446,23 @@ export const Hero = () => {
               </div>
             </div>
 
-            {/* Decorative Floating Elements */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 border-2 border-blue-500/20 rounded-full blur-sm animate-spin-slow" />
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 border-2 border-cyan-500/10 rounded-full blur-sm animate-spin-slow-reverse" />
+            {/* Decorative Floating Elements - Disabled on mobile */}
+            {!isMobile && (
+              <>
+                <div className="absolute -top-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 border-2 border-blue-500/20 rounded-full blur-sm animate-spin-slow" />
+                <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 border-2 border-cyan-500/10 rounded-full blur-sm animate-spin-slow-reverse" />
 
-            {/* Floating badges */}
-            <div className="absolute -top-4 -left-12 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge hidden lg:flex items-center gap-2">
-              <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400" />
-              Secure Logistics
-            </div>
-            <div className="absolute -bottom-4 -right-8 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge-delayed hidden lg:flex items-center gap-2">
-              <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
-              Fast Settlement
-            </div>
+                {/* Floating badges */}
+                <div className="absolute -top-4 -left-12 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge hidden lg:flex items-center gap-2">
+                  <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400" />
+                  Secure Logistics
+                </div>
+                <div className="absolute -bottom-4 -right-8 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge-delayed hidden lg:flex items-center gap-2">
+                  <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
+                  Fast Settlement
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

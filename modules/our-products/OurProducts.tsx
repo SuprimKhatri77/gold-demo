@@ -43,12 +43,12 @@ interface Feature {
   readonly title: string;
   readonly description: string;
   readonly icon:
-  | "certified"
-  | "storage"
-  | "pricing"
-  | "expertise"
-  | "reach"
-  | "solutions";
+    | "certified"
+    | "storage"
+    | "pricing"
+    | "expertise"
+    | "reach"
+    | "solutions";
 }
 
 const products: readonly Product[] = [
@@ -86,7 +86,7 @@ const products: readonly Product[] = [
     color: "from-slate-400 to-zinc-500",
     gradient: "from-slate-400/20 via-slate-300/20 to-zinc-500/20",
     imageUrl:
-      "https://images.unsplash.com/photo-1589787168408-651ad9e83d63?w=1200&h=800&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1641324114778-3234111fe705?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 3,
@@ -104,7 +104,7 @@ const products: readonly Product[] = [
     color: "from-cyan-400 to-blue-500",
     gradient: "from-cyan-400/20 via-blue-400/20 to-blue-500/20",
     imageUrl:
-      "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=1200&h=800&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1616536368667-99f53a750fb8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 4,
@@ -121,8 +121,7 @@ const products: readonly Product[] = [
     icon: "palladium",
     color: "from-purple-400 to-indigo-500",
     gradient: "from-purple-400/20 via-indigo-400/20 to-indigo-500/20",
-    imageUrl:
-      "https://images.unsplash.com/photo-1609440488192-74d30b661c3a?w=1200&h=800&fit=crop&q=80",
+    imageUrl: "/palladium-bars.jpg",
   },
 ];
 
@@ -264,8 +263,14 @@ export default function OurProducts() {
         className="absolute inset-0 opacity-60"
       >
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div
+          className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">

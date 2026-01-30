@@ -37,7 +37,7 @@ const blogPosts = [
     excerpt:
       "Discover the strategic approaches to gold investment and learn how to build a resilient portfolio in today's dynamic market environment.",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
+      "https://images.unsplash.com/photo-1616536368667-99f53a750fb8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     date: "January 15, 2026",
     category: "Investment",
     readTime: "8 min read",
@@ -63,7 +63,7 @@ const blogPosts = [
     excerpt:
       "An in-depth analysis of emerging trends in international gold markets and their implications for collectors and investors.",
     image:
-      "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=800&q=80",
+      "https://images.unsplash.com/photo-1624365168785-c65be9114821?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     date: "January 8, 2026",
     category: "Market Analysis",
     readTime: "10 min read",
@@ -75,8 +75,7 @@ const blogPosts = [
     title: "Secure Storage Solutions for Precious Metals",
     excerpt:
       "Essential guide to protecting your gold investments with professional vault services and insurance strategies.",
-    image:
-      "https://images.unsplash.com/photo-1610375461369-d8a4632dfe1d?w=800&q=80",
+    image: "/palladium-bars.jpg",
     date: "January 5, 2026",
     category: "Security",
     readTime: "7 min read",

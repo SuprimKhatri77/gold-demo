@@ -8,6 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { companyDetails } from "@/utils/info/details";
 
 const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -77,7 +78,7 @@ export const About: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 leading-tight">
               Crafting Excellence in
               <span className="block bg-linear-to-r from-amber-600 via-amber-500 to-amber-700 bg-clip-text text-transparent mt-1 sm:mt-2">
-                Gold Since 1985
+                Gold Since {companyDetails.companyEstablishmentDate}
               </span>
             </h2>
 

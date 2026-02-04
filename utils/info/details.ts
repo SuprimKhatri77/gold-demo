@@ -5,4 +5,5 @@ export const companyDetails = {
     "Near Bait Al Banat Women's Museum, Al Sabkha, Gold Souq, Near - Al Khor Street - Deira - Dubai 14925",
   shortAddress: "Gold Souq, Deira - Dubai, UAE",
   businessHours: "Mon-Sat, 10AM-7PM",
+  companyEstablishmentDate: "2016",
 };

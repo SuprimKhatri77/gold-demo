@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export const Header: React.FC = () => {
   return (
-    <div className="bg-gradient-to-r from-slate-950 via-blue-950/50 to-slate-950 text-zinc-300 border-b border-white/10 backdrop-blur-sm">
+    <div className="bg-linear-to-r from-slate-950 via-blue-950/50 to-slate-950 text-zinc-300 border-b border-white/10 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-3.5">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-2 md:gap-3 text-xs md:text-sm">
           {/* Contact Info */}
@@ -49,7 +49,8 @@ export const Header: React.FC = () => {
           <div className="hidden lg:flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></div>
             <span className="text-zinc-400 font-semibold text-xs tracking-wider uppercase">
-              Trusted Metals Experts Since 1985
+              Trusted Metals Experts Since{" "}
+              {companyDetails.companyEstablishmentDate}
             </span>
           </div>
         </div>

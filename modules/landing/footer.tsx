@@ -136,8 +136,9 @@ export const Footer: React.FC = () => {
               </div>
             </Link>
             <p className="text-zinc-400 leading-relaxed mb-6">
-              Trusted gold experts since 1985, showcasing premium certified gold
-              collections worldwide.
+              Trusted gold experts since{" "}
+              {companyDetails.companyEstablishmentDate}, showcasing premium
+              certified gold collections worldwide.
             </p>
 
             {/* Social Links */}

@@ -1,3 +1,4 @@
+import { companyDetails } from "@/utils/info/details";
 import {
   Award,
   Shield,
@@ -20,7 +21,12 @@ export function AboutUsSection() {
       icon: TrendingUp,
     },
     { number: "2K", label: "Corporate Partners", suffix: "+", icon: Building2 },
-    { number: "500M", label: "USD Traded Annually", suffix: "+", icon: LineChart },
+    {
+      number: "500M",
+      label: "USD Traded Annually",
+      suffix: "+",
+      icon: LineChart,
+    },
     { number: "99.9", label: "Purity Standard", suffix: "%", icon: Shield },
   ];
 
@@ -71,17 +77,23 @@ export function AboutUsSection() {
     >
       {/* Background gradients */}
       <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" />
-      
+
       {/* Grid pattern */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
                          linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)`,
-        backgroundSize: '64px 64px'
-      }} />
+          backgroundSize: "64px 64px",
+        }}
+      />
 
       {/* Floating gradient orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      <div
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "1s" }}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -101,7 +113,8 @@ export function AboutUsSection() {
           </h2>
 
           <p className="text-zinc-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Trusted B2B partner for institutional investors, manufacturers, and enterprises since 1999
+            Trusted B2B partner for institutional investors, manufacturers, and
+            enterprises since {companyDetails.companyEstablishmentDate}
           </p>
         </div>
 
@@ -113,16 +126,18 @@ export function AboutUsSection() {
               <h3 className="text-2xl font-bold text-white mb-4">Our Legacy</h3>
               <p className="text-white/80 text-base leading-relaxed mb-4">
                 <span className="font-semibold text-white">SR Jewellers</span>{" "}
-                has served as the premier B2B precious metals partner for institutional clients, 
-                manufacturers, and investment firms worldwide since 1999.
+                has served as the premier B2B precious metals partner for
+                institutional clients, manufacturers, and investment firms
+                worldwide since {companyDetails.companyEstablishmentDate}.
               </p>
               <p className="text-zinc-400 leading-relaxed mb-6">
-                We specialize in bulk trading, supply chain solutions, and strategic metal procurement 
-                with competitive pricing, flexible delivery terms, and comprehensive market insights. 
-                Every transaction is backed by international certification, secure custody options, 
-                and dedicated account management.
+                We specialize in bulk trading, supply chain solutions, and
+                strategic metal procurement with competitive pricing, flexible
+                delivery terms, and comprehensive market insights. Every
+                transaction is backed by international certification, secure
+                custody options, and dedicated account management.
               </p>
-              
+
               {/* Certifications */}
               <div className="flex flex-wrap gap-2">
                 {certifications.map((cert, idx) => (
@@ -131,7 +146,9 @@ export function AboutUsSection() {
                     className="px-3 py-1.5 rounded-sm bg-white/5 border border-white/10 flex items-center gap-1.5"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
-                    <span className="text-xs text-zinc-400 font-medium">{cert}</span>
+                    <span className="text-xs text-zinc-400 font-medium">
+                      {cert}
+                    </span>
                   </div>
                 ))}
               </div>

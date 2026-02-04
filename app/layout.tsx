@@ -7,6 +7,8 @@ import { ReactQueryProvider } from "@/components/providers/react-query-provider"
 import { Toaster } from "@/components/ui/sonner";
 import { geistMono, geistSans } from "@/utils/font";
 import LenisProvider from "@/modules/provider/LenisProvider";
+import CursorStar from "@/modules/cursor/CursorStar";
+import { LoaderProvider } from "@/modules/provider/LoaderProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,7 +29,10 @@ export default function RootLayout({
           <LenisProvider>
             <Header />
             <Navbar />
-            {children}
+            <CursorStar />
+            <LoaderProvider>
+              {children}
+            </LoaderProvider>
             {/* <LiveRatePopup /> */}
             <Footer />
             <Toaster />

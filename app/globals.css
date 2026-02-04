@@ -185,6 +185,16 @@ body {
   );
 }
 
+::selection {
+  background-color: #facc15;
+  color: #000000;
+}
+
+::-moz-selection {
+  background: #facc15;
+  color: #000000;
+}
+
 .scroller {
   width: 300px;
   height: 100px;

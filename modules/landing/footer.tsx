@@ -1,6 +1,8 @@
 "use client";
 
-import { companyDetails } from "@/utils/info/details";
+import { useState, useCallback } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Send,
@@ -12,217 +14,192 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import { companyDetails } from "@/utils/info/details";
 
-interface FooterItem {
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface FooterLink {
   label: string;
   href: string;
 }
 
-const footerLinks: FooterItem[] = [
-  { label: "About us", href: "/about-us" },
-  { label: "Our products", href: "/our-products" },
-  { label: "Contact", href: "/contact" },
+interface SocialLink {
+  icon: React.ElementType;
+  href: string;
+  label: string;
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const FOOTER_LINKS: FooterLink[] = [
+  { label: "About Us", href: "/about-us" },
+  { label: "Our Products", href: "/our-products" },
+  { label: "Services", href: "/services" },
   { label: "News", href: "/news" },
   { label: "Career", href: "/career" },
   { label: "Account Opening", href: "/account-opening" },
 ];
 
-const socialLinks = [
-  {
-    icon: Facebook,
-    href: "#",
-    label: "Facebook",
-    color: "hover:text-blue-400",
-  },
-  { icon: Twitter, href: "#", label: "Twitter", color: "hover:text-cyan-400" },
-  {
-    icon: Instagram,
-    href: "#",
-    label: "Instagram",
-    color: "hover:text-pink-400",
-  },
-  {
-    icon: Linkedin,
-    href: "#",
-    label: "LinkedIn",
-    color: "hover:text-blue-500",
-  },
+const SOCIAL_LINKS: SocialLink[] = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
 ];
 
-export const Footer: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
+// ─── Component ────────────────────────────────────────────────────────────────
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
+export const Footer = (): React.JSX.Element => {
+  const [email, setEmail] = useState<string>("");
+  const [subscribed, setSubscribed] = useState<boolean>(false);
+
+  const handleSubscribe = useCallback(
+    (e: React.FormEvent<HTMLFormElement>): void => {
+      e.preventDefault();
+      if (!email) return;
+      setSubscribed(true);
       setTimeout(() => {
-        setIsSubscribed(false);
+        setSubscribed(false);
         setEmail("");
       }, 3000);
-    }
-  };
+    },
+    [email],
+  );
 
   return (
-    <footer className="relative overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950">
-      {/* Animated Wave Divider */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
+    <footer className="relative bg-[#080809] overflow-hidden">
+      {/* ── Wave divider (kept — it's good) ────────────────────────────── */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
         <svg
-          className="relative block w-full h-20 md:h-32"
+          className="relative block w-full h-16 md:h-24"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
+          aria-hidden="true"
         >
-          <defs>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(59, 130, 246, 0.3)" />
-              <stop offset="50%" stopColor="rgba(34, 211, 238, 0.3)" />
-              <stop offset="100%" stopColor="rgba(59, 130, 246, 0.3)" />
-            </linearGradient>
-          </defs>
           <path
             d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            fill="url(#waveGradient)"
-            className="animate-wave"
+            fill="rgba(184,151,58,0.06)"
+            style={{ animation: "wave 12s ease-in-out infinite" }}
           />
           <path
             d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            fill="rgba(59, 130, 246, 0.1)"
-            className="animate-wave-delayed"
+            fill="rgba(255,255,255,0.02)"
+            style={{ animation: "wave 9s ease-in-out infinite reverse" }}
           />
         </svg>
       </div>
 
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 opacity-20">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
-          }}
-        />
-      </div>
-
-      {/* Floating gradient orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-      <div
-        className="absolute bottom-1/4 -right-32 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
-        style={{ animationDelay: "1s" }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 relative z-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand Section */}
+      {/* ── Main content ─────────────────────────────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
+          {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="group inline-block mb-6">
-              <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-amber-500/20 blur-xl group-hover:bg-amber-500/30 transition-all duration-300 rounded-full" />
-                {/* Logo */}
-                <div className="relative w-24 h-24 transform group-hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/logo.png"
-                    alt="SR Jewellers Logo"
-                    width={96}
-                    height={96}
-                    className="object-contain"
-                  />
-                </div>
-              </div>
+            <Link
+              href="/"
+              className="inline-block mb-6"
+              aria-label="SR Jewellers — Home"
+            >
+              <Image
+                src="/logo.png"
+                alt="SR Jewellers"
+                width={56}
+                height={56}
+                className="object-contain"
+              />
             </Link>
-            <p className="text-zinc-400 leading-relaxed mb-6">
-              Trusted gold experts since{" "}
-              {companyDetails.companyEstablishmentDate}, showcasing premium
-              certified gold collections worldwide.
+            <p className="text-[13px] text-neutral-600 leading-relaxed mb-6 max-w-[220px]">
+              Trusted precious metals experts since{" "}
+              {companyDetails.companyEstablishmentDate}. Serving institutional
+              buyers worldwide.
             </p>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
+            <div className="flex items-center gap-2">
+              {SOCIAL_LINKS.map((s) => {
+                const Icon = s.icon;
                 return (
                   <a
-                    key={social.label}
-                    href={social.href}
+                    key={s.label}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group/social w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg flex items-center justify-center hover:border-blue-400/40 transition-all duration-300 hover:scale-110 ${social.color}`}
-                    aria-label={social.label}
+                    aria-label={s.label}
+                    className="w-8 h-8 flex items-center justify-center border border-white/[0.07] text-neutral-700 hover:text-[#B8973A] hover:border-[#B8973A]/30 transition-all duration-200"
                   >
-                    <Icon className="w-5 h-5 text-zinc-400 group-hover/social:text-current transition-colors" />
+                    <Icon size={14} strokeWidth={1.5} aria-hidden="true" />
                   </a>
                 );
               })}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
-              Quick Links
+            <h4 className="text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-600 mb-6">
+              Navigation
             </h4>
-            <ul className="space-y-3">
-              {footerLinks.map((link) => (
+            <ul className="flex flex-col gap-3">
+              {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-zinc-400 hover:text-white transition-all duration-300 flex items-center gap-2 group"
+                    className="group flex items-center gap-2 text-[13px] text-neutral-600 hover:text-neutral-200 transition-colors duration-150"
                   >
                     <ArrowRight
-                      size={16}
-                      className="group-hover:translate-x-1 transition-transform opacity-0 group-hover:opacity-100 text-blue-400"
+                      size={11}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                      className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150 text-[#B8973A]"
                     />
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {link.label}
-                    </span>
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Section */}
+          {/* Contact */}
           <div>
-            <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
+            <h4 className="text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-600 mb-6">
               Contact
             </h4>
-            <ul className="space-y-4">
+            <ul className="flex flex-col gap-5">
               <li>
                 <a
                   href={`tel:${companyDetails.phoneNumber}`}
-                  className="group flex items-start gap-3 text-zinc-400 hover:text-white transition-colors"
+                  className="group flex items-start gap-3 text-neutral-600 hover:text-neutral-200 transition-colors duration-150"
                 >
-                  <div className="w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:border-blue-400/40 transition-all">
-                    <Phone size={18} className="text-blue-400" />
-                  </div>
-                  <div className="pt-2">
-                    <div className="text-xs text-zinc-500 mb-1">Call Us</div>
-                    <span className="text-sm">
-                      {companyDetails.phoneNumber}
-                    </span>
+                  <Phone
+                    size={13}
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                    className="mt-0.5 shrink-0 text-[#B8973A]/60"
+                  />
+                  <div>
+                    <p className="text-[10px] font-mono tracking-widest uppercase text-neutral-700 mb-0.5">
+                      Phone
+                    </p>
+                    <p className="text-[13px]">{companyDetails.phoneNumber}</p>
                   </div>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${companyDetails.email}`}
-                  className="group flex items-start gap-3 text-zinc-400 hover:text-white transition-colors"
+                  className="group flex items-start gap-3 text-neutral-600 hover:text-neutral-200 transition-colors duration-150"
                 >
-                  <div className="w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:border-cyan-400/40 transition-all">
-                    <Mail size={18} className="text-cyan-400" />
-                  </div>
-                  <div className="pt-2">
-                    <div className="text-xs text-zinc-500 mb-1">Email</div>
-                    <span className="text-sm break-all">
+                  <Mail
+                    size={13}
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                    className="mt-0.5 shrink-0 text-[#B8973A]/60"
+                  />
+                  <div>
+                    <p className="text-[10px] font-mono tracking-widest uppercase text-neutral-700 mb-0.5">
+                      Email
+                    </p>
+                    <p className="text-[13px] break-all">
                       {companyDetails.email}
-                    </span>
+                    </p>
                   </div>
                 </a>
               </li>
@@ -231,16 +208,21 @@ export const Footer: React.FC = () => {
                   href="https://maps.google.com/?q=Near+Bait+Al+Banat+Women's+Museum+Al+Sabkha+Gold+Souq+Deira+Dubai"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-3 text-zinc-400 hover:text-white transition-colors"
+                  className="group flex items-start gap-3 text-neutral-600 hover:text-neutral-200 transition-colors duration-150"
                 >
-                  <div className="w-10 h-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:border-purple-400/40 transition-all">
-                    <MapPin size={18} className="text-purple-400" />
-                  </div>
-                  <div className="pt-2">
-                    <div className="text-xs text-zinc-500 mb-1">Location</div>
-                    <span className="text-sm leading-relaxed">
+                  <MapPin
+                    size={13}
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                    className="mt-0.5 shrink-0 text-[#B8973A]/60"
+                  />
+                  <div>
+                    <p className="text-[10px] font-mono tracking-widest uppercase text-neutral-700 mb-0.5">
+                      Location
+                    </p>
+                    <p className="text-[13px] leading-relaxed">
                       {companyDetails.longAddress}
-                    </span>
+                    </p>
                   </div>
                 </a>
               </li>
@@ -249,115 +231,69 @@ export const Footer: React.FC = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <div className="w-1 h-6 bg-linear-to-b from-blue-400 to-cyan-400 rounded-full" />
-              Newsletter
+            <h4 className="text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-600 mb-6">
+              Market Updates
             </h4>
-            <p className="text-zinc-400 mb-6 leading-relaxed">
-              Subscribe to receive the latest gold market insights and
-              collection updates.
+            <p className="text-[13px] text-neutral-600 leading-relaxed mb-5">
+              Receive metals market insights and pricing updates.
             </p>
-            <form onSubmit={handleSubscribe} className="space-y-3">
-              <div className="relative">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email address"
-                  className="w-full px-4 py-3  bg-white/5 backdrop-blur-xl border border-white/10 focus:border-blue-400/40 focus:outline-none text-white placeholder-zinc-500 transition-all"
-                  required
-                />
-              </div>
+            <form
+              onSubmit={handleSubscribe}
+              className="flex flex-col gap-3"
+              noValidate
+            >
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                required
+                aria-label="Email address for newsletter"
+                className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.07] text-[13px] text-neutral-300 placeholder-neutral-700 focus:outline-none focus:border-[#B8973A]/30 transition-colors duration-200"
+              />
               <button
                 type="submit"
-                className="group w-full py-3 px-6 bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white  font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 relative overflow-hidden"
+                className="flex items-center justify-center gap-2 px-5 py-3 bg-[#B8973A] text-[#080809] text-[12px] font-bold tracking-[0.08em] uppercase hover:bg-[#CBA94A] transition-colors duration-200 disabled:opacity-50"
               >
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-                <span className="relative">
-                  {isSubscribed ? "Subscribed!" : "Subscribe"}
-                </span>
+                {subscribed ? "Subscribed!" : "Subscribe"}
                 <Send
-                  size={18}
-                  className={`relative transition-transform ${isSubscribed ? "translate-x-1 -translate-y-1" : "group-hover:translate-x-0.5 group-hover:-translate-y-0.5"}`}
+                  size={12}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                  className={
+                    subscribed ? "translate-x-0.5 -translate-y-0.5" : ""
+                  }
                 />
               </button>
             </form>
-            {isSubscribed && (
-              <div className="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
-                <p className="text-green-400 text-sm">
-                  Thank you for subscribing!
-                </p>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Decorative Divider */}
-        <div className="relative h-px mb-8">
-          <div className="absolute inset-0 bg-linear-to-r from-transparent via-blue-400/50 to-transparent" />
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-zinc-400 text-sm text-center md:text-left">
-            © {new Date().getFullYear()}{" "}
-            <span className="text-white font-semibold">SR Jewellers</span>. All
-            rights reserved.
+        {/* ── Bottom bar ───────────────────────────────────────────────── */}
+        <div className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-[12px] text-neutral-700">
+            © {new Date().getFullYear()} SR Jewellers. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <Link
-              href="#"
-              className="text-zinc-400 hover:text-white transition-colors relative group"
-            >
-              <span>Privacy Policy</span>
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-blue-400 group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="#"
-              className="text-zinc-400 hover:text-white transition-colors relative group"
-            >
-              <span>Terms of Service</span>
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-blue-400 group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="#"
-              className="text-zinc-400 hover:text-white transition-colors relative group"
-            >
-              <span>Cookie Policy</span>
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-blue-400 group-hover:w-full transition-all duration-300" />
-            </Link>
+          <div className="flex items-center gap-6">
+            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+              (item) => (
+                <Link
+                  key={item}
+                  href="#"
+                  className="text-[12px] text-neutral-700 hover:text-neutral-400 transition-colors duration-150"
+                >
+                  {item}
+                </Link>
+              ),
+            )}
           </div>
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes wave {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(-25%);
-          }
-        }
-
-        @keyframes wave-delayed {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(25%);
-          }
-        }
-
-        .animate-wave {
-          animation: wave 10s ease-in-out infinite;
-        }
-
-        .animate-wave-delayed {
-          animation: wave-delayed 8s ease-in-out infinite;
+          0%, 100% { transform: translateX(0); }
+          50%       { transform: translateX(-20%); }
         }
       `}</style>
     </footer>

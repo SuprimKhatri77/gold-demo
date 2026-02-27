@@ -1,58 +1,51 @@
-import { companyDetails } from "@/utils/info/details";
+"use client";
+
 import { Mail, MapPin, Phone } from "lucide-react";
+import Link from "next/link";
+import { companyDetails } from "@/utils/info/details";
 
-export const Header: React.FC = () => {
+export const Header = (): React.JSX.Element => {
   return (
-    <div className="bg-linear-to-r from-slate-950 via-blue-950/50 to-slate-950 text-zinc-300 border-b border-white/10 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-3.5">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-2 md:gap-3 text-xs md:text-sm">
-          {/* Contact Info */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-4 lg:gap-6">
-            <a
-              href="tel:+97142255442"
-              className="flex items-center gap-2 hover:text-blue-400 transition-all duration-300 group"
-            >
-              <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-all duration-300">
-                <Phone
-                  size={12}
-                  className="text-blue-400 group-hover:scale-110 transition-transform"
-                />
-              </div>
-              <span className="font-medium">{companyDetails.phoneNumber}</span>
-            </a>
+    <div className="bg-[#0A0A0B] border-b border-white/[0.04]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex items-center justify-between">
+        {/* Contact info */}
+        <div className="flex items-center gap-5 flex-wrap">
+          <Link
+            href={`tel:${companyDetails.phoneNumber}`}
+            className="flex items-center gap-2 text-[11px] font-mono tracking-widest text-neutral-600 hover:text-[#B8973A] transition-colors duration-200 uppercase"
+          >
+            <Phone size={10} strokeWidth={1.5} aria-hidden="true" />
+            {companyDetails.phoneNumber}
+          </Link>
 
-            <a
-              href="mailto:info@srgold.com"
-              className="flex items-center gap-2 hover:text-cyan-400 transition-all duration-300 group"
-            >
-              <div className="w-6 h-6 rounded-full bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all duration-300">
-                <Mail
-                  size={12}
-                  className="text-cyan-400 group-hover:scale-110 transition-transform"
-                />
-              </div>
-              <span className="font-medium">{companyDetails.email}</span>
-            </a>
+          <span className="w-px h-3 bg-white/[0.05]" aria-hidden="true" />
 
-            <div className="flex items-center gap-2 text-zinc-400">
-              <div className="w-6 h-6 rounded-full bg-indigo-500/10 flex items-center justify-center">
-                <MapPin size={12} className="text-indigo-400" />
-              </div>
-              <span className="font-medium hidden sm:inline">
-                {companyDetails.shortAddress}
-              </span>
-              <span className="font-medium sm:hidden">Dubai, UAE</span>
-            </div>
-          </div>
+          <Link
+            href={`mailto:${companyDetails.email}`}
+            className="hidden sm:flex items-center gap-2 text-[11px] font-mono tracking-widest text-neutral-600 hover:text-[#B8973A] transition-colors duration-200 uppercase"
+          >
+            <Mail size={10} strokeWidth={1.5} aria-hidden="true" />
+            {companyDetails.email}
+          </Link>
 
-          {/* Tagline */}
-          <div className="hidden lg:flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></div>
-            <span className="text-zinc-400 font-semibold text-xs tracking-wider uppercase">
-              Trusted Metals Experts Since{" "}
-              {companyDetails.companyEstablishmentDate}
-            </span>
-          </div>
+          <span
+            className="hidden sm:block w-px h-3 bg-white/[0.05]"
+            aria-hidden="true"
+          />
+
+          <span className="hidden md:flex items-center gap-2 text-[11px] font-mono tracking-widest text-neutral-700 uppercase">
+            <MapPin size={10} strokeWidth={1.5} aria-hidden="true" />
+            {companyDetails.shortAddress}
+          </span>
+        </div>
+
+        {/* Right — established year */}
+        <div className="hidden lg:flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] uppercase text-neutral-700">
+          <span
+            className="w-1 h-1 rounded-full bg-[#B8973A]/50"
+            aria-hidden="true"
+          />
+          Est. {companyDetails.companyEstablishmentDate}
         </div>
       </div>
     </div>

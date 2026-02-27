@@ -1,561 +1,215 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  ArrowRight,
-  Sparkles,
-  TrendingUp,
-  ChevronDown,
-  Shield,
-  Zap,
-  Building2,
-  Globe,
-} from "lucide-react";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-// Pre-generated particle positions
-const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
-  id: i,
-  x: (i * 12.345) % 100,
-  y: (i * 8.765) % 100,
-  size: 1 + (i % 3),
-  duration: 15 + (i % 10),
-  delay: (i * 0.3) % 5,
-}));
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-export const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-  const [scrollY, setScrollY] = useState(0);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [time, setTime] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+interface Stat {
+  value: string;
+  label: string;
+}
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const METALS: string[] = ["Gold", "Silver", "Platinum", "Palladium"];
+
+const STATS: Stat[] = [
+  { value: "$5.8B+", label: "Annual Volume" },
+  { value: "500+", label: "Business Partners" },
+  { value: "40+", label: "Countries Served" },
+  { value: "24 / 7", label: "Trading Desk" },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export const Hero = (): React.JSX.Element => {
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [tick, setTick] = useState<number>(0);
 
   useEffect(() => {
-    // Detect mobile devices
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
+    setMounted(true);
+    const id = setInterval(() => setTick((t) => t + 1), 2600);
+    return () => clearInterval(id);
+  }, []);
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current && !isMobile) {
-        const rect = heroRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePosition({ x, y });
-      }
-    };
-
-    const handleScroll = () => {
-      if (!isMobile) {
-        setScrollY(window.scrollY);
-      }
-    };
-
-    // Animated time for wave effects - only on desktop
-    let interval: NodeJS.Timeout | null = null;
-    if (!isMobile) {
-      interval = setInterval(() => {
-        setTime((prev) => prev + 1);
-      }, 50);
-    }
-
-    if (!isMobile) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", checkMobile);
-      if (interval) clearInterval(interval);
-    };
-  }, [isMobile]);
-
-  const metals = [
-    {
-      name: "Gold",
-      symbol: "AU",
-      price: "$2,047",
-      change: "+1.2%",
-      positive: true,
-      color: "from-amber-500 to-yellow-500",
-      glow: "rgba(251, 191, 36, 0.3)",
-    },
-    {
-      name: "Silver",
-      symbol: "AG",
-      price: "$23.84",
-      change: "+0.8%",
-      positive: true,
-      color: "from-slate-300 to-zinc-400",
-      glow: "rgba(148, 163, 184, 0.3)",
-    },
-    {
-      name: "Platinum",
-      symbol: "PT",
-      price: "$912",
-      change: "-0.3%",
-      positive: false,
-      color: "from-cyan-400 to-blue-500",
-      glow: "rgba(34, 211, 238, 0.3)",
-    },
-    {
-      name: "Palladium",
-      symbol: "PD",
-      price: "$1,023",
-      change: "+2.1%",
-      positive: true,
-      color: "from-purple-400 to-indigo-500",
-      glow: "rgba(168, 85, 247, 0.3)",
-    },
-  ];
+  const activeMetal: string = METALS[tick % METALS.length];
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen  flex items-center justify-center overflow-hidden bg-linear-to-b from-slate-950 via-blue-950 to-slate-950"
-    >
-      {/* Liquid Morphing Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Grid with Perspective - Disabled on mobile for performance */}
-        {!isMobile && (
-          <div
-            className="absolute inset-0 opacity-20 transition-all duration-700"
-            style={{
-              backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-              transform: `perspective(1000px) rotateX(${scrollY * 0.02}deg) translateY(${scrollY * 0.1}px)`,
-            }}
+    <section className="relative bg-[#0A0A0B]  flex flex-col overflow-hidden">
+      {/* ── Subtle noise grain ─────────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "160px",
+        }}
+      />
+
+      {/* ── Ambient glow ───────────────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-[#B8973A]/[0.04] blur-[120px]"
+      />
+
+      {/* ── Hero body ──────────────────────────────────────────────── */}
+      <div className="relative z-10 flex flex-col items-center px-6 pt-24 pb-20 lg:pt-32 lg:pb-28">
+        {/* Eyebrow tag */}
+        <div
+          className={`
+            inline-flex items-center gap-2.5 mb-10 lg:mb-14
+            px-4 py-1.5
+            border border-white/[0.07] bg-white/[0.02]
+            transition-all duration-700
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+          `}
+        >
+          <span
+            aria-hidden="true"
+            className="w-1.5 h-1.5 rounded-full bg-[#B8973A] animate-pulse"
           />
-        )}
-
-        {/* Static grid for mobile */}
-        {isMobile && (
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-        )}
-
-        {/* Morphing Gradient Blobs - Static on mobile */}
-        {!isMobile ? (
-          <>
-            <div
-              className="absolute w-200 h-200 rounded-full blur-3xl transition-all duration-1000 ease-out"
-              style={{
-                background: `radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(34,211,238,0.1) 50%, transparent 70%)`,
-                left: `${mousePosition.x * 0.5}%`,
-                top: `${mousePosition.y * 0.3}%`,
-                transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.05) * 0.1})`,
-              }}
-            />
-            <div
-              className="absolute w-150 h-150 rounded-full blur-3xl transition-all duration-1000 ease-out"
-              style={{
-                background: `radial-gradient(circle, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.05) 50%, transparent 70%)`,
-                right: `${mousePosition.x * 0.3}%`,
-                bottom: `${mousePosition.y * 0.2}%`,
-                transform: `translate(50%, 50%) scale(${1 + Math.cos(time * 0.05) * 0.1})`,
-              }}
-            />
-            <div
-              className="absolute w-175 h-175 rounded-full blur-3xl"
-              style={{
-                background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)`,
-                left: "50%",
-                top: "50%",
-                transform: `translate(-50%, -50%) scale(${1 + Math.sin(time * 0.03) * 0.15})`,
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <div
-              className="absolute w-200 h-200 rounded-full blur-3xl"
-              style={{
-                background: `radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(34,211,238,0.08) 50%, transparent 70%)`,
-                left: "25%",
-                top: "25%",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-            <div
-              className="absolute w-150 h-150 rounded-full blur-3xl"
-              style={{
-                background: `radial-gradient(circle, rgba(251,191,36,0.08) 0%, rgba(245,158,11,0.04) 50%, transparent 70%)`,
-                right: "25%",
-                bottom: "25%",
-                transform: "translate(50%, 50%)",
-              }}
-            />
-          </>
-        )}
-
-        {/* Floating Particles - Desktop only */}
-        {!isMobile &&
-          PARTICLES.map((particle) => (
-            <div
-              key={particle.id}
-              className="absolute rounded-full animate-float-particle"
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: `${particle.size}px`,
-                height: `${particle.size}px`,
-                background:
-                  particle.id % 4 === 0
-                    ? "rgba(251, 191, 36, 0.4)"
-                    : particle.id % 4 === 1
-                      ? "rgba(59, 130, 246, 0.4)"
-                      : particle.id % 4 === 2
-                        ? "rgba(34, 211, 238, 0.4)"
-                        : "rgba(168, 85, 247, 0.4)",
-                boxShadow: "0 0 20px currentColor",
-                animationDuration: `${particle.duration}s`,
-                animationDelay: `${particle.delay}s`,
-              }}
-            />
-          ))}
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
-          {/* Left Column - Text Content */}
-          <div
-            className="space-y-6 sm:space-y-8 text-center lg:text-left"
-            style={
-              !isMobile
-                ? {
-                    transform: `translateY(${scrollY * 0.1}px)`,
-                  }
-                : undefined
-            }
-          >
-            {/* Main Heading with 3D Effect */}
-            <div className="space-y-6 sm:space-y-8">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.15] tracking-tight">
-                <span
-                  className="block"
-                  style={
-                    !isMobile
-                      ? {
-                          transform: `translateX(${(mousePosition.x - 50) * 0.02}px) translateY(${(mousePosition.y - 50) * 0.02}px)`,
-                          transition: "transform 0.3s ease-out",
-                        }
-                      : undefined
-                  }
-                >
-                  B2B Precious
-                </span>
-                <span
-                  className="block mt-1"
-                  style={
-                    !isMobile
-                      ? {
-                          transform: `translateX(${(mousePosition.x - 50) * -0.02}px) translateY(${(mousePosition.y - 50) * -0.02}px)`,
-                          transition: "transform 0.3s ease-out",
-                        }
-                      : undefined
-                  }
-                >
-                  <span className="relative">
-                    <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent blur-lg opacity-50">
-                      Metals
-                    </span>
-                    <span className="relative bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                      Metals
-                    </span>
-                  </span>
-                </span>
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-2xl leading-relaxed font-light mx-auto lg:mx-0">
-                Your trusted partner for{" "}
-                <span className="text-white font-medium">bulk trading</span> of
-                gold, silver, platinum, and palladium. Competitive pricing,
-                secure logistics, and global reach.
-              </p>
-            </div>
-
-            {/* CTA Button - Full Width */}
-            <div className="flex justify-center lg:justify-start px-4 sm:px-0">
-              <Link
-                href="/contact"
-                className="group relative w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-linear-to-r from-blue-600 to-cyan-600 text-white font-bold overflow-hidden hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-base sm:text-lg"
-              >
-                {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-linear-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                {/* Shimmer effect - disabled on mobile for performance */}
-                {!isMobile && (
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/30 to-transparent" />
-                )}
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Request Quote
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                </span>
-              </Link>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-4">
-              <div className="flex items-center gap-2 text-zinc-400">
-                <div className="flex -space-x-2">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-blue-400 to-cyan-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Building2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                  </div>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-amber-400 to-yellow-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                  </div>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-purple-400 to-indigo-400 border-2 border-slate-950 flex items-center justify-center">
-                    <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                  </div>
-                </div>
-                <span className="text-xs sm:text-sm font-medium">
-                  <span className="text-white">500+</span> Business Partners
-                </span>
-              </div>
-              <div className="text-zinc-400 text-xs sm:text-sm font-medium">
-                <span className="text-white">$5.8B+</span> Annual Volume
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Floating Metal Cards */}
-          <div
-            className="relative mt-8 lg:mt-0"
-            style={
-              !isMobile
-                ? {
-                    transform: `translateY(${scrollY * -0.05}px)`,
-                  }
-                : undefined
-            }
-          >
-            {/* Main Card - 3D Perspective */}
-            <div
-              className={!isMobile ? "relative perspective-1000" : "relative"}
-              style={
-                !isMobile
-                  ? {
-                      transform: `rotateY(${(mousePosition.x - 50) * 0.1}deg) rotateX(${(mousePosition.y - 50) * -0.1}deg)`,
-                      transition: "transform 0.3s ease-out",
-                    }
-                  : undefined
-              }
-            >
-              <div className="group relative p-6 sm:p-8 bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-blue-400/40 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 min-h-100 sm:min-h-112.5">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative space-y-5 sm:space-y-6 h-full flex flex-col">
-                  {/* Header */}
-                  <div className="flex items-center justify-between shrink-0">
-                    <div>
-                      {/* <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                        Today&apos;s Rates
-                      </h3> */}
-                      <p className="text-xs sm:text-sm text-zinc-400">
-                        Live wholesale pricing
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/10 border border-green-500/20">
-                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="text-xs font-bold text-green-400">
-                        LIVE
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Metals Grid - Fixed height */}
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4 flex-1">
-                    {metals.map((metal, index) => (
-                      <div
-                        key={metal.name}
-                        className={`group/card relative p-4 sm:p-5 rounded-xs bg-slate-900/50 backdrop-blur-sm border border-white/10 transition-all duration-300 cursor-pointer overflow-hidden ${!isMobile ? "hover:border-blue-400/40 hover:-translate-y-1 hover:bg-slate-800/60" : ""}`}
-                        style={{
-                          animationDelay: `${index * 100}ms`,
-                        }}
-                      >
-                        {/* Subtle glow on hover */}
-                        <div
-                          className="absolute inset-0 opacity-0 group-hover/card:opacity-20 transition-opacity duration-500 blur-2xl pointer-events-none"
-                          style={{
-                            background: metal.glow,
-                          }}
-                        />
-
-                        {/* Very subtle gradient overlay */}
-                        <div
-                          className={`absolute inset-0 opacity-0 group-hover/card:opacity-5 transition-opacity duration-500 bg-linear-to-br ${metal.color} pointer-events-none`}
-                        />
-
-                        <div className="relative z-10">
-                          {/* Symbol Badge */}
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="text-xs font-bold text-zinc-500 tracking-wider">
-                              {metal.symbol}
-                            </span>
-                            <div
-                              className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-linear-to-br ${metal.color} opacity-15 group-hover/card:opacity-25 transition-opacity duration-300 flex items-center justify-center`}
-                            >
-                              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                            </div>
-                          </div>
-
-                          {/* Metal Name */}
-                          <h4 className="text-xs sm:text-sm font-semibold text-zinc-400 group-hover/card:text-zinc-300 mb-2 transition-colors">
-                            {metal.name}
-                          </h4>
-
-                          {/* Price */}
-                          <div className="text-xl sm:text-2xl font-bold text-white mb-2 drop-shadow-lg">
-                            {metal.price}
-                          </div>
-
-                          {/* Change */}
-                          <div
-                            className={`flex items-center gap-1 text-xs sm:text-sm font-semibold ${
-                              metal.positive ? "text-green-400" : "text-red-400"
-                            } drop-shadow-lg`}
-                          >
-                            <TrendingUp
-                              className={`w-3 h-3 sm:w-4 sm:h-4 ${metal.positive ? "" : "rotate-180"}`}
-                            />
-                            <span>{metal.change}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Pricing Note */}
-                  {/* <div className="pt-4 border-t border-white/10 shrink-0">
-                    <p className="text-xs text-zinc-500 text-center">
-                      Wholesale pricing available for bulk orders •{" "}
-                      <span className="text-cyan-400">
-                        Volume discounts apply
-                      </span>
-                    </p>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative Floating Elements - Disabled on mobile */}
-            {!isMobile && (
-              <>
-                <div className="absolute -top-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 border-2 border-blue-500/20 rounded-full blur-sm animate-spin-slow" />
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 sm:w-40 sm:h-40 border-2 border-cyan-500/10 rounded-full blur-sm animate-spin-slow-reverse" />
-
-                {/* Floating badges */}
-                <div className="absolute -top-4 -left-12 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge hidden lg:flex items-center gap-2">
-                  <Shield className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400" />
-                  Secure Logistics
-                </div>
-                <div className="absolute -bottom-4 -right-8 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-xs font-bold text-white shadow-xl animate-float-badge-delayed hidden lg:flex items-center gap-2">
-                  <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
-                  Fast Settlement
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block animate-bounce">
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">
-            Scroll to Explore
+          <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-500">
+            B2B Precious Metals — Dubai
           </span>
-          <ChevronDown className="w-6 h-6 text-blue-400" />
+        </div>
+
+        {/* ── Main headline ────────────────────────────────────────── */}
+        {/* h1 sits in a fixed-width centered box so the indented line 2 is visually balanced */}
+        <div
+          className={`w-full max-w-3xl transition-all duration-700 delay-150 mx-auto ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+        >
+          <h1
+            className="text-center"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+          >
+            {/* Line 1 — longer anchor line, left edge */}
+            <span className="block text-[clamp(38px,5.8vw,86px)] font-semibold leading-[1.06] tracking-[-0.03em] text-neutral-100">
+              The global standard in
+            </span>
+
+            {/* Line 2 — indented so it starts roughly under "standard" */}
+            <span className="block text-[clamp(38px,5.8vw,86px)] font-semibold leading-[1.06] tracking-[-0.03em] text-center">
+              <span
+                key={activeMetal}
+                className="italic text-[#B8973A]"
+                style={{ animation: "fadeUp 0.4s ease forwards" }}
+              >
+                {activeMetal}
+              </span>
+              <span className="text-neutral-100"> trading.</span>
+            </span>
+          </h1>
+        </div>
+
+        {/* Subtext */}
+        <p
+          className={`
+            mt-8 max-w-xl
+            text-[15px] lg:text-[17px] leading-[1.8]
+            text-neutral-500 font-light
+            transition-all duration-700 delay-300
+            text-center
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+          `}
+        >
+          Bulk supply for refiners, manufacturers, and institutional buyers.
+          Competitive wholesale pricing and secure global logistics.
+        </p>
+
+        {/* CTAs */}
+        <div
+          className={`
+            mt-10 flex items-center justify-center gap-4 flex-wrap
+            transition-all duration-700 delay-[450ms]
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+          `}
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#B8973A] text-[#0A0A0B] text-[13px] font-bold tracking-[0.07em] uppercase hover:bg-[#CBA94A] transition-colors duration-200"
+          >
+            Request a Quote
+            <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
+          </Link>
+
+          <Link
+            href="/our-products"
+            className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/[0.1] text-[13px] font-medium text-neutral-400 tracking-wide hover:border-white/[0.2] hover:text-neutral-200 transition-all duration-200"
+          >
+            View Products
+          </Link>
+        </div>
+
+        {/* Metals label strip */}
+        <div
+          className={`
+            mt-12 flex items-center gap-3 flex-wrap justify-center
+            transition-all duration-700 delay-[550ms]
+            ${mounted ? "opacity-100" : "opacity-0"}
+          `}
+        >
+          {METALS.map((metal, i) => (
+            <span
+              key={metal}
+              className={`text-[11px] font-mono tracking-[0.16em] uppercase transition-colors duration-300 ${
+                activeMetal === metal ? "text-[#B8973A]" : "text-neutral-700"
+              }`}
+            >
+              {metal}
+              {i < METALS.length - 1 && (
+                <span className="ml-3 text-neutral-800" aria-hidden="true">
+                  ·
+                </span>
+              )}
+            </span>
+          ))}
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes float-particle {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translateY(-30px) translateX(15px);
-            opacity: 0.8;
-          }
-        }
+      {/* ── Divider ────────────────────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        className={`relative z-10 h-px bg-white/[0.05] transition-all duration-700 delay-[650ms] ${mounted ? "opacity-100" : "opacity-0"}`}
+      />
 
-        @keyframes gradient-x {
-          0%,
-          100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
+      {/* ── Stats strip ────────────────────────────────────────────── */}
+      <div
+        className={`
+          relative z-10
+          transition-all duration-700 delay-[700ms]
+          ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+        `}
+      >
+        <dl className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.05]">
+          {STATS.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center justify-center py-8 px-6 gap-1.5"
+            >
+              <dt className="text-[11px] font-mono tracking-[0.16em] uppercase text-neutral-700 order-2">
+                {stat.label}
+              </dt>
+              <dd
+                className="font-semibold text-neutral-100 leading-none tracking-tight order-1"
+                style={{
+                  fontFamily: "'Instrument Serif', Georgia, serif",
+                  fontSize: "clamp(24px, 2.5vw, 36px)",
+                }}
+              >
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
 
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes spin-slow-reverse {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
-          }
-        }
-
-        @keyframes float-badge {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-float-particle {
-          animation: float-particle linear infinite;
-        }
-
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-
-        .animate-spin-slow-reverse {
-          animation: spin-slow-reverse 25s linear infinite;
-        }
-
-        .animate-float-badge {
-          animation: float-badge 3s ease-in-out infinite;
-        }
-
-        .animate-float-badge-delayed {
-          animation: float-badge 3s ease-in-out infinite;
-          animation-delay: 1.5s;
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
+      {/* ── Keyframe ───────────────────────────────────────────────── */}
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </section>

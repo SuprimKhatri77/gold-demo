@@ -5,6 +5,7 @@ import {
   Poppins,
   Raleway,
   Roboto,
+  Instrument_Serif,
 } from "next/font/google";
 
 export const raleway = Raleway({
@@ -35,4 +36,10 @@ export const geistSans = Geist({
 export const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+export const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-instrument-serif",
 });
